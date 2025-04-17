@@ -6,6 +6,7 @@ const CreateWork = () => {
     "work_desc":"",
     "work_status":""
   }
+  enes
   const [newWork,setNewWork] = useState(blankWork);
   const status = [
     {text:'Başlanmadı',path:'/'},
