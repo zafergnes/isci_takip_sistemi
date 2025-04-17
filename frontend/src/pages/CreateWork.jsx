@@ -6,7 +6,6 @@ const CreateWork = () => {
     "work_desc":"",
     "work_status":""
   }
-  enes
   const [newWork,setNewWork] = useState(blankWork);
   const status = [
     {text:'Başlanmadı',path:'/'},
@@ -16,14 +15,14 @@ const CreateWork = () => {
   return (
     <div className='flex w-full items-center justify-center'>
       <div className='bg-slate-300 w-[60%] p-5 rounded-2xl shadow-2xl'>
-        <h1 className='text-3xl font-bold text-center'>CREATE WORK</h1>
+        <h1 className='text-3xl font-bold text-center'>İŞ EKLE</h1>
         <div className='flex flex-col'>
           <small>{JSON.stringify(newWork)}</small>
-            <label htmlFor="" className='ml-1 text-gray-500'>Work Name</label>
+            <label htmlFor="" className='ml-1 text-gray-500'>İş Adı</label>
             <input type="text" className='bg-white h-10 border border-gray-300 rounded my-2 p-2' value={newWork.work_name} onChange={(e) => setNewWork({...newWork,work_name:e.target.value})} />
-            <label htmlFor="" className='ml-1 text-gray-500'>Work Desciription</label>
+            <label htmlFor="" className='ml-1 text-gray-500'>İş Açıklama</label>
             <textarea type="text" className='bg-white  border h-[100px]  border-gray-300 rounded my-2 p-2' value={newWork.work_desc} onChange={(e) => setNewWork({...newWork,work_desc:e.target.value})} />
-            <label htmlFor="" className='ml-1 text-gray-500'>Work Status</label>
+            <label htmlFor="" className='ml-1 text-gray-500'>İş durumu</label>
             <select className='bg-white rounded h-10 my-2 p-2' value={newWork.work_status} onChange={(e)=>setNewWork({...newWork,status:e.target.value})}>
               <option value="" default disabled>Select Status</option>
               {
@@ -33,7 +32,7 @@ const CreateWork = () => {
               }
             </select>
             <div className='mt-5 justify-end '>
-              <Button variant='contained' >CREATE</Button>
+              <Button variant='contained' >EKLE</Button>
             </div>
 
         </div>
