@@ -8,6 +8,8 @@ import Wallet from './pages/Wallet'
 import WorkerInput from './pages/WorkerInput'
 import Work from './pages/Work'
 import CreateWork from './pages/CreateWork'
+import Add from './pages/Add'
+import AddWorker from './pages/AddWorker'
 function App() {
 
   return (
@@ -16,7 +18,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout/>}>
           <Route path='/' element={<Home/>}></Route>
-          
+          <Route path='/add' element={<Add/>}></Route>
+          <Route path='/add-worker' element={<AddWorker/>}/>
           <Route path='/workers' element={<Workers/>}/>
           <Route path='/workers/:id' element={<Workers/>}/>
           <Route path='/work/:id' element={<Work/>}/>

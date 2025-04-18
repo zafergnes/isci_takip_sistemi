@@ -31,7 +31,7 @@ const Layout = () => {
                       })
                     }
                   </ul>
-                  <Link to='/create-work' className='bg-slate-900 text-white px-2 py-1 w-40 rounded items-center justify-center flex shadow-2xl'>
+                  <Link to='/add' className='bg-slate-900 text-white px-2 py-1 w-40 rounded items-center justify-center flex shadow-2xl'>
                   <button className='bg-slate-900 text-white px-2 py-1 w-40 rounded items-center justify-center flex shadow-2xl '> + <span>Ekle</span></button>
                   </Link>
               </div>
