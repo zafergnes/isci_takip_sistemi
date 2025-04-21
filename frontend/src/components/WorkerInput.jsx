@@ -7,7 +7,7 @@ const WorkerInput = ({workers}) => {
     <>
       <div className="flex justify-center mx-auto p-5">
         <div className="flex items-center bg-white shadow-md rounded-xl m-3 w-[1000px] h-[150px] p-5">
-          <Link  className='m-auto' to={`/worker/${workers.id}`}>
+          <Link className="m-auto" to={`/worker/${workers.id}`}>
             <img
               className="mx-auto h-[50px] rounded-full"
               src={workers.img}
@@ -17,44 +17,51 @@ const WorkerInput = ({workers}) => {
               {workers.name + " " + workers.surname}
             </h2>
           </Link>
-            <div className='flex justify-between mx-auto'>
-                 <b className="ml-5">Telefon :</b>
-                 {workers.phone_number}
-                <b className="ml-5">Çalıştığı iş : </b>
-                {workers.work_id}
-                <b className="ml-5">Yövmiye : </b>
-                 {workers.wage}
-            </div>
-         
-        <div className='flex justify-center ml-auto mr-auto '>
-            <StyledWrapper className="flex justify-end items-center">
-             <div className="radio-input flex items-center gap-10">
-              
-              <div>
-                <input
-                name="radio"
-                type="radio"
-                className="input flex"
-                defaultChecked/>
-              <b>ÇALIŞMADI</b>
-              </div>
+          <div className="flex justify-between mx-auto">
+            <b className="ml-5">Telefon :</b>
+            {workers.phone_number}
+            <b className="ml-5">Çalıştığı iş : </b>
+            {workers.work_id}
+            <b className="ml-5">Yövmiye : </b>
+            {workers.wage}
+          </div>
 
-              <div>
-                <input name="radio" type="radio" className="input" />
-              <b>YARIM GÜN</b>
+          <div className="flex justify-center ml-auto mr-auto ">
+            <StyledWrapper className="flex justify-end items-center">
+              <div className="radio-input ">
+                <div>
+                  <form className="flex justify-center ml-auto mr-auto gap-10">
+                    <div>
+                      <fieldset id={workers.id}>
+                        <input
+                          name="radio"
+                          type="radio"
+                          className="input flex"
+                          defaultChecked
+                        />
+                        <b>ÇALIŞMADI</b>
+                      </fieldset>
+                    </div>
+
+                    <div>
+                      <fieldset id={workers.id}>
+                        <input name="radio" type="radio" className="input" />
+                        <b>YARIM GÜN</b>
+                      </fieldset>
+                    </div>
+
+                    <div>
+                      <fieldset id={workers.id}>
+                        <input name="radio" type="radio" className="input" />
+                        <b>ÇALIŞTI</b>
+                      </fieldset>
+                    </div>
+                  </form>
+                </div>
               </div>
-              
-              <div>
-                <input name="radio" type="radio" className="input" />
-                <b>ÇALIŞTI</b>
-              </div>
-              
-            </div>
-          </StyledWrapper>
+            </StyledWrapper>
+          </div>
         </div>
-          
-        </div>
-        
       </div>
     </>
   );

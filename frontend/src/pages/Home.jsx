@@ -21,22 +21,20 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-baseline m-5 shadow-2xl rounded-[50px] bg-slate-700">
+        <div className="flex justify-baseline items-center m-5 shadow-2xl rounded-[50px] bg-slate-700">
           <img src="./home-1.jpg" alt="" className="w-[600px] rounded-[50px]" />
           <p className=" flex ml-25 mr-2 text-[25px] p-5  font-medium text-gray-300 leading-12 ">
-            İşçi Yevmiye Takip Sistemi, işverenlerin ve çalışanların ücret
-            yönetimini kolaylaştıran kapsamlı bir platformdur. Çalışanlarınızın
-            mesai saatleri, primler, avanslar ve ödemeler tek bir panelde
-            otomatik hesaplanır. Manuel kayıt hatalarını ortadan kaldırarak
-            şeffaf ve güvenilir bir süreç sunar. Mobil uyumlu arayüzle
-            istediğiniz yerden erişim sağlayabilir, Excel/PDF raporlarıyla
-            finansal takip yapabilirsiniz. Çalışanlar, kendi hesap panellerinden
-            çalışma detaylarını görüntüleyerek haklarını net şekilde takip eder.
-            Zamandan tasarruf edin, yasal uyumluluğu garanti altına alın ve iş
-            verimliliğinizi artırın!
+            İşçi Yevmiye Takip Sistemi, işletmelerin ücret yönetimini modernize
+            eden pratik bir çözümdür. Çalışanlarınızın performansını anlık takip
+            edin, mesai ve ek ödemeleri otomatik hesaplayın. Sistem, karmaşık
+            süreçleri basitleştirerek işverenlere zaman kazandırır. Mobil ve
+            masaüstü uyumlu arayüzle her yerden erişilebilir, özelleştirilmiş
+            raporlarla finansal kontrolü elinize alın. Yasal gerekliliklere
+            uygunluğu ile güven veren bu platform, iş süreçlerinizi düzenler,
+            verimliliği maksimuma çıkarır.
           </p>
         </div>
-        <div className="flex justify-end mt-25 shadow-2xl rounded-[50px] bg-slate-700">
+        <div className="flex justify-end  items-center mt-25 shadow-2xl rounded-[50px] bg-slate-700">
           <p className=" flex mr-25 ml-2 text-[25px] p-5  font-medium text-gray-300 leading-12 ">
             İşçi Yevmiye Takip Sistemi, işverenlerin ve çalışanların ücret
             yönetimini kolaylaştıran kapsamlı bir platformdur. Çalışanlarınızın
