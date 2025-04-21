@@ -1,0 +1,115 @@
+import React from 'react'
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+
+const WorkerInput = ({workers}) => {
+  return (
+    <>
+      <div className="flex justify-center mx-auto p-5">
+        <div className="flex items-center bg-white shadow-md rounded-xl m-3 w-[1000px] h-[150px] p-5">
+          <Link  className='m-auto' to={`/worker/${workers.id}`}>
+            <img
+              className="mx-auto h-[50px] rounded-full"
+              src={workers.img}
+              alt=""
+            />
+            <h2 className="mt-1 text-xl text-center font-bold">
+              {workers.name + " " + workers.surname}
+            </h2>
+          </Link>
+            <div className='flex justify-between mx-auto'>
+                 <b className="ml-5">Telefon :</b>
+                 {workers.phone_number}
+                <b className="ml-5">Çalıştığı iş : </b>
+                {workers.work_id}
+                <b className="ml-5">Yövmiye : </b>
+                 {workers.wage}
+            </div>
+         
+        <div className='flex justify-center ml-auto mr-auto '>
+            <StyledWrapper className="flex justify-end items-center">
+             <div className="radio-input flex items-center gap-10">
+              
+              <div>
+                <input
+                name="radio"
+                type="radio"
+                className="input flex"
+                defaultChecked/>
+              <b>ÇALIŞMADI</b>
+              </div>
+
+              <div>
+                <input name="radio" type="radio" className="input" />
+              <b>YARIM GÜN</b>
+              </div>
+              
+              <div>
+                <input name="radio" type="radio" className="input" />
+                <b>ÇALIŞTI</b>
+              </div>
+              
+            </div>
+          </StyledWrapper>
+        </div>
+          
+        </div>
+        
+      </div>
+    </>
+  );
+}
+const StyledWrapper = styled.div`
+  .input {
+    -webkit-appearance: none;
+    /* remove default */
+    display: block;
+    margin: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: hsla(0, 0%, 100%, 0.15) 0 1px 1px,
+      inset hsla(0, 0%, 0%, 0.5) 0 0 0 1px;
+    background-color: hsla(0, 0%, 0%, 0.2);
+    background-image: -webkit-radial-gradient(
+      hsla(200, 100%, 90%, 1) 0%,
+      hsla(200, 100%, 70%, 1) 15%,
+      hsla(200, 100%, 60%, 0.3) 28%,
+      hsla(200, 100%, 30%, 0) 70%
+    );
+    background-repeat: no-repeat;
+    -webkit-transition: background-position 0.15s cubic-bezier(0.8, 0, 1, 1),
+      -webkit-transform 0.25s cubic-bezier(0.8, 0, 1, 1);
+    outline: none;
+  }
+
+  .input:checked {
+    -webkit-transition: background-position 0.2s 0.15s
+        cubic-bezier(0, 0, 0.2, 1),
+      -webkit-transform 0.25s cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .input:active {
+    -webkit-transform: scale(1.5);
+    -webkit-transition: -webkit-transform 0.1s cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  /* The up/down direction logic */
+
+  .input,
+  .input:active {
+    background-position: 0 24px;
+  }
+
+  .input:checked {
+    background-position: 0 0;
+  }
+
+  .input:checked ~ .input,
+  .input:checked ~ .input:active {
+    background-position: 0 -24px;
+  }
+`;
+export default WorkerInput

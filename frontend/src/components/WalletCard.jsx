@@ -1,9 +1,7 @@
 import React from 'react'
 
 const WalletCard = () => {
-  return (
-    <div>Wallet</div>
-  )
-}
+  return <div>wallet</div>;
+};
 
 export default WalletCard
