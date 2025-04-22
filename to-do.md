@@ -1,0 +1,1 @@
+iş ekle sayfasındaki select option hatalı çalışıyor

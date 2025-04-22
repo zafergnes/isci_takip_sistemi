@@ -51,11 +51,15 @@ const CreateWork = () => {
             value={newWork.work_status}
             onChange={(e) => setNewWork({ ...newWork, status: e.target.value })}
           >
-            <option value="" default disabled>
+            <option value="1" default disabled>
               İş Durumu Seç
             </option>
-            {status.map((x) => {
-              return <option value={x.text}>{x.text}</option>;
+            {status.map((x, i) => {
+              return (
+                <option key={i} value={x.text}>
+                  {x.text}
+                </option>
+              );
             })}
           </select>
           <div className="mt-5 justify-end ">

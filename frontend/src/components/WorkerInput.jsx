@@ -30,7 +30,7 @@ const WorkerInput = ({workers}) => {
             <StyledWrapper className="flex justify-end items-center">
               <div className="radio-input ">
                 <div>
-                  <form className="flex justify-center ml-auto mr-auto gap-10">
+                  <form className="flex justify-center ml-8 mr-auto gap-10 ">
                     <div>
                       <fieldset id={workers.id}>
                         <input
