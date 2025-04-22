@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from "react";
 import styled from "styled-components";
-import WorkerInput from '../components/WorkerInput';
+import WorkerInput from "../components/WorkerInput";
+import Button from "@mui/material/Button";
 
 const WorkersInput = () => {
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Aylar 0-11 arası
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  const [selectedDate, setSelectedDate] = useState(getTodayDate());
+
   const workers = [
     //fake data
     {
@@ -79,14 +89,34 @@ const WorkersInput = () => {
     },
   ];
   return (
-    
-    <div className='grid sm:grid-cols-2 md:grid-cols-1 gap 5'>
-      {
-        workers.map((x,i)=>{
-          return <WorkerInput workers={x}/>
-        })
-      }
-    
+    <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
+      <div className="m-auto gap-5 text-center w-500">
+        <p className=" font-bold text-xl m-auto mb-3">
+          {" "}
+          Veri Girileceği Zaman{" "}
+        </p>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          className="flex items-center justify-center w-70 h-30 m-auto bg-white rounded-4xl text-2xl font-bold mb-3"
+        />
+      </div>
+
+      {workers.map((x, i) => {
+        return <WorkerInput workers={x} />;
+      })}
+      <div className="flex justify-center items-center ">
+        <Button
+          onClick={() => {
+            alert("Veriler Girildi");
+          }}
+          className="h-20 w-50  "
+          variant="contained"
+        >
+          <p className=" font-bold text-xl text-gray-900">KAYDET</p>{" "}
+        </Button>
+      </div>
     </div>
   );
 };
@@ -143,4 +173,4 @@ const StyledWrapper = styled.div`
     background-position: 0 -24px;
   }
 `;
-export default WorkersInput
+export default WorkersInput;

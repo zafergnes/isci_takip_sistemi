@@ -49,17 +49,15 @@ const CreateWork = () => {
           <select
             className="bg-white rounded h-10 my-2 p-2"
             value={newWork.work_status}
-            onChange={(e) => setNewWork({ ...newWork, status: e.target.value })}
+            onChange={(e) =>
+              setNewWork({ ...newWork, work_status: e.target.value })
+            }
           >
-            <option value="1" default disabled>
+            <option value="" default disabled>
               İş Durumu Seç
             </option>
-            {status.map((x, i) => {
-              return (
-                <option key={i} value={x.text}>
-                  {x.text}
-                </option>
-              );
+            {status.map((x) => {
+              return <option value={x.text}>{x.text}</option>;
             })}
           </select>
           <div className="mt-5 justify-end ">

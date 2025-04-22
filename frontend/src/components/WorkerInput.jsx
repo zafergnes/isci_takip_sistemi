@@ -1,8 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const WorkerInput = ({workers}) => {
+const WorkerInput = ({ workers }) => {
+  // 1. State'i tanımla
+  const [selectedOption, setSelectedOption] = useState("");
+
+  // 2. Radio değişim handler'ı
+  const handleRadioChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
   return (
     <>
       <div className="flex justify-center mx-auto p-5">
@@ -36,8 +43,10 @@ const WorkerInput = ({workers}) => {
                         <input
                           name="radio"
                           type="radio"
+                          value="option1"
                           className="input flex"
-                          defaultChecked
+                          checked={selectedOption === "option1"}
+                          onChange={handleRadioChange}
                         />
                         <b>ÇALIŞMADI</b>
                       </fieldset>
@@ -45,18 +54,21 @@ const WorkerInput = ({workers}) => {
 
                     <div>
                       <fieldset id={workers.id}>
-                        <input name="radio" type="radio" className="input" />
-                        <b>YARIM GÜN</b>
-                      </fieldset>
-                    </div>
-
-                    <div>
-                      <fieldset id={workers.id}>
-                        <input name="radio" type="radio" className="input" />
+                        <input
+                          name="radio"
+                          type="radio"
+                          className="input"
+                          value="option2"
+                          checked={selectedOption === "option2"}
+                          onChange={handleRadioChange}
+                        />
                         <b>ÇALIŞTI</b>
                       </fieldset>
                     </div>
                   </form>
+                  {/* verilere erişme */}
+                  {/* {selectedOption === "option1" && <div>çalışmadı</div>}
+                  {selectedOption === "option2" && <div>çalıştı</div>} */}
                 </div>
               </div>
             </StyledWrapper>
@@ -65,7 +77,7 @@ const WorkerInput = ({workers}) => {
       </div>
     </>
   );
-}
+};
 const StyledWrapper = styled.div`
   .input {
     -webkit-appearance: none;
@@ -119,4 +131,4 @@ const StyledWrapper = styled.div`
     background-position: 0 -24px;
   }
 `;
-export default WorkerInput
+export default WorkerInput;
