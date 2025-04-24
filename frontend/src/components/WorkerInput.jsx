@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const WorkerInput = ({ workers }) => {
-  // 1. State'i tanımla
-  const [selectedOption, setSelectedOption] = useState("");
-
-  // 2. Radio değişim handler'ı
-  const handleRadioChange = (e) => {
-    setSelectedOption(e.target.value);
+const WorkerInput = ({ workers, date }) => {
+  let blankWorkControl = {
+    worker_id: workers.id,
+    work_id: workers.work_id,
+    was_at_work: 0,
+    date: date,
   };
+  const [newWorkControl, setNewWorkControl] = useState(blankWorkControl);
+
   return (
     <>
       <div className="flex justify-center mx-auto p-5">
@@ -25,14 +26,13 @@ const WorkerInput = ({ workers }) => {
             </h2>
           </Link>
           <div className="flex justify-between mx-auto">
-            <b className="ml-5">Telefon :</b>
+            <b className="ml-5">Telefon :&nbsp;</b>
             {workers.phone_number}
-            <b className="ml-5">Çalıştığı iş : </b>
+            <b className="ml-5">Çalıştığı iş : &nbsp;</b>
             {workers.work_id}
-            <b className="ml-5">Yövmiye : </b>
+            <b className="ml-5">Yövmiye : &nbsp;</b>
             {workers.wage}
           </div>
-
           <div className="flex justify-center ml-auto mr-auto ">
             <StyledWrapper className="flex justify-end items-center">
               <div className="radio-input ">
@@ -43,10 +43,14 @@ const WorkerInput = ({ workers }) => {
                         <input
                           name="radio"
                           type="radio"
-                          value="option1"
+                          defaultChecked
                           className="input flex"
-                          checked={selectedOption === "option1"}
-                          onChange={handleRadioChange}
+                          onChange={(e) =>
+                            setNewWorkControl({
+                              ...newWorkControl,
+                              was_at_work: 0,
+                            })
+                          }
                         />
                         <b>ÇALIŞMADI</b>
                       </fieldset>
@@ -58,9 +62,12 @@ const WorkerInput = ({ workers }) => {
                           name="radio"
                           type="radio"
                           className="input"
-                          value="option2"
-                          checked={selectedOption === "option2"}
-                          onChange={handleRadioChange}
+                          onChange={(e) =>
+                            setNewWorkControl({
+                              ...newWorkControl,
+                              was_at_work: 1,
+                            })
+                          }
                         />
                         <b>ÇALIŞTI</b>
                       </fieldset>
@@ -74,6 +81,7 @@ const WorkerInput = ({ workers }) => {
             </StyledWrapper>
           </div>
         </div>
+        <small>{JSON.stringify(newWorkControl)}</small>;
       </div>
     </>
   );

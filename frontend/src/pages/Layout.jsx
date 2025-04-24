@@ -62,7 +62,7 @@ const Layout = () => {
         </div>
 
         {/* <footer></footer> */}
-        <div className="flex bg-slate-700 mt-auto">
+        <div className="flex bg-slate-700 mt-auto end-0 ">
           <div className="flex mx-auto px-20 py-20 items-center justify-center">
             <h3 className="text-white text-4xl flex">İŞÇİ TAKİP SİSTEMİ</h3>
             <br />

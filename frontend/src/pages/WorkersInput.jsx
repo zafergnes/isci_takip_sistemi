@@ -4,6 +4,7 @@ import WorkerInput from "../components/WorkerInput";
 import Button from "@mui/material/Button";
 
 const WorkersInput = () => {
+  // güncel zaman
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -90,21 +91,16 @@ const WorkersInput = () => {
   ];
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
-      <div className="m-auto gap-5 text-center w-500">
-        <p className=" font-bold text-xl m-auto mb-3">
-          {" "}
-          Veri Girileceği Zaman{" "}
-        </p>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="flex items-center justify-center w-70 h-30 m-auto bg-white rounded-4xl text-2xl font-bold mb-3"
-        />
-      </div>
+      <p className=" font-bold text-xl m-auto mb-3">Veri Girileceği Zaman</p>
+      <input
+        type="date"
+        value={selectedDate}
+        onChange={(e) => setSelectedDate(e.target.value)}
+        className="flex items-center justify-center w-70 h-30 m-auto bg-white rounded-4xl text-2xl font-bold mb-3"
+      />
 
       {workers.map((x, i) => {
-        return <WorkerInput workers={x} />;
+        return <WorkerInput workers={x} date={selectedDate} />;
       })}
       <div className="flex justify-center items-center ">
         <Button
