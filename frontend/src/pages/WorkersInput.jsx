@@ -13,7 +13,6 @@ const WorkersInput = () => {
     return `${year}-${month}-${day}`;
   };
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
-
   const workers = [
     //fake data
     {

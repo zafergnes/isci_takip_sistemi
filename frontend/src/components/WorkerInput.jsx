@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const WorkerInput = ({ workers, date }) => {
-  let blankWorkControl = {
+  let dates = date;
+  console.log(date);
+  let WorkControl = {
     worker_id: workers.id,
     work_id: workers.work_id,
     was_at_work: 0,
-    date: date,
+    date: dates,
   };
-  const [newWorkControl, setNewWorkControl] = useState(blankWorkControl);
+  useEffect(() => {
+    setNewWorkControl({ ...newWorkControl, date: dates });
+  }, [date]);
+
+  const [newWorkControl, setNewWorkControl] = useState(WorkControl);
 
   return (
     <>
