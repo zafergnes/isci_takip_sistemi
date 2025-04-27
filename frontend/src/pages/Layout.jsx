@@ -33,7 +33,7 @@ const Layout = () => {
                   return (
                     <li>
                       <Link
-                        className="p-4 px-4 mr-10 items-center justify-center flex font-bold hover:text-red-500  text-white"
+                        className="p-4 px-4 mr-10 items-center justify-center flex font-bold hover:text-red-500 active:text-red-500 text-white"
                         to={x.path}
                       >
                         <span>{x.title}</span>

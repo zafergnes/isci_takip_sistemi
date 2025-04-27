@@ -6,9 +6,9 @@ const Work = () => {
     
   return (
     <div>
-        
+      <p>iş id {id}</p>
     </div>
-  )
+  );
 }
 
 export default Work

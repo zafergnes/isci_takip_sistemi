@@ -7,6 +7,7 @@ import Works from './pages/Works'
 import Wallet from './pages/Wallet'
 import WorkersInput from "./pages/WorkersInput";
 import Work from "./pages/Work";
+import Worker from "./pages/Worker";
 import CreateWork from "./pages/CreateWork";
 import Add from "./pages/Add";
 import AddWorker from "./pages/AddWorker";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/workers" element={<Workers />} />
             <Route path="/workers/:id" element={<Workers />} />
             <Route path="/work/:id" element={<Work />} />
+            <Route path="/worker/:id" element={<Worker />} />
             <Route path="/works" element={<Works />} />
             <Route path="/create-work" element={<CreateWork />} />
             <Route path="/wallet" element={<Wallet />} />
