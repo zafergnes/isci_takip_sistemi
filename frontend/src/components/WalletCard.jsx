@@ -6,7 +6,7 @@ const WalletCard = ({ payments }) => {
     <>
       <div className="flex justify-center mx-auto p-5">
         <div className="flex items-center bg-white shadow-md rounded-xl m-3 w-[1100px] h-[150px] p-5">
-          <Link className=" m-auto">
+          <Link className=" m-auto" to={`/days_worked/${payments.worker_id}`}>
             <img
               className="mx-auto h-[70px] rounded-full"
               src={payments.worker_img}

@@ -12,6 +12,7 @@ import CreateWork from "./pages/CreateWork";
 import Add from "./pages/Add";
 import AddWorker from "./pages/AddWorker";
 import NoPage from "./pages/NoPage";
+import DaysWorked from "./pages/DaysWorked.JSX";
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
             <Route path="/work/:id" element={<Work />} />
             <Route path="/worker/:id" element={<Worker />} />
             <Route path="/works" element={<Works />} />
+            <Route path="/days_worked/:id" element={<DaysWorked />} />
             <Route path="/create-work" element={<CreateWork />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/worker-input" element={<WorkersInput />} />
