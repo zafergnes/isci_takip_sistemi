@@ -13,6 +13,8 @@ import Add from "./pages/Add";
 import AddWorker from "./pages/AddWorker";
 import NoPage from "./pages/NoPage";
 import DaysWorked from "./pages/DaysWorked.JSX";
+import WalletWorker from "./pages/WalletWorker";
+import WalletWork from "./pages/WalletWork";
 function App() {
   return (
     <>
@@ -30,6 +32,8 @@ function App() {
             <Route path="/days_worked/:id" element={<DaysWorked />} />
             <Route path="/create-work" element={<CreateWork />} />
             <Route path="/wallet" element={<Wallet />} />
+            <Route path="/wallet-worker" element={<WalletWorker />} />
+            <Route path="/wallet-work" element={<WalletWork />} />
             <Route path="/worker-input" element={<WorkersInput />} />
             <Route path="*" element={<NoPage />} />
           </Route>

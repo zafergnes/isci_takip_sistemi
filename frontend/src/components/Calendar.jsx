@@ -12,18 +12,18 @@ const Calendar = ({ workedDays }) => {
         const isWorked = workedDays.includes(dayStr); // Kontrol bu formatta yapılmalı
 
         return (
-
           <div
-           
             key={dayStr}
-            className={`w-10 h-10 flex items-center justify-center  rounded border ${
+            className={`w-10 h-10 flex items-center justify-center  rounded-xl border ${
               isWorked
                 ? "bg-green-100 border-green-300"
                 : "bg-gray-50 border-gray-200"
             }`}
           >
-            <p>{i+1}</p>
-            {isWorked ? <span className="text-green-600 font-bold">✓</span> : null}
+            <p>{i + 1}</p>
+            {isWorked ? (
+              <span className="text-green-600 font-bold">✓</span>
+            ) : null}
           </div>
         );
       })}

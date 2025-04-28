@@ -44,7 +44,8 @@ const Layout = () => {
               </ul>
               <Link
                 to="/add"
-                className="bg-slate-900 font-bold text-white px-2 py-1 w-40 rounded items-center justify-center flex shadow-2xl hover:bg-blue-500 hover:text-black "
+                className="bg-slate-900 font-bold text-white px-2 py-1 w-40 rounded items-center
+                justify-center flex shadow-2xl hover:bg-blue-500     hover:text-black "
               >
                 <button>
                   + <span>EKLE</span>

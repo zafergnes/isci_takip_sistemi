@@ -1,87 +1,30 @@
 import React from 'react'
-import WalletCard from '../components/WalletCard'
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+import { GoPeople } from "react-icons/go";
+import { BsBuildings } from "react-icons/bs";
 
 const Wallet = () => {
-  
-  const payments = [
-    // ? farklı tablolardan çekilecek veriler
-    {
-      worker_id: 1,
-      worker_name: "Veli",
-      worker_surname: "Kara",
-      worker_img: "https://i.pravatar.cc/308",
-      amount_paid: 15000,
-      amount_to_be_paid: 20000,
-      days_worked: 15,
-      workedDays: [
-        "2025-04-09",
-        "2025-04-10",
-        "2025-04-11",
-        "2025-04-12",
-        "2025-04-13",
-        "2025-04-15",
-      ],
-    },
-    {
-      worker_id: 2,
-      worker_name: "Ali",
-      worker_surname: "Topal",
-      worker_img: "https://i.pravatar.cc/310 ",
-      amount_paid: 15000,
-      amount_to_be_paid: 20000,
-      days_worked: 15,
-      workedDays: [
-        "2025-04-05",
-        "2025-04-06",
-        "2025-04-07",
-        "2025-04-11",
-        "2025-04-12",
-        "2025-04-13",
-      ],
-    },
-    {
-      worker_id: 3,
-      worker_name: "Erdem",
-      worker_surname: "Bulat",
-      worker_img: "https://i.pravatar.cc/304",
-      amount_paid: 15000,
-      amount_to_be_paid: 20000,
-      days_worked: 15,
-      workedDays: [
-        "2025-04-15",
-        "2025-04-18",
-        "2025-04-21",
-        "2025-04-23",
-        "2025-04-28",
-        "2025-04-29",
-      ],
-    },
-    {
-      worker_id: 4,
-      worker_name: "Devran",
-      worker_surname: "Karahan",
-      worker_img: "https://i.pravatar.cc/305",
-      amount_paid: 15000,
-      amount_to_be_paid: 20000,
-      days_worked: 15,
-      workedDays: [
-        "2025-04-15",
-        "2025-04-16",
-        "2025-04-17",
-        "2025-04-21",
-        "2025-04-22",
-        "2025-04-23",
-      ],
-    },
-  ];
-
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-1">
-      {payments.map((x, i) => {
-        return <WalletCard key={i} payments={x} />;
-      })}
+    <div className="flex justify-center items-center gap-5  min-h-[700px]  w-full">
+      <Link to={"/wallet-work"}>
+        <div className="shadow-2xl">
+          <Button variant="contained" className="w-[350px] h-[150px]">
+            <BsBuildings className="w-[60px]  h-[60px] mr-5" />
+            <p className="text-2xl font-bold">İŞ HESABI</p>
+          </Button>
+        </div>
+      </Link>
+      <div className="shadow-2xl">
+        <Link to={"/wallet-worker"}>
+          <Button variant="contained" className="w-[350px] h-[150px] ">
+            <GoPeople className="w-[60px]  h-[60px] mr-5" />
+            <p className="text-2xl font-bold">ÇALIŞAN HESABI</p>
+          </Button>
+        </Link>
+      </div>
     </div>
   );
-}
+};
 
 export default Wallet
