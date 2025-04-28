@@ -21,9 +21,13 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-baseline items-center m-5 shadow-2xl rounded-[50px] bg-slate-700">
-          <img src="./home-1.jpg" alt="" className="w-[600px] rounded-[50px]" />
-          <p className=" flex ml-25 mr-2 text-[25px] p-5  font-medium text-gray-300 leading-12 ">
+        <div className="flex justify-baseline items-center m-5 shadow-2xl rounded-[50px] h-[350px] bg-slate-700">
+          <img
+            src="./home-1.jpg"
+            alt=""
+            className=" w-[600px]   h-[350px] rounded-[50px]"
+          />
+          <p className=" flex ml-25 mr-2 text-[25px] p-5  font-medium text-gray-300  ">
             İşçi Yevmiye Takip Sistemi, işletmelerin ücret yönetimini modernize
             eden pratik bir çözümdür. Çalışanlarınızın performansını anlık takip
             edin, mesai ve ek ödemeleri otomatik hesaplayın. Sistem, karmaşık
@@ -35,7 +39,7 @@ const Home = () => {
           </p>
         </div>
         <div className="flex justify-end  items-center mt-25 shadow-2xl rounded-[50px] bg-slate-700">
-          <p className=" flex mr-25 ml-2 text-[25px] p-5  font-medium text-gray-300 leading-12 ">
+          <p className=" flex mr-25 ml-2 text-[25px] p-5   h-[350px] font-medium text-gray-300  ">
             İşçi Yevmiye Takip Sistemi, işverenlerin ve çalışanların ücret
             yönetimini kolaylaştıran kapsamlı bir platformdur. Çalışanlarınızın
             mesai saatleri, primler, avanslar ve ödemeler tek bir panelde
@@ -47,7 +51,11 @@ const Home = () => {
             Zamandan tasarruf edin, yasal uyumluluğu garanti altına alın ve iş
             verimliliğinizi artırın!
           </p>
-          <img src="./home-1.jpg" alt="" className="w-[600px] rounded-[50px]" />
+          <img
+            src="./home-1.jpg"
+            alt=""
+            className="w-[600px]  h-[350px] rounded-[50px]"
+          />
         </div>
         <p></p>
 

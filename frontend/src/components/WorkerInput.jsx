@@ -21,24 +21,28 @@ const WorkerInput = ({ workers, date }) => {
     <>
       <div className="flex justify-center mx-auto p-5">
         <div className="flex items-center bg-white shadow-md rounded-xl m-3 w-[1000px] h-[150px] p-5">
-          <Link className="m-auto" to={`/worker/${workers.id}`}>
+          <Link
+            className="m-auto flex items-center justify-center"
+            to={`/worker/${workers.id}`}
+          >
             <img
               className="mx-auto h-[50px] rounded-full"
               src={workers.img}
               alt=""
             />
-            <h2 className="mt-1 text-xl text-center font-bold">
+            <h2 className="mt-1 ml-3 text-xl text-center font-bold">
               {workers.name + " " + workers.surname}
             </h2>
+
+            <div className="flex justify-between mx-auto">
+              <b className="ml-5">Telefon :&nbsp;</b>
+              {workers.phone_number}
+              <b className="ml-5">Çalıştığı iş : &nbsp;</b>
+              {workers.work_id}
+              <b className="ml-5">Yövmiye : &nbsp;</b>
+              {workers.wage}
+            </div>
           </Link>
-          <div className="flex justify-between mx-auto">
-            <b className="ml-5">Telefon :&nbsp;</b>
-            {workers.phone_number}
-            <b className="ml-5">Çalıştığı iş : &nbsp;</b>
-            {workers.work_id}
-            <b className="ml-5">Yövmiye : &nbsp;</b>
-            {workers.wage}
-          </div>
           <div className="flex justify-center ml-auto mr-auto ">
             <StyledWrapper className="flex justify-end items-center">
               <div className="radio-input ">
