@@ -1,5 +1,5 @@
 import React from 'react'
-import WalletCard from "../components/WalletCard";
+import WalletWorkerCard from "../components/WalletWorkerCard";
 
 const WalletWorker = () => {
   const payments = [
@@ -77,9 +77,9 @@ const WalletWorker = () => {
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1">
       {payments.map((x, i) => {
-        return <WalletCard key={i} payments={x} />;
+        return <WalletWorkerCard key={i} payments={x} />;
       })}
     </div>
   );
-}
+};
 export default WalletWorker

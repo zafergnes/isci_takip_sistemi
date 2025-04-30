@@ -7,8 +7,16 @@ const AddWorker = () => {
     surname: "",
     phone_number: "",
     e_mail: "",
+    work_id: "",
     wage: "",
   };
+  const works = [
+    { id: 1, work_name: "Kalıp İşi" },
+    { id: 2, work_name: "Duvar İşi" },
+    { id: 3, work_name: "Tadilat İşi" },
+    { id: 4, work_name: "Sıva İşi" },
+    { id: 5, work_name: "Demir İşi" },
+  ];
   const [newWorker, setNewWorker] = useState(blankWorker);
   return (
     <div className="flex w-full items-center justify-center">
@@ -58,6 +66,23 @@ const AddWorker = () => {
               setNewWorker({ ...newWorker, e_mail: e.target.value })
             }
           />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            Çalışacağı İş
+          </label>
+          <select
+            className="bg-white h-10 rounded my-2 p-2"
+            value={newWorker.work_id}
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, work_id: e.target.value })
+            }
+          >
+            <option value={""} default disabled>
+              İşi Seçiniz
+            </option>
+            {works.map((x, i) => {
+              return <option value={i + 1}>{x.work_name}</option>;
+            })}
+          </select>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Yevmiye Ücreti
           </label>

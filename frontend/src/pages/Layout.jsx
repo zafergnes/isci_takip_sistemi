@@ -29,7 +29,7 @@ const Layout = () => {
             </Link>
             <div className="flex ">
               <ul className="flex">
-                {menu.map((x, i = 0) => {
+                {menu.map((x, i) => {
                   return (
                     <li>
                       <Link

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Calendar from "./Calendar";
 
-const WalletCard = ({ payments }) => {
+const WalletWorkerCard = ({ payments }) => {
   return (
     <>
       <div className="mx-auto p-5  ">
@@ -27,19 +27,16 @@ const WalletCard = ({ payments }) => {
               {payments.amount_to_be_paid}
             </div>
             <div className="flex m-4 justify-center items-center gap-3">
+              <Link to={`/wallet-worker-data/${payments.worker_id}`}>
               <Button
-                onClick={() => {
-                  alert("Tıklandı");
-                }}
+
                 className=""
                 variant="contained"
-              >
+                >
                 Ücret Öde
               </Button>
+              </Link>
               <Button
-                onClick={() => {
-                  alert("Tıklandı");
-                }}
                 className=""
                 variant="contained"
               >
@@ -73,4 +70,4 @@ const WalletCard = ({ payments }) => {
   );
 };
 
-export default WalletCard
+export default WalletWorkerCard;
