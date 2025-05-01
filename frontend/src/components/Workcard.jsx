@@ -39,6 +39,13 @@ const Workcard = ({ works }) => {
               {works.work_desc}
             </p>
           </div>
+          <div className="flex m-2 mt-5">
+            <b className="flex justify-center items-center font-bold ">
+              İş Adresi : &nbsp;
+            </b>{" "}
+            {works.work_address}
+            <p className="flex justify-center items-center opacity-50 font-bold "></p>
+          </div>
           <div className="p-2">
             <p className="font-bold">Çalışan İşçiler</p>
             {workers.map((x, i) => {
@@ -49,7 +56,7 @@ const Workcard = ({ works }) => {
               );
             })}
             <div className="mt-5">
-              <b>İş durumu :</b>
+              <b>İş durumu :&nbsp;</b>
               {status}
             </div>
             <div className="m-3">

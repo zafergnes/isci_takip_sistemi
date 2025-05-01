@@ -13,6 +13,7 @@ const Works = () => {
         "Karagedikteki 3 katlı inşaat Karagedikteki 3 katlı inşaat Karagedikteki 3 katlı inşaat Karagedikteki 3 katlı inşaat Karagedikteki 3 katlı inşaat Karagedikteki 3 katlı inşaat",
       work_start_date: "2024 08 07",
       status: 0,
+      work_address: "KaraGedikteki 3 katlı inşaat",
     },
 
     {
@@ -22,6 +23,7 @@ const Works = () => {
         "Esentepedeki 3 katlı inşaat Esentepedeki 3 katlı inşaat Esentepedeki 3 katlı inşaat Esentepedeki 3 katlı inşaat Esentepedeki 3 katlı inşaat Esentepedeki 3 katlı inşaat",
       work_start_date: "2021 08 07",
       status: 2,
+      work_address: "Esentepedeki 3 katlı inşaat",
     },
 
     {
@@ -31,6 +33,7 @@ const Works = () => {
         "Güzelyurt 3 katlı inşaat Güzelyurt 3 katlı inşaat Güzelyurt 3 katlı inşaat Güzelyurt 3 katlı inşaat Güzelyurt 3 katlı inşaat Güzelyurt 3 katlı inşaat Güzelyurt 3 katlı inşaat",
       work_start_date: "2024 09 23",
       status: 1,
+      work_address: "Güzelyurt 3 katlı inşaat",
     },
 
     {
@@ -40,6 +43,7 @@ const Works = () => {
         "Esenlerdeki 3 katlı inşaat Esenlerdeki 3 katlı inşaat Esenlerdeki 3 katlı inşaat Esenlerdeki 3 katlı inşaat Esenlerdeki 3 katlı inşaat Esenlerdeki 3 katlı inşaat Esenlerdeki 3 katlı inşaat",
       work_start_date: "2022 08 08",
       status: 1,
+      work_address: "Esenlerdeki 3 katlı inşaat",
     },
 
     {
@@ -49,6 +53,7 @@ const Works = () => {
         "İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat  ",
       work_start_date: "2024 08 07",
       status: 0,
+      work_address: "İstanbuldaki 3 katlı inşaat",
     },
   ];
 

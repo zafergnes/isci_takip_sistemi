@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 const CreateWork = () => {
   const blankWork = {
-    "work_name":"",
-    "work_desc":"",
-    "work_status":""
-  }
-  const [newWork,setNewWork] = useState(blankWork);
+    work_name: "",
+    work_desc: "",
+    work_status: "",
+    work_address: "",
+  };
+  const [newWork, setNewWork] = useState(blankWork);
   const status = [
-    {text:'Başlanmadı',path:'/'},
-    {text:'Devam Ediyor',path:'/' },
-    {text:'Bitti',path:'/' }
-  ]
+    { text: "Başlanmadı", path: "/" },
+    { text: "Devam Ediyor", path: "/" },
+    { text: "Bitti", path: "/" },
+  ];
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[60%] p-5 rounded-2xl shadow-2xl">
@@ -41,6 +42,18 @@ const CreateWork = () => {
             value={newWork.work_desc}
             onChange={(e) =>
               setNewWork({ ...newWork, work_desc: e.target.value })
+            }
+          />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            İş Adresi
+          </label>
+          <input
+            type="text"
+            required
+            className="bg-white h-10 border border-gray-300 rounded my-2 p-2"
+            value={newWork.work_address}
+            onChange={(e) =>
+              setNewWork({ ...newWork, work_address: e.target.value })
             }
           />
           <label htmlFor="" className="ml-1 text-xl text-gray-700">

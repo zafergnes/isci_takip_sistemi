@@ -7,6 +7,7 @@ const UpdateWork = () => {
     work_name: "Düzenlenecek İşin Adı ",
     work_desc: "Düzenlenecek İş Hakkında Açıklama",
     work_status: "İşin Durumu",
+    work_address: "Düzenlenecek işin Adresi",
   };
   const [newWork, setNewWork] = useState(blankWork);
   const status = [
@@ -43,6 +44,17 @@ const UpdateWork = () => {
             value={newWork.work_desc}
             onChange={(e) =>
               setNewWork({ ...newWork, work_desc: e.target.value })
+            }
+          />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            İş Adresi
+          </label>
+          <input
+            type="text"
+            className="bg-white h-10 border border-gray-300 rounded my-2 p-2"
+            value={newWork.work_address}
+            onChange={(e) =>
+              setNewWork({ ...newWork, work_address: e.target.value })
             }
           />
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
