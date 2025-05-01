@@ -28,19 +28,12 @@ const WalletWorkerCard = ({ payments }) => {
             </div>
             <div className="flex m-4 justify-center items-center gap-3">
               <Link to={`/wallet-worker-data/${payments.worker_id}`}>
-              <Button
-
-                className=""
-                variant="contained"
-                >
-                Ücret Öde
-              </Button>
+                <Button className="" variant="contained">
+                  VERİLERİ GÖR
+                </Button>
               </Link>
-              <Button
-                className=""
-                variant="contained"
-              >
-                VERİLERİ GÖR
+              <Button className="" variant="contained">
+                ÜCRET ÖDE
               </Button>
             </div>
             <div className="flex flex-wrap mx-auto mt-8 justify-center items-center bg-gray-100 rounded-2xl h-[200px] p-3">

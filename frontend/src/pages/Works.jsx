@@ -54,16 +54,16 @@ const Works = () => {
 
   return (
     <>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-5 m-auto w-[70%] ">
         {works.map((x, i) => {
           return <Workcard key={i} works={x} />;
         })}
       </div>
       <div className="flex justify-center  items-center mt-3 gap-2">
-        <Link to={"/add-worker"}>
+        <Link to={"/create-work"}>
           <button className="flex items-center justify-center w-[340px] gap-6 h-[70px] px-3  border-4  border-gray-700 py-1 bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
             <IoAddSharp className="  w-[40px] h-[40px]  " />
-            <p className="font-bold text-center text-[25px]">ÇALIŞAN EKLE </p>
+            <p className="font-bold text-center text-[25px]">İŞ EKLE </p>
           </button>
         </Link>
       </div>

@@ -56,10 +56,14 @@ const Workcard = ({ works }) => {
               <p className="text-right">{works.work_start_date}</p>
             </div>
           </div>
-          <div className="mt-3 flex gap-2">
-            <button className="px-3 w-full py-1 bg-blue-500  cursor-pointer text-white rounded hover:bg-blue-600">
-              <p className="font-bold text-center text-[17px]">İŞİ DÜZENLE </p>
-            </button>
+          <div>
+            <Link to={`/update-work/${works.id}`}>
+              <button className="px-3 w-full py-1 bg-blue-500  cursor-pointer text-white rounded hover:bg-blue-600">
+                <p className="font-bold text-center text-[17px]">
+                  İŞİ BİLGİLERİNİ DÜZENLE
+                </p>
+              </button>
+            </Link>
           </div>
         </div>
       </Link>

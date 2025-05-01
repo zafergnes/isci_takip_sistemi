@@ -7,7 +7,7 @@ const WorkerCard = ({ workers }) => {
 
 
   return (
-    <div className=" flex justify-center items-center bg-white shadow-md rounded-xl m-3 w-[300px] p-5">
+    <div className=" flex justify-center items-center bg-white shadow-md rounded-xl m-3 w-[350px] p-5">
       <Link to={`/worker/${workers.id}`}>
         <img
           className="mx-auto h-[150px] rounded-full"
@@ -33,11 +33,13 @@ const WorkerCard = ({ workers }) => {
           <p className="text-center">{workers.wage}</p>
         </div>
         <div className=" mt-6 flex  gap-2">
-          <button className="px-3 w-full cursor-pointer py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
-            <p className="font-bold text-center text-[17px]">
-              ÇALIŞAN DÜZENLE{" "}
-            </p>
-          </button>
+          <Link to={`/update-worker/${workers.id}`}>
+            <button className="px-3 w-full cursor-pointer py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <p className="font-bold text-center text-[17px]">
+                ÇALIŞAN BİLGİLERİNİ DÜZENLE
+              </p>
+            </button>
+          </Link>
         </div>
       </Link>
     </div>

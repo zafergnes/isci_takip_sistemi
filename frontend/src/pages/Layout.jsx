@@ -56,8 +56,8 @@ const Layout = () => {
         </div>
 
         {/* <Home></Home> */}
-        <div className="flex mx-auto px-5 md:px-20 bg-slate-500">
-          <div className="mt-5 mb-5 min-h-[400px] w-full">
+        <div className="flex mx-auto px-5 md:px-20 bg-slate-500  ">
+          <div className="mt-5 mb-5  mx-auto min-h-[400px] w-full min-w-[1200px]  overflow-x-auto">
             <Outlet></Outlet>
           </div>
         </div>

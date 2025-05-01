@@ -4,7 +4,6 @@ const Calendar = ({ workedDays }) => {
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
   const daysInMonth = eachDayOfInterval({ start: monthStart, end: monthEnd });
-  console.log("Çalışılan Günler :" + workedDays);
   return (
     <div className="flex gap-2 overflow-x-auto py-3 w-[900px]">
       {daysInMonth.map((day ,i) => {

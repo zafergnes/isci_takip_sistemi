@@ -17,6 +17,8 @@ import WalletWorker from "./pages/WalletWorker";
 import WalletWork from "./pages/WalletWork";
 import WalletWorkData from "./pages/WalletWorkData";
 import WalletWorkerData from "./pages/WalletWorkerData";
+import UpdateWorker from "./pages/UpdateWorker";
+import UpdateWork from "./pages/UpdateWork";
 function App() {
   return (
     <>
@@ -26,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />}></Route>
             <Route path="/add" element={<Add />}></Route>
             <Route path="/add-worker" element={<AddWorker />} />
+            <Route path="/update-worker/:id" element={<UpdateWorker />} />
             <Route path="/workers" element={<Workers />} />
             <Route path="/workers/:id" element={<Workers />} />
             <Route path="/work/:id" element={<Work />} />
@@ -33,6 +36,7 @@ function App() {
             <Route path="/works" element={<Works />} />
             <Route path="/days_worked/:id" element={<DaysWorked />} />
             <Route path="/create-work" element={<CreateWork />} />
+            <Route path="/update-work/:id" element={<UpdateWork />} />
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/wallet-worker" element={<WalletWorker />} />
             <Route path="/wallet-work" element={<WalletWork />} />

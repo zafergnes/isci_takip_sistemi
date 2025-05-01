@@ -1,0 +1,114 @@
+import React , {useState} from 'react'
+import { useParams } from 'react-router-dom'
+import Button from "@mui/material/Button";
+
+const UpdateWorker = () => {
+  const blankWorker = {
+    name: "",
+    surname: "",
+    phone_number: "",
+    e_mail: "",
+    work_id: "",
+    wage: "",
+  };
+  const works = [
+    { id: 1, work_name: "Kalıp İşi" },
+    { id: 2, work_name: "Duvar İşi" },
+    { id: 3, work_name: "Tadilat İşi" },
+    { id: 4, work_name: "Sıva İşi" },
+    { id: 5, work_name: "Demir İşi" },
+  ];
+  //! Çalışanın bilgilerini göre input'lar dolacak
+  const [newWorker, setNewWorker] = useState(blankWorker);
+  return (
+    <div className="flex w-full items-center justify-center">
+      <div className="bg-slate-300 w-[40%] p-5 rounded-2xl shadow-2xl">
+        <h1 className="text-3xl font-bold text-center">ÇALIŞAN BİLGİLERİNİ DÜZENLE</h1>
+        <div className="flex flex-col">
+          <small>{JSON.stringify(newWorker)}</small>
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            Çalışan Adı
+          </label>
+          <input
+            type="text"
+            value={"Düzenlenecek Çalışanın Adı"}
+            required
+            className="bg-white w-full mt-3 h-10 border border-gray-300 rounded my-2 p-2"
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, name: e.target.value })
+            }
+          />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            Çalışan Soyadı
+          </label>
+          <input
+            type="text"
+            value={"Düzenlenecek Çalışanın Soyadı"}
+            className="bg-white w-full mt-3 h-10 border border-gray-300 rounded my-2 p-2"
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, surname: e.target.value })
+            }
+          />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            Telefon Numarası
+          </label>
+          <input
+            type="tel"
+            placeholder="Örn. 512 345 6789"
+            value={"Düzenlenecek Çalışanın Telefon Numarası"}
+            className="bg-white w-full mt-3 border border-gray-300 h-10 rounded my-2 p-2"
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, phone_number: e.target.value })
+            }
+          />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            E-Mail Adresi
+          </label>
+          <input
+            type="mail"
+            value={"Düzenlenecek Çalışanın E-mail Adresi"}
+            className="bg-white w-full mt-3 border border-gray-300 h-10 rounded my-2 p-2"
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, e_mail: e.target.value })
+            }
+          />
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            Çalışacağı İş
+          </label>
+          <select
+            className="bg-white h-10 rounded my-2 p-2"
+            value={newWorker.work_id}
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, work_id: e.target.value })
+            }
+          >
+            <option value={"Çalışanın çalıştığı iş"} default disabled>
+              Çalışanın çalıştığı iş
+            </option>
+            {works.map((x, i) => {
+              return <option value={i + 1}>{x.work_name}</option>;
+            })}
+          </select>
+          <label htmlFor="" className="ml-1 text-xl text-gray-700">
+            Yevmiye Ücreti
+          </label>
+          <input
+            type="number"
+            value={"Çalışanın Yevmiyesi 1232"}
+            className="bg-white w-full mt-3 border border-gray-300 rounded h-10 my-2 p-2"
+            onChange={(e) =>
+              setNewWorker({ ...newWorker, wage: e.target.value })
+            }
+          />
+          <div className=" flex mt-5 justify-end ">
+            <Button variant="contained" className="w-full h-15">
+              <p className="text-xl">KAYDET</p>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default UpdateWorker
