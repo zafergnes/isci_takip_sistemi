@@ -5,8 +5,8 @@ const Layout = () => {
 
     const menu = [
       { title: "İşler", path: "/works" },
-      { title: "İşçiler", path: "/workers" },
-      { title: "Günlük Yövmiye", path: "/worker-input" },
+      { title: "Çalışanlar", path: "/workers" },
+      { title: "Günlük Yevmiye", path: "/worker-input" },
       { title: "Hesap", path: "/wallet" },
     ];
 

@@ -6,13 +6,16 @@ const Work = () => {
   const works = {
     //fake data
 
-    id: 5,
+    id: 3,
     work_name: "Sıva İşi",
     work_desc:
       "İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat  ",
     work_start_date: "2024 08 07",
     status: 0,
     work_address: "İstanbuldaki 3 katlı inşaat",
+    cost_of_work: 44000,
+    amount_to_be_received: 30000,
+    amount_received: 14000,
   };
   const workers = [
     {
@@ -71,17 +74,18 @@ const Work = () => {
       <div className="bg-white rounded-3xl flex  justify-center items-center mx-auto p-5 w-[70%]">
         <div>
           <div>
+            <h1 className="flex justify-center  text-3xl font-bold text-center">
+              {works.work_name}
+            </h1>
             <span className="flex justify-end px-5 pt-2">
-              <b>İşe Başlanma Tarihi :&nbsp;</b>
+              <b>İşe Başlangıç Tarihi :&nbsp;</b>
               {works.work_start_date}
             </span>
-            <p className="text-3xl font-bold text-center">{works.work_name}</p>
           </div>
           <div className="px-4">
             <label className="text-xl italic font-bold">Açıklama </label>
             <p className="text-[17px] ">{works.work_desc}</p>
           </div>
-
           <div className="flex flex-col items-start pl-4">
             <div className=" ">
               <p className="font-bold italic text-xl my-5">Çalışan İşçiler ;</p>
@@ -110,14 +114,14 @@ const Work = () => {
                         {x.registration_date}
                       </p>
                     </div>
-                    <div className="flex justify-center items-center ml-10 gap-5">
+                    <div className="flex justify-center items-center ml-10 gap-5 ">
                       <Link to={`/days_worked/${x.id}`}>
-                        <button className="flex items-center justify-center w-[100x]  h-[20px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+                        <button className="flex items-center justify-center w-[150px]  h-[40px]   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600 cursor-pointer">
                           <p className="font-bold text-center ">Verileri Gör</p>
                         </button>
                       </Link>
                       <Link to={`/days_worked/${x.id}`}>
-                        <button className="flex items-center justify-center w-[100x]  h-[20px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+                        <button className="flex items-center justify-center w-[150px]  h-[40px]   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600 cursor-pointer">
                           <p className="font-bold text-center ">
                             Çalışanı Çıkar
                           </p>
@@ -128,6 +132,39 @@ const Work = () => {
                 );
               })}
             </div>
+          </div>
+          <div className="flex bg-gray-400 my-10 justify-center gap-15 items-center rounded-4xl h-[60px] w-[60%] mx-auto">
+            <p>
+              <b>İş Bedeli : &nbsp;</b>
+              {works.cost_of_work}
+            </p>
+
+            <p>
+              <b>Alınacak Tutar : &nbsp;</b>
+              {works.amount_to_be_received}
+            </p>
+
+            <p>
+              <b>Alınan Tutar : &nbsp;</b>
+              {works.amount_received}
+            </p>
+          </div>
+          <div className="flex  justify-center gap-25 mt-15 w-full  items-center ">
+            <Link to={`/wallet-work-data/${works.id}`}>
+              <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+                <p className="font-bold text-center text-xl">Verileri Gör</p>
+              </button>
+            </Link>
+            <Link to={`/update-work/${workers.id}`}>
+              <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+                <p className="font-bold text-center text-xl ">
+                  İş Bilgilerini Düzenle
+                </p>
+              </button>
+            </Link>
+            <button className="flex items-center justify-center  gap-6 h-[70px] p-7   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+              <p className="font-bold text-center text-xl">İşi Sil</p>
+            </button>
           </div>
         </div>
       </div>
