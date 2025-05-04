@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 
 const Work = () => {
@@ -69,71 +69,95 @@ const Work = () => {
       registration_date: "2023-05-06",
     },
   ];
+  const alert = () => {
+    if (
+      confirm(
+        "Çalışan İşten Çıkarılacak Emin Misiniz! \nKullanıcın kayıtlarını daha sonrada tekrar görebilirsiniz"
+      )
+    )
+      console.log("silindi");
+    else console.log("Vazgeçti");
+  };
   return (
     <div>
-      <div className="bg-white rounded-3xl flex  justify-center items-center mx-auto p-5 w-[70%]">
+      <div className=" flex w-[70%] mx-auto p-5 bg-white rounded-3xl justify-center items-center ">
         <div>
           <div>
-            <h1 className="flex justify-center  text-3xl font-bold text-center">
+            <h1 className=" flex text-3xl font-bold text-center justify-center ">
               {works.work_name}
             </h1>
-            <span className="flex justify-end px-5 pt-2">
+            <span className="flex px-5 pt-2 justify-end">
               <b>İşe Başlangıç Tarihi :&nbsp;</b>
               {works.work_start_date}
             </span>
           </div>
-          <div className="px-4">
-            <label className="text-xl italic font-bold">Açıklama </label>
-            <p className="text-[17px] ">{works.work_desc}</p>
+          <div className=" px-4 ">
+            <label className=" text-xl font-bold italic ">Açıklama </label>
+            <p className="  text-[17px] ">{works.work_desc}</p>
           </div>
-          <div className="flex flex-col items-start pl-4">
-            <div className=" ">
-              <p className="font-bold italic text-xl my-5">Çalışan İşçiler ;</p>
-              {workers.map((x, i) => {
-                return (
-                  <div className="flex justify-start items-center">
-                    <p className="m-2 font-bold text-xl">{i + 1}</p>
-                    <img
-                      className="h-[60px] rounded-full mx-3 my-1"
-                      src={x.img}
-                    />
-                    <div className="w-[130px]">
-                      <p className=" font-bold">{x.name + " " + x.surname}</p>
-                    </div>
-                    <div className="flex">
-                      <p className="ml-5">
-                        <b>Telefon :&nbsp;</b>
-                        {x.phone_number}
-                      </p>
-                      <p className="ml-5">
-                        <b>Yevmiye :&nbsp;</b>
-                        {x.wage}
-                      </p>
-                      <p className="ml-5">
-                        <b>Başlama Tarihi:&nbsp;</b>
-                        {x.registration_date}
-                      </p>
-                    </div>
-                    <div className="flex justify-center items-center ml-10 gap-5 ">
-                      <Link to={`/days_worked/${x.id}`}>
-                        <button className="flex items-center justify-center w-[150px]  h-[40px]   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600 cursor-pointer">
-                          <p className="font-bold text-center ">Verileri Gör</p>
-                        </button>
-                      </Link>
-                      <Link to={`/days_worked/${x.id}`}>
-                        <button className="flex items-center justify-center w-[150px]  h-[40px]   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600 cursor-pointer">
-                          <p className="font-bold text-center ">
-                            Çalışanı Çıkar
+          <div className=" flex flex-col  pl-4 items-start ">
+            <div>
+              <p className=" my-5 font-bold text-xl italic ">
+                Çalışan İşçiler ;
+              </p>
+              <div className="bg-gray-300 p-1 rounded-4xl mx-auto w-full shadow-2xl">
+                {workers.map((x, i) => {
+                  return (
+                    <Link to={`/worker/${x.id}`}>
+                      <div className=" flex  justify-start items-center border my-2 py-2 bg-gray-200 border-gray-400 rounded-4xl ">
+                        <p className="  m-2 font-bold text-xl ">{i + 1}</p>
+                        <img
+                          src={x.img}
+                          className="  h-[60px]  mx-3 my-1 rounded-full "
+                        />
+                        <div className="  w-[130px] ">
+                          <p
+                            className="
+                          font-bold
+                        "
+                          >
+                            {x.name + " " + x.surname}
                           </p>
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
+                        </div>
+                        <div className=" flex ">
+                          <p className=" ml-5 ">
+                            <b>Telefon :&nbsp;</b>
+                            {x.phone_number}
+                          </p>
+                          <p className="  ml-5  ">
+                            <b>Yevmiye :&nbsp;</b>
+                            {x.wage}
+                          </p>
+                          <p className="  ml-5  ">
+                            <b>Başlama Tarihi:&nbsp;</b>
+                            {x.registration_date}
+                          </p>
+                        </div>
+                        <div className="  flex  ml-10 justify-center items-center gap-5  ">
+                          <Link to={`/days_worked/${x.id}`}>
+                            <button className="  flex w-[150px] h-[40px]  text-white  bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600  ">
+                              <p className=" font-bold text-center ">
+                                Verileri Gör
+                              </p>
+                            </button>
+                          </Link>
+                          <Link to={`/days_worked/${x.id}`}>
+                            <button
+                              onClick={alert}
+                              className=" flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer  items-center justify-center hover:bg-blue-600 mr-2 "
+                            >
+                              Çalışanı Çıkar
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
-          <div className="flex bg-gray-400 my-10 justify-center gap-15 items-center rounded-4xl h-[60px] w-[60%] mx-auto">
+          <div className="flex h-[60px] w-[60%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
             <p>
               <b>İş Bedeli : &nbsp;</b>
               {works.cost_of_work}
@@ -149,20 +173,20 @@ const Work = () => {
               {works.amount_received}
             </p>
           </div>
-          <div className="flex  justify-center gap-25 mt-15 w-full  items-center ">
+          <div className="flex w-full mt-15 justify-center gap-25 items-center">
             <Link to={`/wallet-work-data/${works.id}`}>
-              <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
-                <p className="font-bold text-center text-xl">Verileri Gör</p>
+              <button className="flex h-[70px] p-7 text-white bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600">
+                <p className=" font-bold text-center text-xl">Verileri Gör</p>
               </button>
             </Link>
             <Link to={`/update-work/${workers.id}`}>
-              <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
-                <p className="font-bold text-center text-xl ">
+              <button className="flexh-[70px] p-7 text-white bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600">
+                <p className="font-bold text-center text-xl">
                   İş Bilgilerini Düzenle
                 </p>
               </button>
             </Link>
-            <button className="flex items-center justify-center  gap-6 h-[70px] p-7   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+            <button className="flex h-[70px] p-7  text-white bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600">
               <p className="font-bold text-center text-xl">İşi Sil</p>
             </button>
           </div>
@@ -172,4 +196,4 @@ const Work = () => {
   );
 };
 
-export default Work
+export default Work;

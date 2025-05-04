@@ -4,7 +4,7 @@ import Layout from './pages/Layout'
 import Home from './pages/Home'
 import Workers from './pages/Workers'
 import Works from './pages/Works'
-import Wallet from './pages/Wallet'
+import Wallet from "./pages/Wallet";
 import WorkersInput from "./pages/WorkersInput";
 import Work from "./pages/Work";
 import Worker from "./pages/Worker";
@@ -12,7 +12,8 @@ import CreateWork from "./pages/CreateWork";
 import Add from "./pages/Add";
 import AddWorker from "./pages/AddWorker";
 import NoPage from "./pages/NoPage";
-import DaysWorked from "./pages/DaysWorked.JSX";
+
+//! Wallet
 import WalletWorker from "./pages/WalletWorker";
 import WalletWork from "./pages/WalletWork";
 import WalletWorkData from "./pages/WalletWorkData";
@@ -34,7 +35,6 @@ function App() {
             <Route path="/work/:id" element={<Work />} />
             <Route path="/worker/:id" element={<Worker />} />
             <Route path="/works" element={<Works />} />
-            <Route path="/days_worked/:id" element={<DaysWorked />} />
             <Route path="/create-work" element={<CreateWork />} />
             <Route path="/update-work/:id" element={<UpdateWork />} />
             <Route path="/wallet" element={<Wallet />} />

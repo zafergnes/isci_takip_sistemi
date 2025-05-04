@@ -9,7 +9,10 @@ const WalletWorkerCard = ({ payments }) => {
       <div className="mx-auto p-5  ">
         <div className="flex flex-wrap items-center bg-white shadow-md rounded-xl m-3 w-[1300px] h-[400px] p-5">
           <div className="flex  flex-wrap justify-center items-center m-auto">
-            <Link className=" m-auto" to={`/days_worked/${payments.worker_id}`}>
+            <Link
+              className=" m-auto"
+              to={`/wallet-worker-data/${payments.worker_id}`}
+            >
               <img
                 className="mx-auto h-[70px] rounded-full"
                 src={payments.worker_img}
