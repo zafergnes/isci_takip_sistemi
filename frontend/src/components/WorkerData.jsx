@@ -1,4 +1,6 @@
 import React from 'react'
+import CalendarComponent from "./CalendarComponent";
+import { Link } from "react-router-dom";
 
 const WorkerData = ({ payments }) => {
   return (
@@ -54,25 +56,52 @@ const WorkerData = ({ payments }) => {
               {payments.debt}
             </p>
           </div>
+
+          {/* Ödemeler */}
+
           <div className="flex flex-col justify-center p-3 items-center mt-10 gap-5 bg-gray-300 w-[600px] mx-auto rounded-4xl shadow-2xl">
             <p className="flex justify-center text-3xl font-bold">Ödemeler</p>
             {payments.payments.map((x, i) => {
               return (
-                <div className='bg-gray-200 rounded-2xl p-2'>
+                <div className="bg-gray-200 rounded-2xl p-2">
                   <p className="flex justify-start items-start">
-                  <b>{i + 1}. Ödenen Tutarı: &nbsp;</b>
-                  {x.amount_paid}
-                  <b className="ml-20">Ödeme Tarihi :&nbsp;</b>
-                  {x.amount_paid_time}
-                </p>
+                    <b>{i + 1}. Ödenen Tutarı: &nbsp;</b>
+                    {x.amount_paid}
+                    <b className="ml-20">Ödeme Tarihi :&nbsp;</b>
+                    {x.amount_paid_time}
+                    <button className=" flex justify-end ml-5 bg-blue-500 rounded-2xl p-1 cursor-pointer">
+                      ❌
+                    </button>
+                  </p>
                 </div>
-
               );
             })}
             <button className=" flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer  items-center justify-center hover:bg-blue-600 ">
               Ödeme Yap
             </button>
           </div>
+        </div>
+
+        {/* ! Çalışılan Günler */}
+        <div className="flex flex-col justify-center items-center bg-gray-300  rounded-3xl mx-auto w-[800px] mt-15 p-10">
+          <p className="mb-7 bg-gray-200 rounded-4xl p-3 font-bold text-xl">
+            Çalıştığı Günler
+          </p>
+          <div className="bg-gray-200 p-6 rounded-4xl">
+            <CalendarComponent workedDays={payments.worked_days} />
+          </div>
+        </div>
+        <div className="flex  justify-center mt-10 w-full  items-center  gap-2 ">
+          <Link to={`/update-worker/${payments.worker_id}`}>
+            <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+              <p className="font-bold text-center text-xl ">
+                Çalışan Bilgilerini Düzenle
+              </p>
+            </button>
+          </Link>
+          <button className="flex items-center justify-center  gap-6 h-[70px] p-7   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+            <p className="font-bold text-center text-xl">Çalışanı Sil</p>
+          </button>
         </div>
       </div>
     </div>
