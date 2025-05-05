@@ -5,7 +5,7 @@ import WalletWorkData from '../pages/WalletWorkData';
 const WalletWorkCard = ({payments}) => {
   return (
     <div className="mx-auto p-5  ">
-      <Link to={`/wallet-work-data/${payments.work_id}`}>
+      <Link to={`/work/${payments.work_id}`}>
         <div className="flex flex-wrap items-center bg-white shadow-md rounded-xl m-3 w-[1300px] h-[150px] p-5">
           <h2 className="mt-1 text-xl text-center font-bold">
             {payments.work_name}

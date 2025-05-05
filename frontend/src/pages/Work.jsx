@@ -16,6 +16,12 @@ const Work = () => {
     cost_of_work: 44000,
     amount_to_be_received: 30000,
     amount_received: 14000,
+    payments: [
+      { id: 1, amount_received: 5000, amount_received_date: "2025-05-06" },
+      { id: 2, amount_received: 3000, amount_received_date: "2025-05-15" },
+      { id: 3, amount_received: 4000, amount_received_date: "2025-05-28" },
+      { id: 4, amount_received: 2000, amount_received_date: "2025-06-08" },
+    ],
   };
   const workers = [
     {
@@ -173,21 +179,31 @@ const Work = () => {
               {works.amount_received}
             </p>
           </div>
-          <div className="flex w-full mt-15 justify-center gap-25 items-center">
-            <Link to={`/wallet-work-data/${works.id}`}>
-              <button className="flex h-[70px] p-7 text-white bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600">
-                <p className=" font-bold text-center text-xl">Verileri Gör</p>
-              </button>
-            </Link>
-            <Link to={`/update-work/${workers.id}`}>
-              <button className="flexh-[70px] p-7 text-white bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600">
-                <p className="font-bold text-center text-xl">
-                  İş Bilgilerini Düzenle
+          {/* Ödemeler */}
+          <div className="flex flex-col p-7 w-[40%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
+            {works.payments.map((x, i) => {
+              return (
+                <p>
+                  <b>{i + 1}-&nbsp;&nbsp;</b>
+                  <b>Alınan Tutar: &nbsp;</b>
+                  {x.amount_received}&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                  <b>Tarih:&nbsp;</b>
+                  {x.amount_received_date}
                 </p>
+              );
+            })}
+            <button className="flex h-[40px] p-7 text-white bg-gray-600 rounded-xl shadow-2xl items-center justify-center font-bold text-center text-xl hover:bg-blue-600 cursor-pointer">
+              Ödeme Ekle
+            </button>
+          </div>
+          <div className="flex w-full mt-15 justify-center gap-25 items-center">
+            <Link to={`/update-work/${workers.id}`}>
+              <button className="flex h-[70px] p-7 text-white font-bold text-center text-xl bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600 cursor-pointer">
+                İş Bilgilerini Düzenle
               </button>
             </Link>
-            <button className="flex h-[70px] p-7  text-white bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600">
-              <p className="font-bold text-center text-xl">İşi Sil</p>
+            <button className="flex h-[70px] p-7  text-white bg-blue-500 font-bold text-center text-xl rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600 cursor-pointer">
+              İşi Sil
             </button>
           </div>
         </div>
