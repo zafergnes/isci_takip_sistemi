@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import Button from "@mui/material/Button";
-import WalletWorkData from '../pages/WalletWorkData';
-const WalletWorkCard = ({payments}) => {
+const WalletWorkCard = ({ payments }) => {
   return (
     <div className="mx-auto p-5  ">
       <Link to={`/work/${payments.work_id}`}>
@@ -22,15 +21,13 @@ const WalletWorkCard = ({payments}) => {
           </div>
           <div className=" flex m-4 ml-15 items-end  gap-3">
             <Button className="" variant="contained">
-              <Link to={`/wallet-work-data/${payments.work_id}`}>
-                VERİLERİ GÖR
-              </Link>
+              <Link to={`/work/${payments.work_id}`}>VERİLERİ GÖR</Link>
             </Button>
           </div>
         </div>
       </Link>
     </div>
   );
-}
+};
 
 export default WalletWorkCard

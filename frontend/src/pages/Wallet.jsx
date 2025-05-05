@@ -24,14 +24,7 @@ const Wallet = () => {
           </Button>
         </Link>
       </div>
-      <div className="shadow-2xl">
-        <Link to={"/wallet-worker"}>
-          <Button variant="contained" className="w-[300px] h-[100px]">
-            <GiMoneyStack className="w-[60px]  h-[60px] mr-5" />
-            <p className="text-2xl font-bold">KENDİ HESABIM</p>
-          </Button>
-        </Link>
-      </div>
+
     </div>
   );
 };

@@ -16,15 +16,16 @@ import NoPage from "./pages/NoPage";
 //! Wallet
 import WalletWorker from "./pages/WalletWorker";
 import WalletWork from "./pages/WalletWork";
-import WalletWorkData from "./pages/WalletWorkData";
 import WalletWorkerData from "./pages/WalletWorkerData";
 import UpdateWorker from "./pages/UpdateWorker";
 import UpdateWork from "./pages/UpdateWork";
+import LoginRegisterPage from "./pages/LoginRegisterPage";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<LoginRegisterPage />} />
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />}></Route>
             <Route path="/add" element={<Add />}></Route>
@@ -40,7 +41,6 @@ function App() {
             <Route path="/wallet" element={<Wallet />} />
             <Route path="/wallet-worker" element={<WalletWorker />} />
             <Route path="/wallet-work" element={<WalletWork />} />
-            <Route path="/wallet-work-data/:id" element={<WalletWorkData />} />
             <Route
               path="/wallet-worker-data/:id"
               element={<WalletWorkerData />}
