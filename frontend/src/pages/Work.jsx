@@ -140,21 +140,19 @@ const Work = () => {
                           </p>
                         </div>
                         <div className="  flex  ml-10 justify-center items-center gap-5  ">
-                          <Link to={`/days_worked/${x.id}`}>
+                          <Link to={`/wallet-worker-data/${x.id}`}>
                             <button className="  flex w-[150px] h-[40px]  text-white  bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600  ">
                               <p className=" font-bold text-center ">
                                 Verileri Gör
                               </p>
                             </button>
                           </Link>
-                          <Link to={`/days_worked/${x.id}`}>
-                            <button
-                              onClick={alert}
-                              className=" flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer  items-center justify-center hover:bg-blue-600 mr-2 "
-                            >
-                              Çalışanı Çıkar
-                            </button>
-                          </Link>
+                          <button
+                            onClick={alert}
+                            className=" flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer  items-center justify-center hover:bg-blue-600 mr-2 "
+                          >
+                            Çalışanı Çıkar
+                          </button>
                         </div>
                       </div>
                     </Link>
