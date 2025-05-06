@@ -11,9 +11,9 @@ const client = new Client({
 
 async function check() {
   await client.connect();
-  const res = await client.query("SELECT $1::text as message", ["Hello world!"]);
-  console.log(res.rows[0].message); // Hello world!
-  await client.end();
+  // const res = await client.query("SELECT * FROM works");
+  // console.log(res.rows[0]);
+  // await client.end();
 }
 check();
 module.exports = client;
