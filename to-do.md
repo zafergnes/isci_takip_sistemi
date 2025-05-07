@@ -11,3 +11,5 @@ xl: → 1280px+
 
 2xl: → 1536px+   uyularak düzenlenecek.
 grid-cols-none Mobilde grid'i devre dışı bırak.
+
+! çalışan ekleme kısmına input file eklenecek
