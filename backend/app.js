@@ -23,19 +23,20 @@ app.get("/", (req, res) => {
 //! work
 app.post("/works", async (req, res) => {
   const result = await client.query(
-    "INSERT INTO works (employer_id,work_name,work_desc,address) VALUES ($1,$2,$3,$4)",
+    "INSERT INTO works (employer_id,work_name,work_desc,address,cost_of_work) VALUES ($1,$2,$3,$4,$5)",
     [
       req.body.employer_id,
       req.body.work_name,
       req.body.work_desc,
       req.body.address,
+      req.body.cost_of_work,
     ]
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });
 app.get("/works", async (req, res) => {
   const result = await client.query("SELECT * FROM works");
-  res.json({ data: result.rows[0] });
+  res.json({ data: result.rows });
 });
 
 //! workers
@@ -65,6 +66,43 @@ app.post("/workerimage", upload.single("file"), function (req, res, next) {
   res.json(req.file);
 });
 
+//! worker payments
+app.get("/worker-payments", async (req, res) => {
+  const result = await client.query("SELECT * FROM worker_payments");
+  res.json({ data: result.rows[0] });
+});
+
+app.post("/worker-payment", async (req, res) => {
+  const result = await client.query(
+    "INSERT INTO worker_payments (worker_id,amount_paid,employer_id,days_worked) VALUES ($1,$2,$3,$4,$5)",
+    [
+      req.body.worker_id,
+      req.body.amount_paid,
+      req.body.employer_id,
+      req.body.days_worked,
+    ]
+  );
+  res.json({ message: "Added new work", desc: result.rowCount });
+});
+
+//! work payment
+app.get("/worker-payments", async (req, res) => {
+  const result = await client.query("SELECT * FROM worker_payments");
+  res.json({ data: result.rows[0] });
+});
+
+app.post("/worker-payment", async (req, res) => {
+  const result = await client.query(
+    "INSERT INTO worker_payments (worker_id,amount_paid,employer_id,days_worked) VALUES ($1,$2,$3,$4,$5)",
+    [
+      req.body.worker_id,
+      req.body.amount_paid,
+      req.body.employer_id,
+      req.body.days_worked,
+    ]
+  );
+  res.json({ message: "Added new work", desc: result.rowCount });
+});
 
 
 app.listen(port, () => {
