@@ -20,7 +20,51 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello Node! " });
 });
 
-//! work
+
+/*  kullanıcıları getir */
+app.get("/employers", async (req, res) => {
+  const result = await client.query("SELECT * FROM employers");
+  res.json({ data: result.rows });
+});
+
+/*  kullanıcı ekle */
+app.post("/add-employer", async (req, res) => {
+  const result = await client.query(
+    "INSERT INTO employers (name,surname,phone_number,mail,password) VALUES ($1,$2,$3,$4,$5)",
+    [
+      req.body.name,
+      req.body.surname,
+      req.body.phone_number,
+      req.body.mail,
+      req.body.password,
+    ]
+  );
+  res.json({ message: "Added new work", desc: result.rowCount });
+});
+
+/* günlük yevmiye kontrolü ekle*/
+app.get("/worker-controls", async (req,res) => {
+  const result = await client.query("SELECT * FROM work_control")
+  res.json({ data: result.rows });
+})
+
+/* günlük yevmiye kontrolü ekle*/
+app.post("/add-worker-control", async (req, res) => {
+  const result = await client.query(
+    "INSERT INTO work_control (worker_id,work_id,date,employer_id,was_at_work) VALUES ($1,$2,$3,$4,$5)",
+    [
+      req.body.worker_id,
+      req.body.work_id,
+      req.body.date,
+      req.body.employer_id,
+      req.body.was_at_work,
+    ]
+  );
+  res.json({ message: "Added new work", desc: result.rowCount });
+});
+
+
+/*! iş ekle !*/
 app.post("/works", async (req, res) => {
   const result = await client.query(
     "INSERT INTO works (employer_id,work_name,work_desc,address,cost_of_work) VALUES ($1,$2,$3,$4,$5)",
@@ -34,17 +78,14 @@ app.post("/works", async (req, res) => {
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });
+
+/*! işleri getir !*/
 app.get("/works", async (req, res) => {
   const result = await client.query("SELECT * FROM works");
   res.json({ data: result.rows });
 });
 
-//! workers
-app.get("/workers", async (req, res) => {
-  const result = await client.query("SELECT * FROM workers");
-  res.json({ data: result.rows[0] });
-});
-
+/*! çalışan ekle !*/
 app.post("/workers", async (req, res) => {
   const result = await client.query(
     "INSERT INTO workers (name,surname,phone_number,mail,employer_id,work_id,wage,image) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)",
@@ -62,44 +103,43 @@ app.post("/workers", async (req, res) => {
   res.json({ message: "Added new work", desc: result.rowCount });
 });
 
+/*! çalışanları getir !*/
+app.get("/workers", async (req, res) => {
+  const result = await client.query("SELECT * FROM workers");
+  res.json({ data: result.rows[0] });
+});
+
+/*! çalışan fotoğrafı ekle !*/
 app.post("/workerimage", upload.single("file"), function (req, res, next) {
   res.json(req.file);
 });
 
-//! worker payments
+/*! çalışan ödemelerini getir !*/
 app.get("/worker-payments", async (req, res) => {
   const result = await client.query("SELECT * FROM worker_payments");
-  res.json({ data: result.rows[0] });
+  res.json({ data: result.rows });
 });
 
+/*! çalışan ödemesi ekle !*/
 app.post("/worker-payment", async (req, res) => {
   const result = await client.query(
-    "INSERT INTO worker_payments (worker_id,amount_paid,employer_id,days_worked) VALUES ($1,$2,$3,$4,$5)",
-    [
-      req.body.worker_id,
-      req.body.amount_paid,
-      req.body.employer_id,
-      req.body.days_worked,
-    ]
+    "INSERT INTO worker_payments (worker_id,amount_paid,employer_id) VALUES ($1,$2,$3)",
+    [req.body.worker_id, req.body.amount_paid, req.body.employer_id]
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });
 
-//! work payment
-app.get("/worker-payments", async (req, res) => {
-  const result = await client.query("SELECT * FROM worker_payments");
-  res.json({ data: result.rows[0] });
+/*! iş ödemelerini getir !*/
+app.get("/work-payments", async (req, res) => {
+  const result = await client.query("SELECT * FROM work_payments");
+  res.json({ data: result.rows });
 });
 
-app.post("/worker-payment", async (req, res) => {
+/*! iş ödemesi ekle !*/
+app.post("/work-payment", async (req, res) => {
   const result = await client.query(
-    "INSERT INTO worker_payments (worker_id,amount_paid,employer_id,days_worked) VALUES ($1,$2,$3,$4,$5)",
-    [
-      req.body.worker_id,
-      req.body.amount_paid,
-      req.body.employer_id,
-      req.body.days_worked,
-    ]
+    "INSERT INTO work_payments (work_id,amount_received,employer_id) VALUES ($1,$2,$3)",
+    [req.body.work_id, req.body.amount_received, req.body.employer_id]
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });
