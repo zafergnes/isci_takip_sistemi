@@ -64,7 +64,7 @@ const Worker = () => {
           </div>
         </div>
         <div className="flex  justify-between mx-20 mt-15 w-full  items-center  gap-2 ">
-          <Link to={`/days_worked/${workers.id}`}>
+          <Link to={`/wallet-worker-data/${workers.id}`}>
             <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
               <p className="font-bold text-center text-xl">Verileri Gör</p>
             </button>

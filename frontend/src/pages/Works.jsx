@@ -1,10 +1,20 @@
-import React from 'react'
-import Workcard from '../components/Workcard'
+import React, { useEffect, useState } from "react";
+import Workcard from "../components/Workcard";
 import { Link } from "react-router-dom";
 import { IoAddSharp } from "react-icons/io5";
+import { getWorks } from "../Api/Api";
 
 const Works = () => {
-  const works = [
+  const [works, setWorks] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      const allWorks = await getWorks();
+      setWorks(allWorks.data);
+    }
+    fetchData();
+  }, []);
+
+  const workss = [
     // fake data
     {
       id: 1,
@@ -60,9 +70,10 @@ const Works = () => {
   return (
     <>
       <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-5 m-auto w-[70%] ">
-        {works.map((x, i) => {
-          return <Workcard key={i} works={x} />;
-        })}
+        {works &&
+          works.map((x, i) => {
+            return <Workcard key={i} works={x} />;
+          })}
       </div>
       <div className="flex justify-center  items-center mt-3 gap-2">
         <Link to={"/create-work"}>
@@ -76,5 +87,4 @@ const Works = () => {
   );
 };
 
-
-export default Works
+export default Works;

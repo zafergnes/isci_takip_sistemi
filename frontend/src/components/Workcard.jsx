@@ -2,20 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Workcard = ({ works }) => {
-  let status = "";
-  switch (works.status) {
-    case 0:
-      status = "Başlanmadı";
-      break;
-    case 1:
-      status = "Devam Ediyor";
-      break;
-    case 2:
-      status = "Bitti";
-      break;
-    default:
-      status = "Belirtilmedi";
-  }
+
   const workers = [
     { id: 1, text: "Ali Topal" },
     { id: 2, text: "Yusuf Gunes" },
@@ -43,7 +30,7 @@ const Workcard = ({ works }) => {
             <b className="flex justify-center items-center font-bold ">
               İş Adresi : &nbsp;
             </b>{" "}
-            {works.work_address}
+            {works.address}
             <p className="flex justify-center items-center opacity-50 font-bold "></p>
           </div>
           <div className="p-2">
@@ -55,10 +42,7 @@ const Workcard = ({ works }) => {
                 </p>
               );
             })} */}
-            <div className="">
-              <b>İş durumu :&nbsp;</b>
-              {status}
-            </div>
+
             <div className="m-3">
               <p className="text-right">{works.work_start_date}</p>
             </div>

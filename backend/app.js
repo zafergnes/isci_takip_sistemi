@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const client = require('./db/conn.js');
+const cors = require("cors");
+const client = require("./db/conn.js");
 app.use(express.json());
-
+app.use(cors());
 //! multer
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -19,7 +20,6 @@ const upload = multer({ storage: storage });
 app.get("/", (req, res) => {
   res.json({ message: "Hello Node! " });
 });
-
 
 /*  kullanıcıları getir */
 app.get("/employers", async (req, res) => {
@@ -42,28 +42,6 @@ app.post("/add-employer", async (req, res) => {
   res.json({ message: "Added new work", desc: result.rowCount });
 });
 
-/* günlük yevmiye kontrolü ekle*/
-app.get("/worker-controls", async (req,res) => {
-  const result = await client.query("SELECT * FROM work_control")
-  res.json({ data: result.rows });
-})
-
-/* günlük yevmiye kontrolü ekle*/
-app.post("/add-worker-control", async (req, res) => {
-  const result = await client.query(
-    "INSERT INTO work_control (worker_id,work_id,date,employer_id,was_at_work) VALUES ($1,$2,$3,$4,$5)",
-    [
-      req.body.worker_id,
-      req.body.work_id,
-      req.body.date,
-      req.body.employer_id,
-      req.body.was_at_work,
-    ]
-  );
-  res.json({ message: "Added new work", desc: result.rowCount });
-});
-
-
 /*! iş ekle !*/
 app.post("/works", async (req, res) => {
   const result = await client.query(
@@ -82,6 +60,14 @@ app.post("/works", async (req, res) => {
 /*! işleri getir !*/
 app.get("/works", async (req, res) => {
   const result = await client.query("SELECT * FROM works");
+  res.json({ data: result.rows });
+});
+
+/* id'sine göre işi getir */
+app.get("/work/:id", async (req, res) => {
+  const result = await client.query(
+    `SELECT * FROM works WHERE id = ${req.params.id}`
+  );
   res.json({ data: result.rows });
 });
 
@@ -106,7 +92,15 @@ app.post("/workers", async (req, res) => {
 /*! çalışanları getir !*/
 app.get("/workers", async (req, res) => {
   const result = await client.query("SELECT * FROM workers");
-  res.json({ data: result.rows[0] });
+  res.json({ data: result.rows });
+});
+
+/* id'sine göre çalışanı getir */
+app.get("/worker/:id", async (req, res) => {
+  const result = await client.query(
+    `SELECT * FROM workers WHERE id = ${req.params.id}`
+  );
+  res.json({ data: result.rows });
 });
 
 /*! çalışan fotoğrafı ekle !*/
@@ -140,6 +134,36 @@ app.post("/work-payment", async (req, res) => {
   const result = await client.query(
     "INSERT INTO work_payments (work_id,amount_received,employer_id) VALUES ($1,$2,$3)",
     [req.body.work_id, req.body.amount_received, req.body.employer_id]
+  );
+  res.json({ message: "Added new work", desc: result.rowCount });
+});
+
+/* günlük yevmiye kontrolü ekle*/
+app.get("/worker-controls", async (req, res) => {
+  const result = await client.query("SELECT * FROM work_control");
+  res.json({ data: result.rows });
+});
+
+/* çalışan çalıştığı günleri getir*/
+app.get("/workeddays/:id", async (req, res) => {
+  // ? pg kütüphanesi veri tipi date olsa bile sonuna time ekliyor çözümü to_char()  :|
+  const result = await client.query(
+    `SELECT TO_CHAR(date, 'YYYY-MM-DD') date FROM work_control WHERE worker_id = ${req.params.id} AND  was_at_work = True`
+  );
+  res.json({ data: result.rows });
+});
+
+/* günlük yevmiye kontrolü ekle*/
+app.post("/add-worker-control", async (req, res) => {
+  const result = await client.query(
+    "INSERT INTO work_control (worker_id,work_id,date,employer_id,was_at_work) VALUES ($1,$2,$3,$4,$5)",
+    [
+      req.body.worker_id,
+      req.body.work_id,
+      req.body.date,
+      req.body.employer_id,
+      req.body.was_at_work,
+    ]
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });

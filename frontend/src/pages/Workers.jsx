@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import WorkerCard from "../components/WorkerCard";
 import { IoAddSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { getWorkers } from "../Api/Api";
 
 const Workers = () => {
-  const workers = [
+  const [workers, setWorkers] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      const allWorkers = await getWorkers();
+      setWorkers(allWorkers.data);
+    }
+    fetchData();
+  }, []);
+
+  const workerss = [
     //fake data
     {
       id: 1,
@@ -82,9 +92,10 @@ const Workers = () => {
   return (
     <>
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mx-auto w-[80%] ">
-        {workers.map((x) => {
-          return <WorkerCard workers={x} />;
-        })}
+        {workers &&
+          workers.map((x) => {
+            return <WorkerCard workers={x} />;
+          })}
       </div>
       <div className="flex justify-center  items-center mt-3 gap-2">
         <Link to={"/add-worker"}>
@@ -98,4 +109,4 @@ const Workers = () => {
   );
 };
 
-export default Workers
+export default Workers;
