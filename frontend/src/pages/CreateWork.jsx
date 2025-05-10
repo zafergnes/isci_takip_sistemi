@@ -4,15 +4,11 @@ const CreateWork = () => {
   const blankWork = {
     work_name: "",
     work_desc: "",
-    work_status: "",
+    cost_of_work: "",
     work_address: "",
   };
   const [newWork, setNewWork] = useState(blankWork);
-  const status = [
-    { text: "Başlanmadı", path: "/" },
-    { text: "Devam Ediyor", path: "/" },
-    { text: "Bitti", path: "/" },
-  ];
+
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[60%] p-5 rounded-2xl shadow-2xl">
@@ -57,22 +53,17 @@ const CreateWork = () => {
             }
           />
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
-            İş durumu
+            İş Bedeli
           </label>
-          <select
-            className="bg-white rounded h-10 my-2 p-2"
-            value={newWork.work_status}
+          <input
+            type="number"
+            required
+            className="bg-white h-10 border border-gray-300 rounded my-2 p-2"
+            value={newWork.cost_of_work}
             onChange={(e) =>
-              setNewWork({ ...newWork, work_status: e.target.value })
+              setNewWork({ ...newWork, cost_of_work: e.target.value })
             }
-          >
-            <option value="" default disabled>
-              İş Durumu Seç
-            </option>
-            {status.map((x) => {
-              return <option value={x.text}>{x.text}</option>;
-            })}
-          </select>
+          />
           <div className="mt-5 justify-end ">
             <Button variant="contained">EKLE</Button>
           </div>

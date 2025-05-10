@@ -10,6 +10,9 @@ const AddWorker = () => {
     work_id: "",
     wage: "",
   };
+  const handleUpload = () => {
+    // upload işlemleri
+  };
   const works = [
     { id: 1, work_name: "Kalıp İşi" },
     { id: 2, work_name: "Duvar İşi" },
@@ -66,6 +69,7 @@ const AddWorker = () => {
               setNewWorker({ ...newWorker, e_mail: e.target.value })
             }
           />
+
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Çalışacağı İş
           </label>
@@ -92,6 +96,17 @@ const AddWorker = () => {
             onChange={(e) =>
               setNewWorker({ ...newWorker, wage: e.target.value })
             }
+          />
+          <label
+            htmlFor=""
+            className="ml-1 mt-3 flex justify-center text-xl text-gray-700"
+          >
+            Fotoğraf
+          </label>
+          <input
+            type="file"
+            onChange={(e) => handleUpload(e)}
+            className="bg-white w-[300px] mx-auto border-2  cursor-pointer border-gray-500 rounded my-2 p-3"
           />
           <div className=" flex mt-5 justify-end ">
             <Button variant="contained" className="w-full h-15">
