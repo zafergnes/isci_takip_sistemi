@@ -137,6 +137,12 @@ app.get("/workpayments/:id", async (req, res) => {
 });
 
 /*! işin ödemelerinin toplamını getir !*/
+app.get("/walletworks", async (req, res) => {
+  const result = await client.query(`SELECT  w.*,  COALESCE(SUM(wp.amount_received), 0) AS total_amount_received FROM works w LEFT JOIN work_payments wp ON w.id = wp.work_id GROUP BY  w.id, w.employer_id, w.work_name, w.work_desc,  w.work_start_date, w.work_finish_date, w.address, w.cost_of_work;`);
+  res.json({ data: result.rows });
+});
+
+/* hem iş verilerini hem iş ödemelerini getir  */
 app.get("/sumworkpayments/:id", async (req, res) => {
   const result = await client.query(`SELECT sum(amount_received) as sumamount FROM work_payments WHERE work_id = ${req.params.id}`);
   res.json({ data: result.rows });

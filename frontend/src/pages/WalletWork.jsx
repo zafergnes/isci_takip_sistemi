@@ -1,8 +1,19 @@
 import React from 'react'
 import WalletWorkCard from "../components/WalletWorkCard";
+import { getWalletWorks } from '../Api/Api';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const WalletWork = () => {
-  const payments = [
+  const [payments, setPayments] = useState(null);
+    useEffect(() => {
+      async function fetchData() {
+        const allWorksData = await getWalletWorks();
+        setPayments(allWorksData.data);
+      }
+      fetchData();
+    }, []);
+  const payment = [
     {
       id: 1,
       work_id: 1,
@@ -51,7 +62,7 @@ const WalletWork = () => {
   ];
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1">
-      {payments.map((x, i) => {
+      {payments && payments.map((x, i) => {
         return <WalletWorkCard payments={x} key={i} />;
       })}
     </div>

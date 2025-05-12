@@ -67,3 +67,12 @@ export const getWorkerById = (id) => {
       return error;
     });
 };
+export const getWalletWorks = () => {
+  return axios.get(apiURL + '/walletworks/')
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

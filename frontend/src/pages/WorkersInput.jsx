@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import WorkerInput from "../components/WorkerInput";
 import Button from "@mui/material/Button";
+import { getWorkers } from "../Api/Api";
+import { useEffect } from "react";
 
 const WorkersInput = () => {
   // güncel zaman
@@ -13,7 +15,15 @@ const WorkersInput = () => {
     return `${year}-${month}-${day}`;
   };
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
-  const workers = [
+  const [workers, setWorkers] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      const allWorkers = await getWorkers();
+      setWorkers(allWorkers.data);
+    }
+    fetchData();
+  }, []);
+  const workerss = [
     //fake data
     {
       id: 1,
@@ -90,6 +100,7 @@ const WorkersInput = () => {
   ];
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
+
       <p className=" font-bold text-xl m-auto mb-3">Veri Girileceği Zaman</p>
       <input
         type="date"
@@ -98,7 +109,7 @@ const WorkersInput = () => {
         className="flex items-center justify-center w-70 h-30 m-auto bg-white rounded-4xl text-2xl font-bold mb-3"
       />
 
-      {workers.map((x, i) => {
+      {workers && workers.map((x, i) => {
         return <WorkerInput workers={x} date={selectedDate} />;
       })}
       <div className="flex justify-center items-center ">

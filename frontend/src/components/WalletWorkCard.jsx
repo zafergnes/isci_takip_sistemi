@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 const WalletWorkCard = ({ payments }) => {
   return (
     <div className="mx-auto p-5  ">
-      <Link to={`/work/${payments.work_id}`}>
+      <Link to={`/work/${payments.id}`}>
         <div className="flex flex-wrap items-center bg-white shadow-md rounded-xl m-3 w-[1300px] h-[150px] p-5">
           <h2 className="mt-1 text-xl text-center font-bold">
             {payments.work_name}
@@ -12,11 +12,13 @@ const WalletWorkCard = ({ payments }) => {
           <div className="flex  flex-wrap justify-center items-center m-auto">
             <div className="flex  mx-auto ">
               <b className="ml-5">İş Adresi :&nbsp; </b>
-              {payments.work_addres}
+              {payments.address}
               <b className="ml-5">Alınan Tutar : &nbsp;</b>
-              {payments.to_be_taken}
+              {payments.total_amount_received}
               <b className="ml-5">Alınacak Tutar: &nbsp;</b>
-              {payments.received}
+              {(payments&&payments.cost_of_work)-(payments&&payments.total_amount_received)}
+              <b className="ml-5">İş Bedeli: &nbsp;</b>
+              {payments.cost_of_work}
             </div>
           </div>
           <div className=" flex m-4 ml-15 items-end  gap-3">
