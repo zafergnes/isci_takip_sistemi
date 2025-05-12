@@ -66,7 +66,7 @@ app.get("/works", async (req, res) => {
 /* id'sine göre işi getir */
 app.get("/workbyid/:id", async (req, res) => {
   const result = await client.query(
-    `SELECT * FROM works WHERE id = ${req.params.id}`
+    `SELECT *,TO_CHAR(work_start_date, 'DD - MM - YYYY') AS date FROM works WHERE id = ${req.params.id}`
   );
   res.json({ data: result.rows });
 });
@@ -98,7 +98,7 @@ app.get("/workers", async (req, res) => {
 /* id'sine göre çalışanı getir */
 app.get("/worker/:id", async (req, res) => {
   const result = await client.query(
-    `SELECT * FROM workers WHERE id = ${req.params.id}`
+    `SELECT *,work_name,TO_CHAR(work_start_date, 'DD - MM - YYYY') AS date FROM workers  INNER JOIN works ON workers.work_id = works.id WHERE workers.id = ${req.params.id};`
   );
   res.json({ data: result.rows });
 });
@@ -132,7 +132,7 @@ app.post("/worker-payment", async (req, res) => {
 
 /*! işin ödemelerini getir !*/
 app.get("/workpayments/:id", async (req, res) => {
-  const result = await client.query(`SELECT * FROM work_payments WHERE work_id = ${req.params.id}`);
+  const result = await client.query(`SELECT *,TO_CHAR(date, 'DD-MM-YYYY') AS formatted_date FROM work_payments WHERE work_id = ${req.params.id}`);
   res.json({ data: result.rows });
 });
 

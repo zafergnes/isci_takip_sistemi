@@ -21,7 +21,7 @@ const Workcard = ({ works }) => {
               {works.work_name}
             </h2>
           </div>
-          <div className="flex h-[100px]">
+          <div className="flex h-[150px]">
             <p className="flex justify-center items-center opacity-50 font-bold m-2">
               {works.work_desc}
             </p>

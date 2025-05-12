@@ -26,78 +26,7 @@ const Work = () => {
   }, []);
 
 
-  const works = {
-    //fake data
 
-    id: 3,
-    work_name: "Sıva İşi",
-    work_desc:
-      "İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat İstanbuldaki 3 katlı inşaat  ",
-    work_start_date: "2024 08 07",
-    status: 0,
-    work_address: "İstanbuldaki 3 katlı inşaat",
-    cost_of_work: 44000,
-    amount_to_be_received: 30000,
-    amount_received: 14000,
-    payments: [
-      { id: 1, amount_received: 5000, amount_received_date: "2025-05-06" },
-      { id: 2, amount_received: 3000, amount_received_date: "2025-05-15" },
-      { id: 3, amount_received: 4000, amount_received_date: "2025-05-28" },
-      { id: 4, amount_received: 2000, amount_received_date: "2025-06-08" },
-    ],
-  };
-  const worker = [
-    {
-      id: 1,
-      name: "Yusuf",
-      surname: "Boncuk",
-      phone_number: "0542 123 45 56",
-      email: "yusufboncuk@gmail.com",
-      img: "https://i.pravatar.cc/302",
-      wage: 2500,
-      registration_date: "2023-11-15",
-    },
-    {
-      id: 2,
-      name: "Ali",
-      surname: "Topal",
-      phone_number: "0542 123 45 56",
-      email: "alitopal@gmail.com",
-      img: "https://i.pravatar.cc/301",
-      wage: 2500,
-      registration_date: "2023-05-06",
-    },
-    {
-      id: 3,
-      name: "Mehmet",
-      surname: "Şimşek",
-      phone_number: "0542 123 45 56",
-      email: "mehmetsimsek@gmail.com",
-      img: "https://i.pravatar.cc/303",
-      wage: 2500,
-      registration_date: "2024-08-16",
-    },
-    {
-      id: 4,
-      name: "Mert",
-      surname: "Bayram",
-      phone_number: "0542 123 45 56",
-      email: "mertbayram@gmail.com",
-      img: "https://i.pravatar.cc/304",
-      wage: 2500,
-      registration_date: "2024-01-01",
-    },
-    {
-      id: 5,
-      name: "Enes",
-      surname: "Kara",
-      phone_number: "0542 123 45 56",
-      email: "eneskara@gmail.com",
-      img: "https://i.pravatar.cc/306",
-      wage: 2500,
-      registration_date: "2023-05-06",
-    },
-  ];
   const alert = () => {
     if (
       confirm(
@@ -117,19 +46,21 @@ const Work = () => {
             </h1>
             <span className="flex px-5 pt-2 justify-end">
               <b>İşe Başlangıç Tarihi :&nbsp;</b>
-              {work.work_start_date}
+              {work.date}
             </span>
           </div>
           <div className=" px-4 ">
             <label className=" text-xl font-bold italic ">Açıklama </label>
             <p className="  text-[17px] ">{work.work_desc}</p>
           </div>
+
+          {/* İşte Çalışan İşçiler */}
           <div className=" flex flex-col  pl-4 items-start ">
             <div>
               <p className=" my-5 font-bold text-xl italic ">
                 Çalışan İşçiler ;
               </p>
-              <div className="bg-gray-300 p-1 rounded-4xl mx-auto  shadow-2xl">
+              <div className="bg-gray-300 p-1 rounded-4xl mx-auto w-full ml-5 shadow-2xl min-w-[]">
                 {
                 workers && workers.map((x, i) => {
                   return (
@@ -141,11 +72,7 @@ const Work = () => {
                           className="  h-[60px]  mx-3 my-1 rounded-full "
                         />
                         <div className="  w-[130px] ">
-                          <p
-                            className="
-                          font-bold
-                        "
-                          >
+                          <p className="font-bold ">
                             {x.name + " " + x.surname}
                           </p>
                         </div>
@@ -186,6 +113,8 @@ const Work = () => {
               </div>
             </div>
           </div>
+
+          {/* İş Hakkında Bilgiler */}
           <div className="flex h-[60px] w-[60%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
             <p>
               <b>İş Bedeli : &nbsp;</b>
@@ -194,14 +123,14 @@ const Work = () => {
 
             <p>
               <b>Alınacak Tutar : &nbsp;</b>
-              {works.amount_to_be_received}
+            {(work &&work.cost_of_work)- (sumPayments &&sumPayments.sumamount)}
             </p>
-
             <p>
               <b>Alınan Tutar : &nbsp;</b>
-              {sumPayments &&sumPayments.sumamount}
+              {sumPayments && sumPayments.sumamount}
             </p>
           </div>
+
           {/* Ödemeler */}
           <div className="flex flex-col p-7 w-[50%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
             {workPayments && workPayments.map((x, i) => {
@@ -211,7 +140,7 @@ const Work = () => {
                   <b>Alınan Tutar: &nbsp;</b>
                   {x.amount_received}&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
                   <b>Tarih:&nbsp;</b>
-                  {x.date}
+                  {x.formatted_date}
                 </p>
               );
             })}
@@ -219,6 +148,8 @@ const Work = () => {
               Ödeme Ekle
             </button>
           </div>
+
+          {/* Bottom Butonlar */}
           <div className="flex w-full mt-15 justify-center gap-25 items-center">
             <Link to={`/update-work/${work.id}`}>
               <button className="flex h-[70px] p-7 text-white font-bold text-center text-xl bg-blue-500 rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600 cursor-pointer">

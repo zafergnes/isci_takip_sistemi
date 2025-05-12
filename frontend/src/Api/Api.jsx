@@ -58,3 +58,12 @@ export const getSumWorkPayments = (id) => {
       return error;
     });
 };
+export const getWorkerById = (id) => {
+  return axios.get(apiURL + '/worker/' + id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
