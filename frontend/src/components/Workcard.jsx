@@ -21,7 +21,7 @@ const Workcard = ({ works }) => {
               {works.work_name}
             </h2>
           </div>
-          <div className="flex">
+          <div className="flex h-[100px]">
             <p className="flex justify-center items-center opacity-50 font-bold m-2">
               {works.work_desc}
             </p>
@@ -44,14 +44,14 @@ const Workcard = ({ works }) => {
             })} */}
 
             <div className="m-3">
-              <p className="text-right">{works.work_start_date}</p>
+              <p className="text-right">{works.date}</p>
             </div>
           </div>
-          <div>
+          <div className=''>
             <Link to={`/update-work/${works.id}`}>
-              <button className="px-3 w-full py-1 bg-blue-500  cursor-pointer text-white rounded hover:bg-blue-600">
-                <p className="font-bold text-center text-[17px]">
-                  İŞİ BİLGİLERİNİ DÜZENLE
+              <button className="px-3 w-full  py-1 bg-blue-500 m-2 cursor-pointer text-white rounded hover:bg-blue-600">
+                <p className="font-bold text-center text-[17px] p-1">
+                  İŞ BİLGİLERİNİ DÜZENLE
                 </p>
               </button>
             </Link>

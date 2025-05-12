@@ -59,12 +59,12 @@ app.post("/works", async (req, res) => {
 
 /*! işleri getir !*/
 app.get("/works", async (req, res) => {
-  const result = await client.query("SELECT * FROM works");
+  const result = await client.query("SELECT *,TO_CHAR(work_start_date, 'DD-MM-YYYY') AS date FROM works");
   res.json({ data: result.rows });
 });
 
 /* id'sine göre işi getir */
-app.get("/work/:id", async (req, res) => {
+app.get("/workbyid/:id", async (req, res) => {
   const result = await client.query(
     `SELECT * FROM works WHERE id = ${req.params.id}`
   );
@@ -102,6 +102,13 @@ app.get("/worker/:id", async (req, res) => {
   );
   res.json({ data: result.rows });
 });
+/* iş id'sine göre çalışanı getir */
+app.get("/workerbyworkid/:id", async (req, res) => {
+  const result = await client.query(
+    `SELECT *,TO_CHAR(registration_date, 'DD-MM-YYYY') AS date FROM workers WHERE work_id = ${req.params.id}`
+  );
+  res.json({ data: result.rows });
+});
 
 /*! çalışan fotoğrafı ekle !*/
 app.post("/workerimage", upload.single("file"), function (req, res, next) {
@@ -123,9 +130,15 @@ app.post("/worker-payment", async (req, res) => {
   res.json({ message: "Added new work", desc: result.rowCount });
 });
 
-/*! iş ödemelerini getir !*/
-app.get("/work-payments", async (req, res) => {
-  const result = await client.query("SELECT * FROM work_payments");
+/*! işin ödemelerini getir !*/
+app.get("/workpayments/:id", async (req, res) => {
+  const result = await client.query(`SELECT * FROM work_payments WHERE work_id = ${req.params.id}`);
+  res.json({ data: result.rows });
+});
+
+/*! işin ödemelerinin toplamını getir !*/
+app.get("/sumworkpayments/:id", async (req, res) => {
+  const result = await client.query(`SELECT sum(amount_received) as sumamount FROM work_payments WHERE work_id = ${req.params.id}`);
   res.json({ data: result.rows });
 });
 

@@ -13,7 +13,6 @@ const Works = () => {
     }
     fetchData();
   }, []);
-
   const workss = [
     // fake data
     {
@@ -75,7 +74,7 @@ const Works = () => {
             return <Workcard key={i} works={x} />;
           })}
       </div>
-      <div className="flex justify-center  items-center mt-3 gap-2">
+      <div className="flex justify-center  items-center mt-10 gap-2">
         <Link to={"/create-work"}>
           <button className="flex items-center justify-center w-[340px] gap-6 h-[70px] px-3  border-4  border-gray-700 py-1 bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
             <IoAddSharp className="  w-[40px] h-[40px]  " />
