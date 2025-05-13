@@ -1,20 +1,47 @@
 import React , { useState}from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '@mui/material/Button';
-
+import { useEffect } from 'react';
+import { getWorkById } from '../Api/Api';
 const UpdateWork = () => {
-  const blankWork = {
-    work_name: "Düzenlenecek İşin Adı ",
-    work_desc: "Düzenlenecek İş Hakkında Açıklama",
-    work_status: "İşin Durumu",
-    work_address: "Düzenlenecek işin Adresi",
+
+  const [newWork, setNewWork] = useState({
+      work_name: "",
+      work_desc: "",
+      cost_of_work: "",
+      work_address: "",
+    });
+
+  let { id } = useParams();
+    const [work, setWork] = useState(null);
+    useEffect(() => {
+      async function fetchData() {
+        const allWork = await getWorkById(id);
+        setWork(allWork.data[0]);
+
+      }
+      fetchData();
+    }, [id]);
+
+    useEffect(() => {
+      if (work) {
+        setNewWork({
+          work_name: work.work_name || "",
+          work_desc: work.work_desc || "",
+          cost_of_work: work.cost_of_work || "",
+          work_address: work.address || "",
+        });
+      }
+    }, [work]);
+
+    const blankWork = {
+        work_name:work&&work.work_name,
+        work_desc: work&&work.work_desc,
+        cost_of_work: work&&work.cost_of_work,
+        work_address: work&&work.address,
   };
-  const [newWork, setNewWork] = useState(blankWork);
-  const status = [
-    { text: "Başlanmadı", path: "/" },
-    { text: "Devam Ediyor", path: "/" },
-    { text: "Bitti", path: "/" },
-  ];
+
+
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[60%] p-5 rounded-2xl shadow-2xl">
@@ -57,23 +84,18 @@ const UpdateWork = () => {
               setNewWork({ ...newWork, work_address: e.target.value })
             }
           />
+
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
-            İş durumu
+            İş Bedeli
           </label>
-          <select
-            className="bg-white rounded h-10 my-2 p-2"
-            value={newWork.work_status}
+          <input
+            type="number"
+            required
+            className="bg-white h-10 border border-gray-300 rounded my-2 p-2"
+            value={newWork.cost_of_work}
             onChange={(e) =>
-              setNewWork({ ...newWork, work_status: e.target.value })
-            }
-          >
-            <option value="" default disabled>
-              İş Durumu Seç
-            </option>
-            {status.map((x) => {
-              return <option value={x.text}>{x.text}</option>;
-            })}
-          </select>
+              setNewWork({ ...newWork, cost_of_work: e.target.value })
+            }/>
           <div className="mt-5 flex justify-center">
             <Button
               className="flex justify-center items-center mx-auto w-[260px] h-[70px]"

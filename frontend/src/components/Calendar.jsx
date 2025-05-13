@@ -17,7 +17,7 @@ const Calendar = ({ workeddays }) => {
 
   if (!workedThisMonth) {
     return (
-      <div className="p-4 text-center text-gray-600 font-medium">
+      <div className="p-4 text-center text-gray-600 font-bold">
         Bu ay çalışılmadı
       </div>
     );

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
+
+
 import { Link, useParams } from "react-router-dom";
 import { getWorkById , getWorkerByWorkId ,getWorkPaymentsByWorkId ,getSumWorkPayments} from "../Api/Api";
 
@@ -39,8 +41,8 @@ const Work = () => {
   return (
     <div>
       <div className=" flex w-[70%] mx-auto p-5 bg-white rounded-3xl justify-center items-center ">
-        {work && <div>
-          <div>
+        {work && <div className="">
+          <div className="min-w-[800px] mx-auto">
             <h1 className=" flex text-3xl font-bold text-center justify-center ">
               {work.work_name}
             </h1>
@@ -55,8 +57,7 @@ const Work = () => {
           </div>
 
           {/* İşte Çalışan İşçiler */}
-
-          <div className="bg-gray-300 p-1 rounded-4xl mx-auto w-full ml-5 shadow-2xl min-w-[]">
+          <div className="bg-gray-300 p-1 rounded-4xl mt-10 mx-auto w-[full] ml-5 shadow-2xl ">
   {workers && workers.length > 0 ? (
     workers.map((x, i) => {
       return (
@@ -111,7 +112,7 @@ const Work = () => {
 
 
           {/* İş Hakkında Bilgiler */}
-          <div className="flex h-[60px] w-[60%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
+          <div className="flex h-[60px] w-[60%] min-w-[700px] my-10 p-3 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
             <p>
               <b>İş Bedeli : &nbsp;</b>
               {work.cost_of_work}
@@ -119,17 +120,19 @@ const Work = () => {
 
             <p>
               <b>Alınacak Tutar : &nbsp;</b>
+
             {(work &&work.cost_of_work)- (sumPayments &&sumPayments.sumamount)}
             </p>
             <p>
               <b>Alınan Tutar : &nbsp;</b>
-              {sumPayments && sumPayments.sumamount}
+              <span>{sumPayments && sumPayments.sumamount ? sumPayments.sumamount : 0}</span>
+
             </p>
           </div>
 
           {/* Ödemeler */}
           <div className="flex flex-col p-7 w-[50%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
-            {workPayments && workPayments.map((x, i) => {
+            {workPayments && workPayments.length > 0 ? workPayments.map((x, i) => {
               return (
                 <p>
                   <b>{i + 1}-&nbsp;&nbsp;</b>
@@ -139,7 +142,7 @@ const Work = () => {
                   {x.formatted_date}
                 </p>
               );
-            })}
+            }):<p className="text-gray-600 font-bold">İşten Ödeme Alınmadı !</p>}
             <button className="flex h-[40px] p-7 text-white bg-gray-600 rounded-xl shadow-2xl items-center justify-center font-bold text-center text-xl hover:bg-blue-600 cursor-pointer">
               Ödeme Ekle
             </button>
