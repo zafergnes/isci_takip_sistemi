@@ -15,4 +15,8 @@ grid-cols-none Mobilde grid'i devre dışı bırak.
 ! çalışan ekleme kısmına input file eklenecek
 
 
-iş ekleme kısmına iş bedeli eklenecek (veri tabanı sorgularımı kolaylaştıracak bir çok kolondan kurtaracak)
+iş ekleme kısmına iş bedeli eklenecek (veri tabanı sorgularımı kolaylaştıracak bir çok kolondan kurtaracak)4
+
+
+
+ödeme ekle sayfası yapılacak

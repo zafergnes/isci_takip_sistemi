@@ -121,6 +121,36 @@ app.get("/worker-payments", async (req, res) => {
   res.json({ data: result.rows });
 });
 
+/* wallet worker data sayfası gereken veriler*/
+app.get("/walletworkerdata", async (req, res) => {
+  const result = await client.query(`SELECT
+  w.*,
+  COALESCE(wp.amount_paid, 0) AS amount_paid,
+  COALESCE(wc.work_days_count, 0) AS days_worked,
+  wc.workeddays
+FROM workers w
+LEFT JOIN (
+  SELECT
+    worker_id,
+    SUM(amount_paid) AS amount_paid
+  FROM worker_payments
+  GROUP BY worker_id
+) wp ON w.id = wp.worker_id
+LEFT JOIN (
+  SELECT
+    worker_id,
+    COUNT(*) AS work_days_count,
+    array_agg(TO_CHAR(date, 'YYYY-MM-DD')) AS workeddays
+  FROM work_control
+  WHERE was_at_work = TRUE
+  GROUP BY worker_id
+) wc ON w.id = wc.worker_id
+`);
+  res.json({ data: result.rows });
+});
+
+
+
 /*! çalışan ödemesi ekle !*/
 app.post("/worker-payment", async (req, res) => {
   const result = await client.query(
@@ -165,9 +195,8 @@ app.get("/worker-controls", async (req, res) => {
 
 /* çalışan çalıştığı günleri getir*/
 app.get("/workeddays/:id", async (req, res) => {
-  // ? pg kütüphanesi veri tipi date olsa bile sonuna time ekliyor çözümü to_char()  :|
   const result = await client.query(
-    `SELECT TO_CHAR(date, 'YYYY-MM-DD') date FROM work_control WHERE worker_id = ${req.params.id} AND  was_at_work = True`
+    `SELECT ARRAY_AGG(TO_CHAR(date, 'YYYY-MM-DD')) AS workedDays FROM work_control WHERE worker_id = ${req.params.id} AND  was_at_work = True`
   );
   res.json({ data: result.rows });
 });

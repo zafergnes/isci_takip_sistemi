@@ -13,7 +13,6 @@ const Workers = () => {
     }
     fetchData();
   }, []);
-
   const workerss = [
     //fake data
     {
@@ -89,6 +88,7 @@ const Workers = () => {
       wage: 2000,
     },
   ];
+
   return (
     <>
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mx-auto w-[80%] ">

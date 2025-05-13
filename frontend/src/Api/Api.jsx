@@ -76,3 +76,23 @@ export const getWalletWorks = () => {
       return error;
     });
 };
+export const getDaysWorked= (id) => {
+  return axios.get(apiURL + '/workeddays/'+id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+/* wallet worker data sayfası */
+export const getWalletWorkerData= () => {
+  return axios.get(apiURL + '/walletworkerdata/')
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

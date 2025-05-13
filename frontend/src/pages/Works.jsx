@@ -14,9 +14,17 @@ const Works = () => {
     fetchData();
   }, []);
 
-
+  if(!works)
+  {
+    return (
+      <div className="p-4 text-center text-gray-600 font-medium">
+        Kayıtlı İş Bulunamadı
+      </div>
+    )
+  }
   return (
     <>
+
       <div className="grid sm:grid-cols-2 md:grid-cols-2 gap-5 m-auto w-[70%] ">
         {works &&
           works.map((x, i) => {

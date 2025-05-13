@@ -55,64 +55,60 @@ const Work = () => {
           </div>
 
           {/* İşte Çalışan İşçiler */}
-          <div className=" flex flex-col  pl-4 items-start ">
-            <div>
-              <p className=" my-5 font-bold text-xl italic ">
-                Çalışan İşçiler ;
-              </p>
-              <div className="bg-gray-300 p-1 rounded-4xl mx-auto w-full ml-5 shadow-2xl min-w-[]">
-                {
-                workers && workers.map((x, i) => {
-                  return (
-                    <Link to={`/worker/${x.id}`}>
-                      <div className=" flex  justify-start items-center border my-2 py-2 bg-gray-200 border-gray-400 rounded-4xl ">
-                        <p className="  m-2 font-bold text-xl ">{i + 1}</p>
-                        <img
-                          src={x.img}
-                          className="  h-[60px]  mx-3 my-1 rounded-full "
-                        />
-                        <div className="  w-[130px] ">
-                          <p className="font-bold ">
-                            {x.name + " " + x.surname}
-                          </p>
-                        </div>
-                        <div className=" flex ">
-                          <p className=" ml-5 ">
-                            <b>Telefon :&nbsp;</b>
-                            {x.phone_number}
-                          </p>
-                          <p className="  ml-5  ">
-                            <b>Yevmiye :&nbsp;</b>
-                            {x.wage}
-                          </p>
-                          <p className="  ml-5  ">
-                            <b>Başlama Tarihi:&nbsp;</b>
-                            {x.date}
-                          </p>
-                        </div>
-                        <div className="  flex  ml-10 justify-center items-center gap-5  ">
-                          <Link to={`/wallet-worker-data/${x.id}`}>
-                            <button className="  flex w-[150px] h-[40px]  text-white  bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600  ">
-                              <p className=" font-bold text-center ">
-                                Verileri Gör
-                              </p>
-                            </button>
-                          </Link>
-                          <button
-                            onClick={alert}
-                            className=" flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer  items-center justify-center hover:bg-blue-600 mr-2 "
-                          >
-                            Çalışanı Çıkar
-                          </button>
-                        </div>
-                      </div>
-                    </Link>
 
-                  );
-                }) }
-              </div>
+          <div className="bg-gray-300 p-1 rounded-4xl mx-auto w-full ml-5 shadow-2xl min-w-[]">
+  {workers && workers.length > 0 ? (
+    workers.map((x, i) => {
+      return (
+        <Link to={`/worker/${x.id}`} key={x.id}>
+          <div className="flex justify-start items-center border my-2 py-2 bg-gray-200 border-gray-400 rounded-4xl">
+            <p className="m-2 font-bold text-xl">{i + 1}</p>
+            <img
+              src={x.img}
+              className="h-[60px] mx-3 my-1 rounded-full"
+
+            />
+            <div className="w-[130px]">
+              <p className="font-bold">{x.name + " " + x.surname}</p>
+            </div>
+            <div className="flex">
+              <p className="ml-5">
+                <b>Telefon :&nbsp;</b>
+                {x.phone_number}
+              </p>
+              <p className="ml-5">
+                <b>Yevmiye :&nbsp;</b>
+                {x.wage}
+              </p>
+              <p className="ml-5">
+                <b>Başlama Tarihi:&nbsp;</b>
+                {x.date}
+              </p>
+            </div>
+            <div className="flex ml-10 justify-center items-center gap-5">
+              <Link to={`/wallet-worker-data/${x.id}`}>
+                <button className="flex w-[150px] h-[40px] text-white bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600">
+                  <p className="font-bold text-center">Verileri Gör</p>
+                </button>
+              </Link>
+              <button
+                onClick={alert}
+                className="flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600 mr-2"
+              >
+                Çalışanı Çıkar
+              </button>
             </div>
           </div>
+        </Link>
+      );
+    })
+  ) : (
+    <p className="text-center text-gray-700 font-semibold p-5">
+      Çalışan işçi bulunamadı
+    </p>
+  )}
+</div>
+
 
           {/* İş Hakkında Bilgiler */}
           <div className="flex h-[60px] w-[60%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
