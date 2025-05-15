@@ -138,8 +138,8 @@ app.get("/worker-payments", async (req, res) => {
   res.json({ data: result.rows });
 });
 
-/* wallet worker data sayfası gereken veriler*/
-app.get("/walletworkerdata", async (req, res) => {
+/* wallet worker  sayfası gereken veriler*/
+app.get("/walletworkersdata", async (req, res) => {
   const result = await client.query(`SELECT
   w.*,
   COALESCE(wp.amount_paid, 0) AS amount_paid,
@@ -162,6 +162,43 @@ LEFT JOIN (
   WHERE was_at_work = TRUE
   GROUP BY worker_id
 ) wc ON w.id = wc.worker_id
+`);
+  res.json({ data: result.rows });
+});
+/* wallet worker data sayfası gereken veriler*/
+app.get("/walletworkerdata/:id", async (req, res) => {
+  const result = await client.query(`SELECT
+  w.*,
+  TO_CHAR(w.registration_date, 'DD-MM-YYYY') AS registration_date,
+  COALESCE(wp.total_payments, 0) AS total_payments,
+  COALESCE(wp.payment_details, ARRAY[]::JSON[]) AS payments,
+  COALESCE(wc.days_worked, 0) AS days_worked,
+  COALESCE(wc.work_dates, ARRAY[]::TEXT[]) AS work_dates
+FROM workers w
+LEFT JOIN (
+  SELECT
+    worker_id,
+    SUM(amount_paid) AS total_payments,
+    array_agg(
+      json_build_object(
+        'id', id,
+        'amount_paid', amount_paid,
+        'amount_paid_time', TO_CHAR(amount_paid_time, 'DD-MM-YYYY')
+      )
+    ) AS payment_details
+  FROM worker_payments
+  GROUP BY worker_id
+) wp ON w.id = wp.worker_id
+LEFT JOIN (
+  SELECT
+    worker_id,
+    array_agg(TO_CHAR(date, 'YYYY-MM-DD')) AS work_dates,
+    array_length(array_agg(TO_CHAR(date, 'YYYY-MM-DD')), 1) AS days_worked
+  FROM work_control
+  WHERE was_at_work = TRUE
+  GROUP BY worker_id
+) wc ON w.id = wc.worker_id
+WHERE w.id = ${req.params.id};
 `);
   res.json({ data: result.rows });
 });

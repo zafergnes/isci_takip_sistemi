@@ -95,9 +95,9 @@ export const getDaysWorked= (id) => {
     });
 };
 
-/* wallet worker data sayfası */
+/* wallet worker  sayfası */
 export const getWalletWorkerData= () => {
-  return axios.get(apiURL + '/walletworkerdata/')
+  return axios.get(apiURL + '/walletworkersdata/')
     .then((result) => {
       return result.data;
     })
@@ -105,6 +105,17 @@ export const getWalletWorkerData= () => {
       return error;
     });
 };
+/* wallet worker data sayfası */
+export const getWalletWorkerDataByWorkerID= (id) => {
+  return axios.get(apiURL + '/walletworkerdata/'+id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 
 /* çalışanın id sine göre çalıştığı işin id'sini ve iş adını getir */
 export const getWorkByWorkerId= (id) => {

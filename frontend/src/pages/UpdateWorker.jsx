@@ -24,7 +24,7 @@ const UpdateWorker = () => {
       const resolvedWorker = response?.data?.[0];
       setWorker(resolvedWorker);
       const getworks = await getWorks();
-      setWorks(getworks.data);
+      setWorks(getworks?.data);
       const getWorkData = await getWorkByWorkerId(id);
       setWorkByWorker(getWorkData.data?.[0]);
     }
@@ -98,6 +98,7 @@ const UpdateWorker = () => {
           </label>
           <input
             type="mail"
+            placeholder="ornek@gmail.com"
             value={newWorker.mail}
             className="bg-white w-full mt-3 border border-gray-300 h-10 rounded my-2 p-2"
             onChange={(e) =>
@@ -114,9 +115,6 @@ const UpdateWorker = () => {
               setNewWorker({ ...newWorker, work_id: e.target.value })
             }
           >
-            <option value={newWorker.work_id}  default disabled>
-            {newWorker.work_name}
-            </option>
             {Array.isArray(works) && works.map((x, i) => {
               return <option key={i} value={x.id}>{x.work_name}</option>;
             })}

@@ -4,11 +4,10 @@ import styled from "styled-components";
 
 const WorkerInput = ({ workers, date }) => {
   let dates = date;
-  console.log(date);
   let WorkControl = {
     worker_id: workers.id,
     work_id: workers.work_id,
-    was_at_work: 0,
+    was_at_work: false,
     date: dates,
   };
   useEffect(() => {
@@ -40,7 +39,7 @@ const WorkerInput = ({ workers, date }) => {
                 {workers.phone_number}
                 <b className="ml-5">Çalıştığı iş : &nbsp;</b>
                 {workers.work_id}
-                <b className="ml-5">Yövmiye : &nbsp;</b>
+                <b className="ml-5">Yevmiye : &nbsp;</b>
                 {workers.wage}
               </div>
             </div>
@@ -60,7 +59,7 @@ const WorkerInput = ({ workers, date }) => {
                           onChange={(e) =>
                             setNewWorkControl({
                               ...newWorkControl,
-                              was_at_work: 0,
+                              was_at_work: false,
                             })
                           }
                         />
@@ -77,7 +76,7 @@ const WorkerInput = ({ workers, date }) => {
                           onChange={(e) =>
                             setNewWorkControl({
                               ...newWorkControl,
-                              was_at_work: 1,
+                              was_at_work: true,
                             })
                           }
                         />

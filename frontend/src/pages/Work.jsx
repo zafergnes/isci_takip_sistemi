@@ -25,7 +25,7 @@ const Work = () => {
       setSumPayments(SumAllPayments.data[0]);
     }
     fetchData();
-  }, []);
+  }, [id]);
 
 
 

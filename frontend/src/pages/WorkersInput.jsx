@@ -15,6 +15,14 @@ const WorkersInput = () => {
     return `${year}-${month}-${day}`;
   };
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
+  useEffect(() => {
+    if(selectedDate == "")
+    {
+      alert("Tarih Boş Bırakılamaz")
+      setSelectedDate(getTodayDate())
+    }
+  }, [selectedDate])
+
   const [workers, setWorkers] = useState(null);
   useEffect(() => {
     async function fetchData() {
@@ -23,87 +31,15 @@ const WorkersInput = () => {
     }
     fetchData();
   }, []);
-  const workerss = [
-    //fake data
-    {
-      id: 1,
-      name: "Ali",
-      surname: "Topal",
-      phone_number: "0542 234 2132",
-      work_id: 3,
-      img: "https://i.pravatar.cc/301",
-      wage: 2300,
-    },
-    {
-      id: 2,
-      name: "Yusuf",
-      surname: "Boncuk",
-      phone_number: "0542 234 2132",
-      work_id: 3,
-      img: "https://i.pravatar.cc/302",
-      wage: 2700,
-    },
-    {
-      id: 3,
-      name: "Mehmet",
-      surname: "Şimşek",
-      phone_number: "0542 234 2132",
-      work_id: 2,
-      img: "https://i.pravatar.cc/303",
-      wage: 2500,
-    },
-    {
-      id: 4,
-      name: "Mert",
-      surname: "Bayram",
-      phone_number: "0542 234 2132",
-      work_id: 1,
-      img: "https://i.pravatar.cc/304",
-      wage: 2000,
-    },
-    {
-      id: 5,
-      name: "Ali",
-      surname: "Topal",
-      phone_number: "0542 234 2132",
-      work_id: 3,
-      img: "https://i.pravatar.cc/301",
-      wage: 2300,
-    },
-    {
-      id: 6,
-      name: "Yusuf",
-      surname: "Boncuk",
-      phone_number: "0542 234 2132",
-      work_id: 3,
-      img: "https://i.pravatar.cc/302",
-      wage: 2700,
-    },
-    {
-      id: 7,
-      name: "Mehmet",
-      surname: "Şimşek",
-      phone_number: "0542 234 2132",
-      work_id: 2,
-      img: "https://i.pravatar.cc/303",
-      wage: 2500,
-    },
-    {
-      id: 8,
-      name: "Mert",
-      surname: "Bayram",
-      phone_number: "0542 234 2132",
-      work_id: 1,
-      img: "https://i.pravatar.cc/304",
-      wage: 2000,
-    },
-  ];
+
+
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
 
       <p className=" font-bold text-xl m-auto mb-3">Veri Girileceği Zaman</p>
       <input
         type="date"
+        max={selectedDate}
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
         className="flex items-center justify-center w-70 h-30 m-auto bg-white rounded-4xl text-2xl font-bold mb-3"
