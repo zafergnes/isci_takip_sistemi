@@ -79,7 +79,7 @@ const WalletWorkerData = () => {
               {/* Ödemeler */}
                <div className="flex flex-col justify-center p-3 items-center mt-10 gap-5 bg-gray-300 w-[600px] mx-auto rounded-4xl shadow-2xl">
                 <p className="flex justify-center text-3xl font-bold">Ödemeler</p>
-                {worker && worker.payments.map((x, i) => {
+                { worker && worker.payments.length > 0 ?( worker.payments.map((x, i) => {
                   return (
                     <div className="bg-gray-200 rounded-2xl p-2">
                       <p className="flex justify-start items-start">
@@ -93,7 +93,7 @@ const WalletWorkerData = () => {
                       </p>
                     </div>
                   );
-                })}
+                })):<p className='text-red-500 font-bold bg-gray-200 rounded-3xl p-4'>Hiçbir Ödeme Yapılmadı.</p>}
                 <button className=" flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer  items-center justify-center hover:bg-blue-600 ">
                   Ödeme Yap
                 </button>
@@ -102,7 +102,7 @@ const WalletWorkerData = () => {
 
             {/* ! Çalışılan Günler */}
              <div className="flex flex-col justify-center items-center bg-gray-300  rounded-3xl mx-auto w-[800px] mt-15 p-10">
-              <p className="mb-7 bg-gray-200 rounded-4xl p-3 font-bold text-xl">
+              <p className="mb-7 rounded-4xl p-3 font-bold text-3xl">
                 Çalıştığı Günler
               </p>
               <div className="bg-gray-200 p-6 rounded-4xl">

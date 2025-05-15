@@ -11,7 +11,13 @@ import {
 
 
 export default function CalendarComponent({ workedDays }) {
-  // parse days into Date objects
+  if (!workedDays || workedDays.length === 0) {
+    return (
+      <div className=" font-bold text-red-500 ">
+        Kullanıcı Henüz Çalışmadı.
+      </div>
+    );
+  }
   const workedDates = useMemo(
     () => workedDays.map((dateStr) => parseISO(dateStr)),
     [workedDays]
