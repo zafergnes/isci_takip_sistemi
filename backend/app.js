@@ -95,13 +95,30 @@ app.get("/workers", async (req, res) => {
   res.json({ data: result.rows });
 });
 
-/* id'sine göre çalışanı getir */
+/* id'sine göre çalışanın bilgilerini ve çalıştığı iş hakkındaki bilgileri getir  (worker sayfası)*/
 app.get("/worker/:id", async (req, res) => {
   const result = await client.query(
-    `SELECT *,work_name,TO_CHAR(work_start_date, 'DD - MM - YYYY') AS date FROM workers  INNER JOIN works ON workers.work_id = works.id WHERE workers.id = ${req.params.id};`
+    `SELECT *FROM workers  WHERE id = ${req.params.id};`
   );
   res.json({ data: result.rows });
 });
+
+/* id'sine göre çalışanı getir  */
+app.get("/workerandwork/:id", async (req, res) => {
+  const result = await client.query(
+    `SELECT *,work_name,TO_CHAR(work_start_date, 'DD - MM - YYYY') AS date FROM workers  INNER JOIN works ON workers.work_id = works.id WHERE workers.id = ${req.params.id};`
+  );
+  res.json({ data: result.rows[0] });
+});
+
+/* çalışanın id sine göre çalıştığı işin id'sini ve iş adını getir */
+app.get("/workbyworker/:id", async (req, res) => {
+  const result = await client.query(
+    `select id,work_name from works where id = (select work_id from workers where id = ${req.params.id});`
+  );
+  res.json({ data: result.rows });
+});
+
 /* iş id'sine göre çalışanı getir */
 app.get("/workerbyworkid/:id", async (req, res) => {
   const result = await client.query(

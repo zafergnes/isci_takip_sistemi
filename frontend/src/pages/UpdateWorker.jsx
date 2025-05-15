@@ -1,25 +1,57 @@
-import React , {useState} from 'react'
+import React , {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import Button from "@mui/material/Button";
+import { getWorkByWorkerId, getWorkerById, getWorks } from '../Api/Api';
 
 const UpdateWorker = () => {
-  const blankWorker = {
+  let {id} = useParams()
+  const [newWorker, setNewWorker] = useState({
     name: "",
     surname: "",
     phone_number: "",
-    e_mail: "",
+    mail: "",
     work_id: "",
+    work_name: "",
     wage: "",
-  };
-  const works = [
-    { id: 1, work_name: "Kalıp İşi" },
-    { id: 2, work_name: "Duvar İşi" },
-    { id: 3, work_name: "Tadilat İşi" },
-    { id: 4, work_name: "Sıva İşi" },
-    { id: 5, work_name: "Demir İşi" },
-  ];
-  //! Çalışanın bilgilerini göre input'lar dolacak
-  const [newWorker, setNewWorker] = useState(blankWorker);
+  });
+  const [worker,setWorker]=useState({});
+  const [works,setWorks]=useState();
+  const [workByWorker,setWorkByWorker] = useState();
+
+  useEffect( () =>{
+    async function fetchData() {
+      const response = await getWorkerById(id);
+      const resolvedWorker = response?.data?.[0];
+      setWorker(resolvedWorker);
+      const getworks = await getWorks();
+      setWorks(getworks.data);
+      const getWorkData = await getWorkByWorkerId(id);
+      setWorkByWorker(getWorkData.data?.[0]);
+    }
+    fetchData()
+
+  }, [id])
+  useEffect(() => {
+    if (worker) {
+      setNewWorker({
+        name: worker.name,
+        surname: worker.surname,
+        phone_number: worker.phone_number,
+        mail: worker.mail,
+        work_id: worker.work_id ,
+        wage: worker.wage
+      });
+    }
+  }, [worker]);
+  useEffect(() => {
+    if (workByWorker) {
+      setNewWorker(prev => ({
+        ...prev,
+        work_name: workByWorker.work_name || ""
+      }));
+    }
+  }, [workByWorker]);
+
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[40%] p-5 rounded-2xl shadow-2xl">
@@ -31,7 +63,7 @@ const UpdateWorker = () => {
           </label>
           <input
             type="text"
-            value={"Düzenlenecek Çalışanın Adı"}
+            value={newWorker.name}
             required
             className="bg-white w-full mt-3 h-10 border border-gray-300 rounded my-2 p-2"
             onChange={(e) =>
@@ -43,7 +75,7 @@ const UpdateWorker = () => {
           </label>
           <input
             type="text"
-            value={"Düzenlenecek Çalışanın Soyadı"}
+            value={newWorker.surname}
             className="bg-white w-full mt-3 h-10 border border-gray-300 rounded my-2 p-2"
             onChange={(e) =>
               setNewWorker({ ...newWorker, surname: e.target.value })
@@ -55,7 +87,7 @@ const UpdateWorker = () => {
           <input
             type="tel"
             placeholder="Örn. 512 345 6789"
-            value={"Düzenlenecek Çalışanın Telefon Numarası"}
+            value={newWorker.phone_number}
             className="bg-white w-full mt-3 border border-gray-300 h-10 rounded my-2 p-2"
             onChange={(e) =>
               setNewWorker({ ...newWorker, phone_number: e.target.value })
@@ -66,10 +98,10 @@ const UpdateWorker = () => {
           </label>
           <input
             type="mail"
-            value={"Düzenlenecek Çalışanın E-mail Adresi"}
+            value={newWorker.mail}
             className="bg-white w-full mt-3 border border-gray-300 h-10 rounded my-2 p-2"
             onChange={(e) =>
-              setNewWorker({ ...newWorker, e_mail: e.target.value })
+              setNewWorker({ ...newWorker, mail: e.target.value })
             }
           />
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
@@ -82,11 +114,11 @@ const UpdateWorker = () => {
               setNewWorker({ ...newWorker, work_id: e.target.value })
             }
           >
-            <option value={"Çalışanın çalıştığı iş"} default disabled>
-              Çalışanın çalıştığı iş
+            <option value={newWorker.work_id}  default disabled>
+            {newWorker.work_name}
             </option>
-            {works.map((x, i) => {
-              return <option value={i + 1}>{x.work_name}</option>;
+            {Array.isArray(works) && works.map((x, i) => {
+              return <option key={i} value={x.id}>{x.work_name}</option>;
             })}
           </select>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
@@ -94,7 +126,7 @@ const UpdateWorker = () => {
           </label>
           <input
             type="number"
-            value={"Çalışanın Yevmiyesi 1232"}
+            value={newWorker.wage}
             className="bg-white w-full mt-3 border border-gray-300 rounded h-10 my-2 p-2"
             onChange={(e) =>
               setNewWorker({ ...newWorker, wage: e.target.value })

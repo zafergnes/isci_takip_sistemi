@@ -58,6 +58,15 @@ export const getSumWorkPayments = (id) => {
       return error;
     });
 };
+export const getWorkerandWorkById = (id) => {
+  return axios.get(apiURL + '/workerandwork/' + id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 export const getWorkerById = (id) => {
   return axios.get(apiURL + '/worker/' + id)
     .then((result) => {
@@ -89,6 +98,17 @@ export const getDaysWorked= (id) => {
 /* wallet worker data sayfası */
 export const getWalletWorkerData= () => {
   return axios.get(apiURL + '/walletworkerdata/')
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+/* çalışanın id sine göre çalıştığı işin id'sini ve iş adını getir */
+export const getWorkByWorkerId= (id) => {
+  return axios.get(apiURL + '/workbyworker/'+id)
     .then((result) => {
       return result.data;
     })

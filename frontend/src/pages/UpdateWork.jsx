@@ -34,12 +34,7 @@ const UpdateWork = () => {
       }
     }, [work]);
 
-    const blankWork = {
-        work_name:work&&work.work_name,
-        work_desc: work&&work.work_desc,
-        cost_of_work: work&&work.cost_of_work,
-        work_address: work&&work.address,
-  };
+
 
 
   return (

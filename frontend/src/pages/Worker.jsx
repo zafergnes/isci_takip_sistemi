@@ -2,15 +2,15 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { getWorkerById } from '../Api/Api';
+import { getWorkerandWorkById } from '../Api/Api';
 
 const Worker = () => {
   let { id } = useParams();
   const [workers, setWorkers] = useState(null);
   useEffect(() => {
     async function fetchData() {
-      const worker = await getWorkerById(id);
-      setWorkers(worker.data[0]);
+      const worker = await getWorkerandWorkById(id);
+      setWorkers(worker.data);
     }
     fetchData();
   }, []);
