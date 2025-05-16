@@ -12,11 +12,10 @@ xl: → 1280px+
 2xl: → 1536px+   uyularak düzenlenecek.
 grid-cols-none Mobilde grid'i devre dışı bırak.
 
-! çalışan ekleme kısmına input file eklenecek
-
-
-iş ekleme kısmına iş bedeli eklenecek (veri tabanı sorgularımı kolaylaştıracak bir çok kolondan kurtaracak)4
-
-
-
 ödeme ekle sayfası yapılacak
+
+çalışan düzenle sayfasına fotoğraf değiştirme seçeneği sunulacak
+
+responsive konusunda iyileştirmeler yapılacak
+
+post put delete işlemleri hazırlanacak

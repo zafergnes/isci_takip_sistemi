@@ -22,7 +22,6 @@ const WalletWorkerData = () => {
 
   if(worker)
   return (
-
     <div className="flex justify-center items-center">
           <div className="flex flex-col rounded-4xl bg-white p-5 mx-auto w-[60%]">
             <img
