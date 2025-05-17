@@ -38,9 +38,7 @@ const WalletWorkerCard = ({ workers }) => {
                   VERİLERİ GÖR
                 </Button>
               </Link>
-              <Button className="" variant="contained">
-                ÜCRET ÖDE
-              </Button>
+
             </div>
             <div className="flex flex-wrap mx-auto mt-8 justify-center items-center bg-gray-100 rounded-2xl h-[200px] p-3">
               <p className="flex items-center justify-center bg-white shadow-md w-[200px] m-auto rounded-3xl">

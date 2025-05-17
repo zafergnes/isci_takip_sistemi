@@ -11,7 +11,7 @@ const UpdateWorker = () => {
     phone_number: "",
     mail: "",
     work_id: "",
-    work_name: "",
+
     wage: "",
   });
   const [worker,setWorker]=useState({});

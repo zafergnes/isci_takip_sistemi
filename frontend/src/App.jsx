@@ -20,6 +20,8 @@ import WalletWorkerData from "./pages/WalletWorkerData";
 import UpdateWorker from "./pages/UpdateWorker";
 import UpdateWork from "./pages/UpdateWork";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
+import AddWorkPayments from './pages/AddWorkPayments'
+import AddWorkerPayments from './pages/AddWorkerPayments'
 function App() {
   return (
     <>
@@ -36,6 +38,8 @@ function App() {
             <Route path="/work/:id" element={<Work />} />
             <Route path="/worker/:id" element={<Worker />} />
             <Route path="/works" element={<Works />} />
+            <Route path="/add-work-payments" element={<AddWorkPayments/>}/>
+            <Route path="/add-worker-payments" element={<AddWorkerPayments/>}/>
             <Route path="/create-work" element={<CreateWork />} />
             <Route path="/update-work/:id" element={<UpdateWork />} />
             <Route path="/wallet" element={<Wallet />} />
