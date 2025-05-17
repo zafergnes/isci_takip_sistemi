@@ -1,14 +1,30 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
+import { createWork } from "../Api/Api";
+import { useAuth } from "../context/AuthContext";
 const CreateWork = () => {
+  const { employer } = useAuth();
   const blankWork = {
+    employer_id: employer?.id,
     work_name: "",
     work_desc: "",
     cost_of_work: "",
-    work_address: "",
+    address: "",
   };
   const [newWork, setNewWork] = useState(blankWork);
 
+  const handleSubmit = async () => {
+    try {
+      let createdBlog = await createWork(newWork);
+      if (createdBlog.desc == 1) {
+        setNewWork(blankWork);
+        alert("İş Oluşturuldu");
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[60%] p-5 rounded-2xl shadow-2xl">
@@ -47,9 +63,9 @@ const CreateWork = () => {
             type="text"
             required
             className="bg-white h-10 border border-gray-300 rounded my-2 p-2"
-            value={newWork.work_address}
+            value={newWork.address}
             onChange={(e) =>
-              setNewWork({ ...newWork, work_address: e.target.value })
+              setNewWork({ ...newWork, address: e.target.value })
             }
           />
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
@@ -65,12 +81,14 @@ const CreateWork = () => {
             }
           />
           <div className="mt-5 justify-end ">
-            <Button variant="contained">EKLE</Button>
+            <Button onClick={() => handleSubmit()} variant="contained">
+              EKLE
+            </Button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default CreateWork

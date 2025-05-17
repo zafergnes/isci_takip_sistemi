@@ -1,17 +1,19 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginRegisterPage() {
   const newBlankEmployer = {
-    name:"",
-    surname:"",
-    password:"",
-    email:"",
-    phone_number:"",
-  }
-  const blankEmployer ={
-    email:"",
-    password:"",
-  }
+    name: "",
+    surname: "",
+    password: "",
+    mail: "",
+    phone_number: "",
+  };
+  const blankEmployer = {
+    mail: "",
+    password: "",
+  };
   const [activeTab, setActiveTab] = useState("giris");
   const [loginInfo, setLoginInfo] = useState(blankEmployer);
   const [registerInfo, setRegisterInfo] = useState(newBlankEmployer);
@@ -24,12 +26,31 @@ export default function LoginRegisterPage() {
     setRegisterInfo({ ...registerInfo, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = () => {
-    console.log("Giriş yapılıyor:", loginInfo);
-  };
-
   const handleRegister = () => {
     console.log("Kayıt yapılıyor:", registerInfo);
+  };
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const handleLogin = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginInfo),
+      });
+
+      if (!res.ok) {
+        alert("Giriş başarısız");
+        return;
+      }
+
+      const data = await res.json();
+      login(data);
+      navigate("/");
+      sessionStorage.setItem("employer", JSON.stringify(data));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -81,9 +102,9 @@ export default function LoginRegisterPage() {
               <div>
                 <label className="text-sm text-gray-700">E-posta</label>
                 <input
-                  type="email"
-                  name="email"
-                  value={loginInfo.email}
+                  type="mail"
+                  name="mail"
+                  value={loginInfo.mail}
                   onChange={handleLoginChange}
                   placeholder="ornek@firma.com"
                   className="w-full border border-gray-300 rounded-xl px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -138,9 +159,9 @@ export default function LoginRegisterPage() {
               <div>
                 <label className="text-sm text-gray-700">E-posta</label>
                 <input
-                  type="email"
-                  name="email"
-                  value={registerInfo.email}
+                  type="mail"
+                  name="mail"
+                  value={registerInfo.mail}
                   onChange={handleRegisterChange}
                   placeholder="ornek@firma.com"
                   className="w-full border border-gray-300 rounded-xl px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -154,7 +175,12 @@ export default function LoginRegisterPage() {
                   type="tel"
                   name="phone"
                   value={registerInfo.phone_number}
-                  onChange={(e)=>setRegisterInfo({...registerInfo,phone_number:e.target.value})}
+                  onChange={(e) =>
+                    setRegisterInfo({
+                      ...registerInfo,
+                      phone_number: e.target.value,
+                    })
+                  }
                   placeholder="0512 145 12 32"
                   className="w-full border border-gray-300 rounded-xl px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />

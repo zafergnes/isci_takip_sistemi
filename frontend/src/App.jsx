@@ -22,38 +22,52 @@ import UpdateWork from "./pages/UpdateWork";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
 import AddWorkPayments from './pages/AddWorkPayments'
 import AddWorkerPayments from './pages/AddWorkerPayments'
+import { AuthProvider } from "./context/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<LoginRegisterPage />} />
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/add" element={<Add />}></Route>
-            <Route path="/add-worker" element={<AddWorker />} />
-            <Route path="/update-worker/:id" element={<UpdateWorker />} />
-            <Route path="/workers" element={<Workers />} />
-            <Route path="/workers/:id" element={<Workers />} />
-            <Route path="/work/:id" element={<Work />} />
-            <Route path="/worker/:id" element={<Worker />} />
-            <Route path="/works" element={<Works />} />
-            <Route path="/add-work-payments" element={<AddWorkPayments/>}/>
-            <Route path="/add-worker-payments" element={<AddWorkerPayments/>}/>
-            <Route path="/create-work" element={<CreateWork />} />
-            <Route path="/update-work/:id" element={<UpdateWork />} />
-            <Route path="/wallet" element={<Wallet />} />
-            <Route path="/wallet-worker" element={<WalletWorker />} />
-            <Route path="/wallet-work" element={<WalletWork />} />
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<LoginRegisterPage />} />
             <Route
-              path="/wallet-worker-data/:id"
-              element={<WalletWorkerData />}
-            />
-            <Route path="/worker-input" element={<WorkersInput />} />
-            <Route path="*" element={<NoPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Layout />
+                </PrivateRoute>
+              }
+            >
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/add" element={<Add />}></Route>
+              <Route path="/add-worker" element={<AddWorker />} />
+              <Route path="/update-worker/:id" element={<UpdateWorker />} />
+              <Route path="/workers" element={<Workers />} />
+              <Route path="/workers/:id" element={<Workers />} />
+              <Route path="/work/:id" element={<Work />} />
+              <Route path="/worker/:id" element={<Worker />} />
+              <Route path="/works" element={<Works />} />
+              <Route path="/add-work-payments" element={<AddWorkPayments />} />
+              <Route
+                path="/add-worker-payments"
+                element={<AddWorkerPayments />}
+              />
+              <Route path="/create-work" element={<CreateWork />} />
+              <Route path="/update-work/:id" element={<UpdateWork />} />
+              <Route path="/wallet" element={<Wallet />} />
+              <Route path="/wallet-worker" element={<WalletWorker />} />
+              <Route path="/wallet-work" element={<WalletWork />} />
+              <Route
+                path="/wallet-worker-data/:id"
+                element={<WalletWorkerData />}
+              />
+              <Route path="/worker-input" element={<WorkersInput />} />
+              <Route path="*" element={<NoPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }

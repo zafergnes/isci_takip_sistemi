@@ -127,3 +127,36 @@ export const getWorkByWorkerId= (id) => {
       return error;
     });
 };
+
+// ! post
+//worker için resim yükleme
+export const uploadFile = (file) => {
+  const formdata = new FormData();
+  formdata.append("file", file);
+  const config = {
+    header: {
+      "content-type": "multipart/form-data",
+    },
+  };
+  return axios
+    .post(apiURL + "/blogimage", formdata, config)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+
+export const createWork = (data) => {
+  //return blog created
+  return axios
+    .post(apiURL + "/works", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

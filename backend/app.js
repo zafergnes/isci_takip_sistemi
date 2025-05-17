@@ -5,6 +5,9 @@ const cors = require("cors");
 const client = require("./db/conn.js");
 app.use(express.json());
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
+const authRoutes = require("./Routes/auth.js");
+app.use("/auth", authRoutes);
 //! multer
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -59,7 +62,9 @@ app.post("/works", async (req, res) => {
 
 /*! işleri getir !*/
 app.get("/works", async (req, res) => {
-  const result = await client.query("SELECT *,TO_CHAR(work_start_date, 'DD-MM-YYYY') AS date FROM works");
+  const result = await client.query(
+    "SELECT *,TO_CHAR(work_start_date, 'DD-MM-YYYY') AS date FROM works"
+  );
   res.json({ data: result.rows });
 });
 
