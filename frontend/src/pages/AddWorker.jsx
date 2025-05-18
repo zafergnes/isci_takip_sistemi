@@ -1,26 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { useAuth } from "../context/AuthContext";
+import { addWorker, getWorks } from "../Api/Api";
 
 const AddWorker = () => {
+  const { employer } = useAuth();
+
   const blankWorker = {
     name: "",
     surname: "",
     phone_number: "",
-    e_mail: "",
+    mail: "",
     work_id: "",
     wage: "",
+    employer_id: employer?.id,
   };
-  const handleUpload = () => {
-    // upload işlemleri
+  const [works, setWorks] = useState([]);
+  const [newWorker, setNewWorker] = useState(blankWorker);
+
+  useEffect(() => {
+    async function fetchData() {
+      const allWorks = await getWorks(employer);
+      setWorks(allWorks?.data);
+    }
+    fetchData();
+  }, [employer]);
+  const handleUpload = async () => {
+    try {
+      let addedWorker = await addWorker(newWorker);
+      if (addedWorker.desc == 1) {
+        setNewWorker(blankWorker);
+        alert("Çalışan Eklendi.");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Çalışan Eklenirken Bir Hata Oluştu.");
+    }
   };
-  const works = [
+
+  const sda = [
     { id: 1, work_name: "Kalıp İşi" },
     { id: 2, work_name: "Duvar İşi" },
     { id: 3, work_name: "Tadilat İşi" },
     { id: 4, work_name: "Sıva İşi" },
     { id: 5, work_name: "Demir İşi" },
   ];
-  const [newWorker, setNewWorker] = useState(blankWorker);
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[40%] p-5 rounded-2xl shadow-2xl">
@@ -66,7 +90,7 @@ const AddWorker = () => {
             type="mail"
             className="bg-white w-full mt-3 border border-gray-300 h-10 rounded my-2 p-2"
             onChange={(e) =>
-              setNewWorker({ ...newWorker, e_mail: e.target.value })
+              setNewWorker({ ...newWorker, mail: e.target.value })
             }
           />
 
@@ -83,9 +107,14 @@ const AddWorker = () => {
             <option value={""} default disabled>
               İşi Seçiniz
             </option>
-            {works.map((x, i) => {
-              return <option value={i + 1}>{x.work_name}</option>;
-            })}
+            {Array.isArray(works) &&
+              works.map((x, i) => {
+                return (
+                  <option key={i} value={x.id}>
+                    {x.work_name}
+                  </option>
+                );
+              })}
           </select>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Yevmiye Ücreti
@@ -109,7 +138,11 @@ const AddWorker = () => {
             className="bg-white w-[300px] mx-auto border-2  cursor-pointer border-gray-500 rounded my-2 p-3"
           />
           <div className=" flex mt-5 justify-end ">
-            <Button variant="contained" className="w-full h-15">
+            <Button
+              variant="contained"
+              className="w-full h-15"
+              onClick={() => handleUpload()}
+            >
               <p className="text-xl">EKLE</p>
             </Button>
           </div>

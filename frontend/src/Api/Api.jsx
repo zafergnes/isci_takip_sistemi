@@ -12,9 +12,9 @@ export const getWorks = (employer) => {
       return error;
     });
 };
-export const getWorkers = () => {
+export const getWorkers = (employer) => {
   return axios
-    .get(apiURL + "/workers")
+    .get(apiURL + "/workers/" + employer.id)
     .then((result) => {
       return result.data;
     })
@@ -24,7 +24,8 @@ export const getWorkers = () => {
 };
 
 export const getWorkById = (id) => {
-  return axios.get(apiURL + '/workbyid/' + id)
+  return axios
+    .get(apiURL + "/workbyid/" + id)
     .then((result) => {
       return result.data;
     })
@@ -33,7 +34,8 @@ export const getWorkById = (id) => {
     });
 };
 export const getWorkerByWorkId = (id) => {
-  return axios.get(apiURL + '/workerbyworkid/' + id)
+  return axios
+    .get(apiURL + "/workerbyworkid/" + id)
     .then((result) => {
       return result.data;
     })
@@ -42,7 +44,8 @@ export const getWorkerByWorkId = (id) => {
     });
 };
 export const getWorkPaymentsByWorkId = (id) => {
-  return axios.get(apiURL + '/workpayments/' + id)
+  return axios
+    .get(apiURL + "/workpayments/" + id)
     .then((result) => {
       return result.data;
     })
@@ -51,7 +54,8 @@ export const getWorkPaymentsByWorkId = (id) => {
     });
 };
 export const getSumWorkPayments = (id) => {
-  return axios.get(apiURL + '/sumworkpayments/' + id)
+  return axios
+    .get(apiURL + "/sumworkpayments/" + id)
     .then((result) => {
       return result.data;
     })
@@ -60,7 +64,8 @@ export const getSumWorkPayments = (id) => {
     });
 };
 export const getWorkerandWorkById = (id) => {
-  return axios.get(apiURL + '/workerandwork/' + id)
+  return axios
+    .get(apiURL + "/workerandwork/" + id)
     .then((result) => {
       return result.data;
     })
@@ -69,7 +74,8 @@ export const getWorkerandWorkById = (id) => {
     });
 };
 export const getWorkerById = (id) => {
-  return axios.get(apiURL + '/worker/' + id)
+  return axios
+    .get(apiURL + "/worker/" + id)
     .then((result) => {
       return result.data;
     })
@@ -77,8 +83,9 @@ export const getWorkerById = (id) => {
       return error;
     });
 };
-export const getWalletWorks = () => {
-  return axios.get(apiURL + '/walletworks/')
+export const getWalletWorks = (employer) => {
+  return axios
+    .get(apiURL + "/walletworks/" + employer.id)
     .then((result) => {
       return result.data;
     })
@@ -86,8 +93,9 @@ export const getWalletWorks = () => {
       return error;
     });
 };
-export const getDaysWorked= (id) => {
-  return axios.get(apiURL + '/workeddays/'+id)
+export const getDaysWorked = (id) => {
+  return axios
+    .get(apiURL + "/workeddays/" + id)
     .then((result) => {
       return result.data;
     })
@@ -97,8 +105,9 @@ export const getDaysWorked= (id) => {
 };
 
 /* wallet worker  sayfası */
-export const getWalletWorkerData= () => {
-  return axios.get(apiURL + '/walletworkersdata/')
+export const getWalletWorkerData = (employer) => {
+  return axios
+    .get(apiURL + "/walletworkersdata/" + employer.id)
     .then((result) => {
       return result.data;
     })
@@ -107,8 +116,9 @@ export const getWalletWorkerData= () => {
     });
 };
 /* wallet worker data sayfası */
-export const getWalletWorkerDataByWorkerID= (id) => {
-  return axios.get(apiURL + '/walletworkerdata/'+id)
+export const getWalletWorkerDataByWorkerID = (id, employer) => {
+  return axios
+    .get(apiURL + "/walletworkerdata/" + id + "/" + employer.id)
     .then((result) => {
       return result.data;
     })
@@ -117,10 +127,10 @@ export const getWalletWorkerDataByWorkerID= (id) => {
     });
 };
 
-
 /* çalışanın id sine göre çalıştığı işin id'sini ve iş adını getir */
-export const getWorkByWorkerId= (id) => {
-  return axios.get(apiURL + '/workbyworker/'+id)
+export const getWorkByWorkerId = (id, employer) => {
+  return axios
+    .get(apiURL + "/workbyworker/" + id + "/" + employer.id)
     .then((result) => {
       return result.data;
     })
@@ -149,11 +159,19 @@ export const uploadFile = (file) => {
     });
 };
 
-
 export const createWork = (data) => {
-  //return blog created
   return axios
     .post(apiURL + "/works", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const addWorker = (data) => {
+  return axios
+    .post(apiURL + "/workers", data)
     .then((result) => {
       return result.data;
     })

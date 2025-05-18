@@ -4,9 +4,12 @@ import WorkerInput from "../components/WorkerInput";
 import Button from "@mui/material/Button";
 import { getWorkers } from "../Api/Api";
 import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { IoAddSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const WorkersInput = () => {
-  // güncel zaman
+  const { employer } = useAuth();
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -16,26 +19,42 @@ const WorkersInput = () => {
   };
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
   useEffect(() => {
-    if(selectedDate == "")
-    {
-      alert("Tarih Boş Bırakılamaz")
-      setSelectedDate(getTodayDate())
+    if (selectedDate == "") {
+      alert("Tarih Boş Bırakılamaz");
+      setSelectedDate(getTodayDate());
     }
-  }, [selectedDate])
+  }, [selectedDate]);
 
   const [workers, setWorkers] = useState(null);
   useEffect(() => {
     async function fetchData() {
-      const allWorkers = await getWorkers();
-      setWorkers(allWorkers.data);
+      if (employer) {
+        const allWorkers = await getWorkers(employer);
+        setWorkers(allWorkers.data);
+      }
     }
     fetchData();
-  }, []);
+  }, [employer]);
 
-
+  if (!workers || workers.length === 0) {
+    return (
+      <>
+        <div className="p-4 text-center text-gray-600 font-medium">
+          Kayıtlı Çalışan Bulunamadı
+        </div>
+        <div className="flex justify-center  items-center mt-3 gap-2">
+          <Link to={"/add-worker"}>
+            <button className="flex items-center justify-center w-[340px] gap-6 h-[70px] px-3  border-4  border-gray-700 py-1 bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+              <IoAddSharp className="  w-[40px] h-[40px]  " />
+              <p className="font-bold text-center text-[25px]">ÇALIŞAN EKLE </p>
+            </button>
+          </Link>
+        </div>
+      </>
+    );
+  }
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
-
       <p className=" font-bold text-xl m-auto mb-3">Veri Girileceği Zaman</p>
       <input
         type="date"
@@ -45,9 +64,10 @@ const WorkersInput = () => {
         className="flex items-center justify-center w-70 h-30 m-auto bg-white rounded-4xl text-2xl font-bold mb-3"
       />
 
-      {workers && workers.map((x, i) => {
-        return <WorkerInput workers={x} date={selectedDate} />;
-      })}
+      {workers &&
+        workers.map((x, i) => {
+          return <WorkerInput workers={x} date={selectedDate} />;
+        })}
       <div className="flex justify-center items-center ">
         <Button
           onClick={() => {

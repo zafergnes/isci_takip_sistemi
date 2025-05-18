@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../context/AuthContext";
 
 const WorkerInput = ({ workers, date }) => {
+  const { employer } = useAuth();
   let dates = date;
   let WorkControl = {
     worker_id: workers.id,
     work_id: workers.work_id,
     was_at_work: false,
     date: dates,
+    employer_id: employer?.id,
   };
   useEffect(() => {
     setNewWorkControl({ ...newWorkControl, date: dates });

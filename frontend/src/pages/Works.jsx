@@ -9,19 +9,17 @@ const Works = () => {
   const { employer } = useAuth();
   const [works, setWorks] = useState(null);
 
-  useEffect(() => {
-    if (employer) {
-      getWorks(employer).then((data) => setWorks(data.data));
-    }
-  }, [employer]);
+
 
   useEffect(() => {
     async function fetchData() {
-      const allWorks = await getWorks(employer);
-      setWorks(allWorks.data);
+      if (employer) {
+        const allWorks = await getWorks(employer);
+        setWorks(allWorks.data);
+      }
     }
     fetchData();
-  }, []);
+  }, [employer]);
 
   if (!works || works.length === 0) {
     return (

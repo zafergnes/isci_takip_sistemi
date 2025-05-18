@@ -15,8 +15,8 @@ const CreateWork = () => {
 
   const handleSubmit = async () => {
     try {
-      let createdBlog = await createWork(newWork);
-      if (createdBlog.desc == 1) {
+      let createdWork = await createWork(newWork);
+      if (createdWork.desc == 1) {
         setNewWork(blankWork);
         alert("İş Oluşturuldu");
       }

@@ -4,11 +4,13 @@ import Calendar from "../components/Calendar";
 import {  getWalletWorkerDataByWorkerID, getWorkByWorkerId } from '../Api/Api';
 import { Link } from "react-router-dom";
 import CalendarComponent from '../components/CalendarComponent';
+import { useAuth } from "../context/AuthContext";
 
 const WalletWorkerData = () => {
-  let {id} = useParams()
-  const [worker,setWorker] = useState()
-  const [workByWorker,setWorkByWorker] = useState();
+  let { id } = useParams();
+  const { employer } = useAuth();
+  const [worker, setWorker] = useState();
+  const [workByWorker, setWorkByWorker] = useState();
   const [showPaymentInput, setShowPaymentInput] = useState(false);
 
   const [newPaymentAmount, setNewPaymentAmount] = useState({
@@ -17,13 +19,13 @@ const WalletWorkerData = () => {
   });
   useEffect(() => {
     async function fetchData() {
-      const getWorker = await getWalletWorkerDataByWorkerID(id);
+      const getWorker = await getWalletWorkerDataByWorkerID(id, employer);
       setWorker(getWorker?.data[0]);
-      const getWorkData = await getWorkByWorkerId(id);
+      const getWorkData = await getWorkByWorkerId(id, employer);
       setWorkByWorker(getWorkData?.data?.[0]);
     }
     fetchData();
-  }, [id]);
+  }, [id, employer]);
 
   if (worker)
     return (
