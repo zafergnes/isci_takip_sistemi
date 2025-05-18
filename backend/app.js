@@ -61,9 +61,10 @@ app.post("/works", async (req, res) => {
 });
 
 /*! işleri getir !*/
-app.get("/works", async (req, res) => {
+app.get("/works/:sessionid", async (req, res) => {
   const result = await client.query(
-    "SELECT *,TO_CHAR(work_start_date, 'DD-MM-YYYY') AS date FROM works"
+    "SELECT *,TO_CHAR(work_start_date, 'DD-MM-YYYY') AS date FROM works WHERE employer_id = $1",
+    [req.params.sessionid]
   );
   res.json({ data: result.rows });
 });

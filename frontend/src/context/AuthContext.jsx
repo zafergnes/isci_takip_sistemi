@@ -1,26 +1,32 @@
-import { useEffect } from "react";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [employer, setEmployer] = useState(null);
+  // İlk başta localStorage'dan oku
+  const [employer, setEmployer] = useState(() => {
+    const saved = localStorage.getItem("employer");
+    return saved ? JSON.parse(saved) : null;
+  });
 
+  // Başka bir sekmede login/logout olursa, otomatik güncelle
   useEffect(() => {
-    const saved = sessionStorage.getItem("employer");
-    if (saved) {
-      setEmployer(JSON.parse(saved));
-    }
+    const syncAuth = () => {
+      const saved = localStorage.getItem("employer");
+      setEmployer(saved ? JSON.parse(saved) : null);
+    };
+    window.addEventListener("storage", syncAuth);
+    return () => window.removeEventListener("storage", syncAuth);
   }, []);
 
   const login = (data) => {
     setEmployer(data);
-    sessionStorage.setItem("employer", JSON.stringify(data));
+    localStorage.setItem("employer", JSON.stringify(data));
   };
 
   const logout = () => {
     setEmployer(null);
-    sessionStorage.removeItem("employer");
+    localStorage.removeItem("employer");
   };
 
   return (

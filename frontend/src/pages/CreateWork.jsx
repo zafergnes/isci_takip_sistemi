@@ -22,7 +22,7 @@ const CreateWork = () => {
       }
     } catch (error) {
       console.log(error);
-      alert(error);
+      alert("iş oluşturulamadı");
     }
   };
   return (

@@ -14,7 +14,13 @@ const Workers = () => {
     fetchData();
   }, []);
 
-
+  if (!workers) {
+    return (
+      <div className="p-4 text-center text-gray-600 font-medium">
+        Kayıtlı Çalışan Bulunamadı
+      </div>
+    );
+  }
   return (
     <>
       <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mx-auto w-[80%] ">

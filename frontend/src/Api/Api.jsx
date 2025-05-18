@@ -1,19 +1,20 @@
 import axios from 'axios';
 
-const apiURL = 'http://localhost:3000';
+const apiURL = "http://localhost:3000";
 
+export const getWorks = (employer) => {
+  return axios
+    .get(apiURL + "/works/" + employer.id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
 export const getWorkers = () => {
-   return axios.get(apiURL + '/workers')
-     .then((result) => {
-       return result.data;
-     })
-     .catch((error) => {
-       return error;
-     });
-}
-
-export const getWorks = () => {
-  return axios.get(apiURL + "/works")
+  return axios
+    .get(apiURL + "/workers")
     .then((result) => {
       return result.data;
     })
