@@ -12,7 +12,7 @@ const Workers = () => {
     async function fetchData() {
       if (employer) {
         const allWorkers = await getWorkers(employer);
-        setWorkers(allWorkers.data);
+        setWorkers(allWorkers?.data);
       }
     }
     fetchData();

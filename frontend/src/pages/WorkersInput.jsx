@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import WorkerInput from "../components/WorkerInput";
 import Button from "@mui/material/Button";
-import { getWorkers } from "../Api/Api";
+import { addWorkControl, getWorkers } from "../Api/Api";
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { IoAddSharp } from "react-icons/io5";
@@ -18,6 +18,7 @@ const WorkersInput = () => {
     return `${year}-${month}-${day}`;
   };
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
+  const [workControls, setWorkControls] = useState([]);
   useEffect(() => {
     if (selectedDate == "") {
       alert("Tarih Boş Bırakılamaz");
@@ -36,6 +37,16 @@ const WorkersInput = () => {
     fetchData();
   }, [employer]);
 
+  const handleSubmit = async () => {
+    try {
+      await Promise.all(workControls.map((control) => addWorkControl(control)));
+      setWorkControls([]);
+      alert("Çalışan Verileri Başarıyla Kaydedildi.");
+    } catch (error) {
+      console.error(error);
+      console.log("Bir Sıkıntı Var");
+    }
+  };
   if (!workers || workers.length === 0) {
     return (
       <>
@@ -55,6 +66,7 @@ const WorkersInput = () => {
   }
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
+      <small>{JSON.stringify(workControls)}</small>
       <p className=" font-bold text-xl m-auto mb-3">Veri Girileceği Zaman</p>
       <input
         type="date"
@@ -66,13 +78,24 @@ const WorkersInput = () => {
 
       {workers &&
         workers.map((x, i) => {
-          return <WorkerInput workers={x} date={selectedDate} />;
+          return (
+            <WorkerInput
+              workers={x}
+              date={selectedDate}
+              onChange={(control) => {
+                setWorkControls((prev) => {
+                  const others = prev.filter(
+                    (c) => c.worker_id !== control.worker_id
+                  );
+                  return [...others, control];
+                });
+              }}
+            />
+          );
         })}
       <div className="flex justify-center items-center ">
         <Button
-          onClick={() => {
-            alert("Veriler Girildi");
-          }}
+          onClick={() => handleSubmit()}
           className="h-20 w-50  "
           variant="contained"
         >

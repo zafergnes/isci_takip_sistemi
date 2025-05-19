@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../context/AuthContext";
 
-const WorkerInput = ({ workers, date }) => {
+const WorkerInput = ({ workers, date, onChange }) => {
   const { employer } = useAuth();
   let dates = date;
   let WorkControl = {
@@ -18,6 +18,9 @@ const WorkerInput = ({ workers, date }) => {
   }, [date]);
 
   const [newWorkControl, setNewWorkControl] = useState(WorkControl);
+  useEffect(() => {
+    if (onChange) onChange(newWorkControl);
+  }, [newWorkControl]);
 
   return (
     <>

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const WorkerCard = ({ workers }) => {
 
-
   return (
     <div className=" flex justify-center items-center bg-white shadow-md rounded-xl m-3 w-[350px] p-5">
       <Link to={`/worker/${workers.id}`}>

@@ -3,9 +3,17 @@ import { useEffect } from "react";
 
 
 import { Link, useParams } from "react-router-dom";
-import { getWorkById , getWorkerByWorkId ,getWorkPaymentsByWorkId ,getSumWorkPayments} from "../Api/Api";
+import {
+  getWorkById,
+  getWorkerByWorkId,
+  getWorkPaymentsByWorkId,
+  getSumWorkPayments,
+  addWorkPayment,
+} from "../Api/Api";
+import { useAuth } from "../context/AuthContext";
 
 const Work = () => {
+  const { employer } = useAuth();
   let { id } = useParams();
   const [work, setWork] = useState(null);
   const [workers, setWorkers] = useState(null);
@@ -14,8 +22,9 @@ const Work = () => {
   const [showPaymentInput, setShowPaymentInput] = useState(false);
 
   const [newPaymentAmount, setNewPaymentAmount] = useState({
-    id: id,
+    work_id: id,
     amount_received: "",
+    employer_id: employer?.id,
   });
 
   useEffect(() => {
@@ -32,13 +41,43 @@ const Work = () => {
     fetchData();
   }, [id]);
 
-  const alert = () => {
+  const handleUpload = async () => {
+    try {
+      let addedPaymentData = await addWorkPayment(newPaymentAmount);
+      if (addedPaymentData.length != 0) {
+        setNewPaymentAmount({
+          work_id: id,
+          amount_received: "",
+          employer_id: employer?.id,
+        });
+        alert("Ödeme Başarıyla Eklendi");
+
+        // eklenen ödeme anlık gözüksün diye veriyi tekrar çektim
+        const allWorkPayment = await getWorkPaymentsByWorkId(id);
+        setWorkPayments(allWorkPayment.data);
+
+        const SumAllPayments = await getSumWorkPayments(id);
+        setSumPayments(SumAllPayments.data[0]);
+      } else {
+        alert("Ödeme Eklenirken Bir Sorun Oluştu");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Ödeme Eklenirken Bir Sorun Oluştu");
+    }
+  };
+
+  const deleteAlert = () => {
     if (
       confirm(
         "Çalışan İşten Çıkarılacak Emin Misiniz! \nKullanıcın kayıtlarını daha sonrada tekrar görebilirsiniz"
       )
     )
       console.log("silindi");
+    else console.log("Vazgeçti");
+  };
+  const deletePaymentAlert = () => {
+    if (confirm("Ödeme Silinecek Eminmisiniz?")) console.log("silindi");
     else console.log("Vazgeçti");
   };
   return (
@@ -92,15 +131,13 @@ const Work = () => {
                           </p>
                         </div>
                         <div className="flex ml-10 justify-center items-center gap-5">
-                          <Link to={`/wallet-worker-data/${x.id}`}>
-                            <button className="flex w-[150px] h-[40px] text-white bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600">
-                              <p className="font-bold text-center">
-                                Verileri Gör
-                              </p>
-                            </button>
-                          </Link>
+                          <button className="flex w-[150px] h-[40px] text-white bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600">
+                            <p className="font-bold text-center">
+                              Verileri Gör
+                            </p>
+                          </button>
                           <button
-                            onClick={alert}
+                            onClick={() => deleteAlert()}
                             className="flex w-[150px] h-[40px] text-white font-bold text-center bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600 mr-2"
                           >
                             Çalışanı Çıkar
@@ -141,17 +178,26 @@ const Work = () => {
             </div>
 
             {/* Ödemeler */}
-            <div className="flex flex-col p-7 w-[50%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-15 items-center ">
+            <div className="flex flex-col p-5 w-[50%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-10 items-center ">
               {workPayments && workPayments.length > 0 ? (
                 workPayments.map((x, i) => {
                   return (
-                    <p>
-                      <b>{i + 1}-&nbsp;&nbsp;</b>
-                      <b>Alınan Tutar: &nbsp;</b>
-                      {x.amount_received}&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
-                      <b>Tarih:&nbsp;</b>
-                      {x.formatted_date}
-                    </p>
+                    <>
+                      <div className="bg-gray-200 rounded-2xl flex justify-between  p-1 w-full">
+                        <p className="flex justify-start items-start">
+                          <b>{i + 1}. Alınan Tutar Tutarı: &nbsp;</b>
+                          {x.amount_received}
+                          <b className="ml-20"> Tarih :&nbsp;</b>
+                          {x.formatted_date}
+                          <button
+                            className=" flex justify-end ml-5 bg-blue-500 rounded-2xl p-1 cursor-pointer"
+                            onClick={() => deletePaymentAlert()}
+                          >
+                            ❌
+                          </button>
+                        </p>
+                      </div>
+                    </>
                   );
                 })
               ) : (
@@ -176,8 +222,8 @@ const Work = () => {
                   />
                   <button
                     onClick={() => {
+                      handleUpload();
                       setShowPaymentInput(false);
-                      setNewPaymentAmount({ id: id, amount_received: "" });
                     }}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                   >

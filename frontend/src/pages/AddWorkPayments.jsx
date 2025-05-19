@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
-import { getWorks } from '../Api/Api';
+import { addWorkerPayment, getWorks } from "../Api/Api";
+import { useAuth } from "../context/AuthContext";
 
 const AddWorkPayments = () => {
-  const blankWork = {
-    id: "",
-    amount_received: ""
+  const { employer } = useAuth();
+  const blankPayment = {
+    work_id: "",
+    amount_received: "",
+    employer_id: employer?.id,
   };
 
-  const [newWorkPayment, setNewWorkPayment] = useState(blankWork);
-  const [works, setWorks] = useState([])
+  const [newWorkPayment, setNewWorkPayment] = useState(blankPayment);
+  const [works, setWorks] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const allWorks = await getWorks()
-      setWorks(allWorks?.data)
+      const allWorks = await getWorks(employer);
+      setWorks(allWorks?.data);
     }
-    fetchData()
-  }, [works])
-
-
+    fetchData();
+  }, [employer]);
+  const handleUpload = async () => {
+    try {
+      let addedPaymentData = await addWorkerPayment(newWorkPayment);
+      if (addedPaymentData) {
+        setNewWorkPayment(blankPayment);
+        alert("Ödeme Başarıyla Eklendi");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Ödeme Eklenirken Bir Sorun Oluştu");
+    }
+  };
   return (
     <div className="flex w-full items-center justify-center min-h-[600px]">
       <div className="bg-slate-300 w-[50%] p-5 rounded-2xl shadow-2xl">
@@ -30,27 +43,47 @@ const AddWorkPayments = () => {
           </label>
           <select
             className="bg-white h-10 rounded my-2 p-2"
-            value={newWorkPayment.id}
+            value={newWorkPayment.work_id}
             onChange={(e) =>
-              setNewWorkPayment({ ...newWorkPayment, id: e.target.value })
+              setNewWorkPayment({ ...newWorkPayment, work_id: e.target.value })
             }
           >
-            <option value="" default disabled> İşi Seçiniz</option>
-            {works&&works.map((x, i) => {
-              return <option value={x.id}>{x.work_name}</option>;
-            })}
+            <option value="" default disabled>
+              {" "}
+              İşi Seçiniz
+            </option>
+            {works &&
+              works.map((x, i) => {
+                return (
+                  <option key={i} value={x.id}>
+                    {x.work_name}
+                  </option>
+                );
+              })}
           </select>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Alınan Ücret
           </label>
-          <input type="number" className='bg-white h-10 rounded my-2 p-2' value={newWorkPayment.amount_received} onChange={(e) => setNewWorkPayment({...newWorkPayment,amount_received:e.target.value})} />
+          <input
+            type="number"
+            className="bg-white h-10 rounded my-2 p-2"
+            value={newWorkPayment.amount_received}
+            onChange={(e) =>
+              setNewWorkPayment({
+                ...newWorkPayment,
+                amount_received: e.target.value,
+              })
+            }
+          />
           <div className="mt-5 flex justify-center ">
-            <Button variant="contained">EKLE</Button>
+            <Button variant="contained" onClick={() => handleUpload()}>
+              EKLE
+            </Button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default AddWorkPayments

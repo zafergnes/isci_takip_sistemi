@@ -38,13 +38,7 @@ const AddWorker = () => {
     }
   };
 
-  const sda = [
-    { id: 1, work_name: "Kalıp İşi" },
-    { id: 2, work_name: "Duvar İşi" },
-    { id: 3, work_name: "Tadilat İşi" },
-    { id: 4, work_name: "Sıva İşi" },
-    { id: 5, work_name: "Demir İşi" },
-  ];
+
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[40%] p-5 rounded-2xl shadow-2xl">

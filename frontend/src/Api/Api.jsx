@@ -179,3 +179,34 @@ export const addWorker = (data) => {
       return error;
     });
 };
+export const addWorkPayment = (data) => {
+  return axios
+    .post(apiURL + "/work-payment", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const addWorkerPayment = (data) => {
+  return axios
+    .post(apiURL + "/worker-payment", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const addWorkControl = (data) => {
+  console.log("addWorkControl çağrıldı:", data);
+  return axios
+    .post(apiURL + "/add-worker-control", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
