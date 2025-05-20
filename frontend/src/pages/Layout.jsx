@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import { MdOutlineArrowDropDown } from "react-icons/md";
 
 const Layout = () => {
@@ -28,17 +28,17 @@ const Layout = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
-  if (!employer) navigate("/login");
+  if (!employer) navigate("/");
 
   return (
     <>
       {/* <header></header> */}
       <div className="border-b-2 shadow-2xl bg-slate-700 ">
         <div className="flex justify-between px-5 py-5 shadow-2xl">
-          <Link to="/">
+          <Link to="/works">
             <div className="flex">
               <img
                 src="worker_icon.svg"

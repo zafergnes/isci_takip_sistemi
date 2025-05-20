@@ -30,6 +30,7 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<LoginRegisterPage />} />
             <Route
               path="/"
@@ -39,7 +40,6 @@ function App() {
                 </PrivateRoute>
               }
             >
-              <Route path="/" element={<Home />}></Route>
               <Route path="/add" element={<Add />}></Route>
               <Route path="/add-worker" element={<AddWorker />} />
               <Route path="/update-worker/:id" element={<UpdateWorker />} />

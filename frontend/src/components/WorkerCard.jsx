@@ -20,15 +20,15 @@ const WorkerCard = ({ workers }) => {
         </div>
 
         <div className="flex justify-start m-2 w-full">
-          <b className="text-left ">Telefon :</b>
+          <b className="text-left ">Telefon : &nbsp;</b>
           <p className="text-center">{workers.phone_number}</p>
         </div>
         <div className="flex m-2 justify-start">
-          <b className="text-left">Çalıştığı iş : </b>
+          <b className="text-left">Çalıştığı iş : &nbsp; </b>
           <p className="text-center">{workers.work_id}</p>
         </div>
         <div className="flex m-2  justify-start">
-          <b className="text-left">Yövmiye : </b>
+          <b className="text-left">Yövmiye : &nbsp;</b>
           <p className="text-center">{workers.wage}</p>
         </div>
         <div className=" mt-6 flex  gap-2">

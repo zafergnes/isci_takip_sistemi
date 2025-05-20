@@ -46,7 +46,7 @@ export default function LoginRegisterPage() {
 
       const data = await res.json();
       login(data);
-      navigate("/");
+      navigate("/works");
       localStorage.setItem("employer", JSON.stringify(data));
     } catch (err) {
       console.error(err);
