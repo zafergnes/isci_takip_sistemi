@@ -21,9 +21,9 @@ import UpdateWorker from "./pages/UpdateWorker";
 import UpdateWork from "./pages/UpdateWork";
 import LoginRegisterPage from "./pages/LoginRegisterPage";
 import AddWorkPayments from './pages/AddWorkPayments'
-import AddWorkerPayments from './pages/AddWorkerPayments'
-import { AuthProvider } from "./context/AuthContext";
+import AddWorkerPayments from "./pages/AddWorkerPayments";
 import PrivateRoute from "./components/PrivateRoute";
+import { AuthProvider } from "./Context/AuthContext";
 function App() {
   return (
     <>

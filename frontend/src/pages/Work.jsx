@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useEffect } from "react";
-
-
 import { Link, useParams } from "react-router-dom";
 import {
   getWorkById,
@@ -10,7 +8,8 @@ import {
   getSumWorkPayments,
   addWorkPayment,
 } from "../Api/Api";
-import { useAuth } from "../context/AuthContext";
+import { MdDelete } from "react-icons/md";
+import { useAuth } from "../Context/AuthContext";
 
 const Work = () => {
   const { employer } = useAuth();
@@ -178,7 +177,7 @@ const Work = () => {
             </div>
 
             {/* Ödemeler */}
-            <div className="flex flex-col p-5 w-[50%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-10 items-center ">
+            <div className="flex flex-col p-5 w-[70%] my-10 mx-auto bg-gray-300 shadow-2xl rounded-4xl justify-center gap-10 items-center ">
               {workPayments && workPayments.length > 0 ? (
                 workPayments.map((x, i) => {
                   return (
@@ -210,6 +209,8 @@ const Work = () => {
                   <small>{JSON.stringify(newPaymentAmount)}</small>
                   <input
                     type="number"
+                    min="0"
+                    step="500"
                     placeholder="Tutar girin"
                     value={newPaymentAmount.amount_received}
                     onChange={(e) =>
@@ -246,7 +247,8 @@ const Work = () => {
                   İş Bilgilerini Düzenle
                 </button>
               </Link>
-              <button className="flex h-[70px] p-7  text-white bg-blue-500 font-bold text-center text-xl rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-blue-600 cursor-pointer">
+              <button className="flex h-[70px] p-7  text-white bg-red-500 font-bold text-center text-xl rounded-xl shadow-2xl items-center justify-center gap-6 hover:bg-red-800 cursor-pointer">
+                <MdDelete />
                 İşi Sil
               </button>
             </div>

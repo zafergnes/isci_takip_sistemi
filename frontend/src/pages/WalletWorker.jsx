@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import WalletWorkerCard from "../components/WalletWorkerCard";
 import { getWalletWorkerData, getWorkers } from '../Api/Api';
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
 import { IoAddSharp } from "react-icons/io5";
 
@@ -33,26 +33,7 @@ const WalletWorker = () => {
       </>
     );
   }
-  const worker = [
-    // ? farklı tablolardan çekilecek veriler
-    {
-      worker_id: 1,
-      worker_name: "Veli",
-      worker_surname: "Kara",
-      worker_img: "",
-      amount_paid: 15000,
-      amount_to_be_paid: 20000,
-      days_worked: 15,
-      workedDays: [
-        "2025-05-09",
-        "2025-05-10",
-        "2025-05-11",
-        "2025-05-12",
-        "2025-05-13",
-        "2025-05-15",
-      ],
-    },
-  ];
+
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-1 min-w-[1000px]">
       {workers &&

@@ -2,52 +2,54 @@ import React , {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import Button from "@mui/material/Button";
 import { getWorkByWorkerId, getWorkerById, getWorks } from '../Api/Api';
+import { useAuth } from "../Context/AuthContext";
 
 const UpdateWorker = () => {
-  let {id} = useParams()
+  const { employer } = useAuth();
+  let { id } = useParams();
   const [newWorker, setNewWorker] = useState({
+    id: "",
     name: "",
     surname: "",
     phone_number: "",
     mail: "",
     work_id: "",
-
     wage: "",
   });
-  const [worker,setWorker]=useState({});
-  const [works,setWorks]=useState();
-  const [workByWorker,setWorkByWorker] = useState();
+  const [worker, setWorker] = useState({});
+  const [works, setWorks] = useState();
+  const [workByWorker, setWorkByWorker] = useState();
 
-  useEffect( () =>{
+  useEffect(() => {
     async function fetchData() {
       const response = await getWorkerById(id);
       const resolvedWorker = response?.data?.[0];
       setWorker(resolvedWorker);
-      const getworks = await getWorks();
+      const getworks = await getWorks(employer);
       setWorks(getworks?.data);
       const getWorkData = await getWorkByWorkerId(id);
       setWorkByWorker(getWorkData.data?.[0]);
     }
-    fetchData()
-
-  }, [id])
+    fetchData();
+  }, [id]);
   useEffect(() => {
     if (worker) {
       setNewWorker({
+        id: id,
         name: worker.name,
         surname: worker.surname,
         phone_number: worker.phone_number,
         mail: worker.mail,
-        work_id: worker.work_id ,
-        wage: worker.wage
+        work_id: worker.work_id,
+        wage: worker.wage,
       });
     }
   }, [worker]);
   useEffect(() => {
     if (workByWorker) {
-      setNewWorker(prev => ({
+      setNewWorker((prev) => ({
         ...prev,
-        work_name: workByWorker.work_name || ""
+        work_name: workByWorker.work_name || "",
       }));
     }
   }, [workByWorker]);
@@ -55,7 +57,9 @@ const UpdateWorker = () => {
   return (
     <div className="flex w-full items-center justify-center">
       <div className="bg-slate-300 w-[40%] p-5 rounded-2xl shadow-2xl">
-        <h1 className="text-3xl font-bold text-center">ÇALIŞAN BİLGİLERİNİ DÜZENLE</h1>
+        <h1 className="text-3xl font-bold text-center">
+          ÇALIŞAN BİLGİLERİNİ DÜZENLE
+        </h1>
         <div className="flex flex-col">
           <small>{JSON.stringify(newWorker)}</small>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
@@ -115,15 +119,22 @@ const UpdateWorker = () => {
               setNewWorker({ ...newWorker, work_id: e.target.value })
             }
           >
-            {Array.isArray(works) && works.map((x, i) => {
-              return <option key={i} value={x.id}>{x.work_name}</option>;
-            })}
+            {Array.isArray(works) &&
+              works.map((x, i) => {
+                return (
+                  <option key={i} value={x.id}>
+                    {x.work_name}
+                  </option>
+                );
+              })}
           </select>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Yevmiye Ücreti
           </label>
           <input
             type="number"
+            min="0"
+            step="500"
             value={newWorker.wage}
             className="bg-white w-full mt-3 border border-gray-300 rounded h-10 my-2 p-2"
             onChange={(e) =>
@@ -139,6 +150,6 @@ const UpdateWorker = () => {
       </div>
     </div>
   );
-}
+};
 
 export default UpdateWorker

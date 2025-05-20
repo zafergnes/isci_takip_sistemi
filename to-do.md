@@ -1,4 +1,3 @@
-session konusunda state management' e gerek herhangi bir auth kütüphanesi iç görür.
 
 responsive konusunda grid kullanılan kısımlar:
 sm: → 640px+

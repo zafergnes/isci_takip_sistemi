@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { getWorkerandWorkById } from '../Api/Api';
+import { MdDelete } from "react-icons/md";
 
 const Worker = () => {
   let { id } = useParams();
@@ -14,12 +15,17 @@ const Worker = () => {
     }
     fetchData();
   }, []);
+  const apiURL = "http://localhost:3000/";
 
   return (
     <div>
       {workers && (
         <div className="p-7 mx-auto flex flex-wrap justify-center items-center m-20 bg-white rounded-2xl shadow-xl w-[60%] ">
-          <img className=" h-[300px] rounded-full" src={workers.img} alt="" />
+          <img
+            className=" h-[250px] w-[250px] rounded-full"
+            src={apiURL + workers.image}
+            alt=""
+          />
           <div className="p-2 m-4">
             <h2 className="mt-1 text-3xl text-center font-bold">
               {workers.name + " " + workers.surname}
@@ -49,19 +55,20 @@ const Worker = () => {
           </div>
           <div className="flex  justify-between mx-20 mt-15 w-full  items-center  gap-2 ">
             <Link to={`/wallet-worker-data/${id}`}>
-              <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+              <button className="flex items-center justify-center cursor-pointer gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
                 <p className="font-bold text-center text-xl">Verileri Gör</p>
               </button>
             </Link>
-            <Link to={`/update-worker/${workers?.id}`}>
-              <button className="flex items-center justify-center  gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+            <Link to={`/update-worker/${id}`}>
+              <button className="flex items-center justify-center cursor-pointer gap-6 h-[70px] p-7  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
                 <p className="font-bold text-center text-xl ">
                   Çalışan Bilgilerini Düzenle
                 </p>
               </button>
             </Link>
-            <button className="flex items-center justify-center  gap-6 h-[70px] p-7   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
-              <p className="font-bold text-center text-xl">Çalışanı Sil</p>
+            <button className="flex items-center justify-center gap-6 h-[70px] p-7 font-bold   text-center text-xl  bg-red-500 text-white rounded-xl shadow-2xl  hover:bg-red-800 cursor-pointer">
+              <MdDelete />
+              Çalışanı Sil
             </button>
           </div>
         </div>

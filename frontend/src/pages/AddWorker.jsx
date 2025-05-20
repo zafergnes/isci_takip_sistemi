@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { useAuth } from "../context/AuthContext";
-import { addWorker, getWorks } from "../Api/Api";
+import { useAuth } from "../Context/AuthContext";
+import { addWorker, getWorks, uploadFile } from "../Api/Api";
 
 const AddWorker = () => {
   const { employer } = useAuth();
@@ -13,6 +13,7 @@ const AddWorker = () => {
     mail: "",
     work_id: "",
     wage: "",
+    image: "uploads/default.png",
     employer_id: employer?.id,
   };
   const [works, setWorks] = useState([]);
@@ -25,7 +26,7 @@ const AddWorker = () => {
     }
     fetchData();
   }, [employer]);
-  const handleUpload = async () => {
+  const handleSubmit = async () => {
     try {
       let addedWorker = await addWorker(newWorker);
       if (addedWorker.desc == 1) {
@@ -37,7 +38,14 @@ const AddWorker = () => {
       alert("Çalışan Eklenirken Bir Hata Oluştu.");
     }
   };
-
+  const handleUpload = async (event) => {
+    console.log(event);
+    let uploadedFile = await uploadFile(event.target.files[0]);
+    if (uploadedFile.path) {
+      console.log(uploadedFile.path);
+      setNewWorker({ ...newWorker, image: uploadedFile.path });
+    }
+  };
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -115,6 +123,8 @@ const AddWorker = () => {
           </label>
           <input
             type="number"
+            min="0"
+            step="500"
             className="bg-white w-full mt-3 border border-gray-300 rounded h-10 my-2 p-2"
             onChange={(e) =>
               setNewWorker({ ...newWorker, wage: e.target.value })
@@ -135,7 +145,7 @@ const AddWorker = () => {
             <Button
               variant="contained"
               className="w-full h-15"
-              onClick={() => handleUpload()}
+              onClick={() => handleSubmit()}
             >
               <p className="text-xl">EKLE</p>
             </Button>

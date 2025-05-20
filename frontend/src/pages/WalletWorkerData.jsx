@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Calendar from "../components/Calendar";
-import {  getWalletWorkerDataByWorkerID, getWorkByWorkerId } from '../Api/Api';
+import {
+  addWorkerPayment,
+  getWalletWorkerDataByWorkerID,
+  getWorkByWorkerId,
+} from "../Api/Api";
 import { Link } from "react-router-dom";
-import CalendarComponent from '../components/CalendarComponent';
-import { useAuth } from "../context/AuthContext";
+import CalendarComponent from "../components/CalendarComponent";
+import { useAuth } from "../Context/AuthContext";
 
 const WalletWorkerData = () => {
+  const apiURL = "http://localhost:3000/";
   let { id } = useParams();
   const { employer } = useAuth();
   const [worker, setWorker] = useState();
@@ -14,8 +19,9 @@ const WalletWorkerData = () => {
   const [showPaymentInput, setShowPaymentInput] = useState(false);
 
   const [newPaymentAmount, setNewPaymentAmount] = useState({
-    id: id,
+    worker_id: id,
     amount_paid: "",
+    employer_id: employer?.id,
   });
   useEffect(() => {
     async function fetchData() {
@@ -26,13 +32,35 @@ const WalletWorkerData = () => {
     }
     fetchData();
   }, [id, employer]);
+  const handleUpload = async () => {
+    try {
+      let addedPaymentData = await addWorkerPayment(newPaymentAmount);
+      if (addedPaymentData.length != 0) {
+        setNewPaymentAmount({
+          worker_id: id,
+          amount_paid: "",
+          employer_id: employer?.id,
+        });
+        alert("Ödeme Başarıyla Eklendi");
+
+        // eklenen ödeme anlık gözüksün diye veriyi tekrar çektim
+        const getWorker = await getWalletWorkerDataByWorkerID(id, employer);
+        setWorker(getWorker?.data[0]);
+      } else {
+        alert("Ödeme Eklenirken Bir Sorun Oluştu");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Ödeme Eklenirken Bir Sorun Oluştu");
+    }
+  };
 
   if (worker)
     return (
       <div className="flex justify-center items-center">
         <div className="flex flex-col rounded-4xl bg-white p-5 mx-auto w-[60%]">
           <img
-            src={worker.image}
+            src={apiURL + worker.image}
             className="flex justify-center items-center rounded-full h-[200px] m-auto pt-5"
           />
           <p className="flex justify-center items-center text-3xl mt-2 font-bold italic">
@@ -111,6 +139,8 @@ const WalletWorkerData = () => {
                   <small>{JSON.stringify(newPaymentAmount)}</small>
                   <input
                     type="number"
+                    min="0"
+                    step="500"
                     placeholder="Tutar girin"
                     value={newPaymentAmount.amount_paid}
                     onChange={(e) =>
@@ -124,7 +154,7 @@ const WalletWorkerData = () => {
                   <button
                     onClick={() => {
                       setShowPaymentInput(false);
-                      setNewPaymentAmount({ id: id, amount_paid: "" });
+                      handleUpload();
                     }}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                   >

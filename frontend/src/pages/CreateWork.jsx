@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import { createWork } from "../Api/Api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 const CreateWork = () => {
   const { employer } = useAuth();
   const blankWork = {

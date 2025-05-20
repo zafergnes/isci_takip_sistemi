@@ -4,13 +4,13 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 const WorkerCard = ({ workers }) => {
-
+  const apiURL = "http://localhost:3000/";
   return (
     <div className=" flex justify-center items-center bg-white shadow-md rounded-xl m-3 w-[350px] p-5">
       <Link to={`/worker/${workers.id}`}>
         <img
-          className="mx-auto h-[150px] rounded-full"
-          src={workers.img}
+          className="mx-auto w-[200px] h-[200px] rounded-full"
+          src={apiURL + workers.image}
           alt=""
         />
         <div className="p-2 m-4">

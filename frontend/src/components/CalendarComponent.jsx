@@ -8,14 +8,12 @@ import {
   isWithinInterval,
   subYears,
 } from "date-fns";
-
+import { tr } from "date-fns/locale"; // <-- Türkçe locale eklendi
 
 export default function CalendarComponent({ workedDays }) {
   if (!workedDays || workedDays.length === 0) {
     return (
-      <div className=" font-bold text-red-500 ">
-        Kullanıcı Henüz Çalışmadı.
-      </div>
+      <div className=" font-bold text-red-500 ">Kullanıcı Henüz Çalışmadı.</div>
     );
   }
   const workedDates = useMemo(
@@ -23,7 +21,6 @@ export default function CalendarComponent({ workedDays }) {
     [workedDays]
   );
 
-  // determine range of dates
   const minDate = useMemo(
     () => workedDates.reduce((a, b) => (a < b ? a : b), new Date()),
     [workedDates]
@@ -33,7 +30,6 @@ export default function CalendarComponent({ workedDays }) {
     [workedDates]
   );
 
-  // if span > 1 year
   const moreThanYear = useMemo(
     () => maxDate - minDate > 1000 * 60 * 60 * 24 * 365,
     [minDate, maxDate]
@@ -56,7 +52,6 @@ export default function CalendarComponent({ workedDays }) {
 
   const [selectedYear, setSelectedYear] = useState(rangeEnd.getFullYear());
 
-  // compute display range
   const displayStart = useMemo(() => {
     if (moreThanYear) {
       return new Date(selectedYear, 0, 1);
@@ -70,7 +65,6 @@ export default function CalendarComponent({ workedDays }) {
     return rangeEnd;
   }, [moreThanYear, selectedYear, rangeEnd]);
 
-  // get months array
   const months = useMemo(() => {
     const m = [];
     let d = startOfMonth(displayStart);
@@ -80,6 +74,9 @@ export default function CalendarComponent({ workedDays }) {
     }
     return m;
   }, [displayStart, displayEnd]);
+
+  // Türkçe gün isimleri
+  const daysOfWeek = ["Pz", "Pt", "Sa", "Ça", "Pe", "Cu", "Ct"];
 
   return (
     <div className="space-y-4 ">
@@ -114,10 +111,11 @@ export default function CalendarComponent({ workedDays }) {
               className="border rounded-lg p-4"
             >
               <h3 className="text-center font-semibold mb-2">
-                {format(monthDate, "MMMM yyyy")}
+                {format(monthDate, "MMMM yyyy", { locale: tr })}{" "}
+                {/* <-- Türkçe ay ismi */}
               </h3>
               <div className="grid grid-cols-7 gap-1 text-center">
-                {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => (
+                {daysOfWeek.map((d) => (
                   <div key={d} className="font-medium text-sm">
                     {d}
                   </div>

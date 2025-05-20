@@ -59,6 +59,36 @@ app.post("/works", async (req, res) => {
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });
+/* çalışan bilgilerini güncelle */
+app.put("/workers", async (req, res) => {
+  const result = await client.query(
+    `UPDATE workers SET name = $1 , surname = $2, phone_number=$3, mail =$4 ,work_id = $5, image = $6 WHERE id = $7`,
+    [
+      req.body.name,
+      req.body.surname,
+      req.body.phone_number,
+      req.body.mail,
+      req.body.work_id,
+      req.body.image,
+      req.body.id
+    ]
+  );
+  res.json({ message: "Updated new work", desc: result.rowCount });
+});
+/* işi bilgilerini güncelle */
+app.put("/works", async (req, res) => {
+  const result = await client.query(
+    `UPDATE works SET work_name = $1 , work_desc = $2, address =$3, cost_of_work =$4 WHERE id = $5`,
+    [
+      req.body.work_name,
+      req.body.work_desc,
+      req.body.address,
+      req.body.cost_of_work,
+      req.body.work_id
+    ]
+  );
+  res.json({ message: "Updated new work", desc: result.rowCount });
+});
 
 /*! işleri getir !*/
 app.get("/works/:sessionid", async (req, res) => {

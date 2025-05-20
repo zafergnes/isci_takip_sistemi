@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import { addWorkerPayment, getWorks } from "../Api/Api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 
 const AddWorkPayments = () => {
   const { employer } = useAuth();
@@ -66,6 +66,8 @@ const AddWorkPayments = () => {
           </label>
           <input
             type="number"
+            min="0"
+            step="500"
             className="bg-white h-10 rounded my-2 p-2"
             value={newWorkPayment.amount_received}
             onChange={(e) =>

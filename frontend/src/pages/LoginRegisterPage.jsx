@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginRegisterPage() {
@@ -116,6 +116,9 @@ export default function LoginRegisterPage() {
                   type="password"
                   name="password"
                   value={loginInfo.password}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleLogin();
+                  }}
                   onChange={handleLoginChange}
                   placeholder="******"
                   className="w-full border border-gray-300 rounded-xl px-4 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"

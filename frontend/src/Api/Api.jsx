@@ -150,7 +150,7 @@ export const uploadFile = (file) => {
     },
   };
   return axios
-    .post(apiURL + "/blogimage", formdata, config)
+    .post(apiURL + "/workerimage/", formdata, config)
     .then((result) => {
       return result.data;
     })
@@ -200,9 +200,18 @@ export const addWorkerPayment = (data) => {
     });
 };
 export const addWorkControl = (data) => {
-  console.log("addWorkControl çağrıldı:", data);
   return axios
     .post(apiURL + "/add-worker-control", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const updateWork = (data) => {
+  return axios
+    .put(apiURL + "/works", data)
     .then((result) => {
       return result.data;
     })
