@@ -59,18 +59,44 @@ app.post("/works", async (req, res) => {
   );
   res.json({ message: "Added new work", desc: result.rowCount });
 });
+/* iş'i sil  */
+app.delete("/work/:id", async (req, res) => {
+  const result = await client.query(
+      `DELETE FROM works WHERE id = ${req.params.id}`
+  );
+  res.json({ message: "Deleted work", desc: result.rowCount });
+});
+
+/* çalışan'ı  sil  */
+app.delete("/worker/:id", async (req, res) => {
+  const result = await client.query(
+      `DELETE FROM workers WHERE id = ${req.params.id}`
+  );
+  res.json({ message: "Deleted worker", desc: result.rowCount });
+});
 /* çalışan bilgilerini güncelle */
 app.put("/workers", async (req, res) => {
   const result = await client.query(
-    `UPDATE workers SET name = $1 , surname = $2, phone_number=$3, mail =$4 ,work_id = $5, image = $6 WHERE id = $7`,
+    `UPDATE workers SET name = $1 , surname = $2, phone_number=$3, mail =$4 ,work_id = $5,wage = $6  WHERE id = $7`,
     [
       req.body.name,
       req.body.surname,
       req.body.phone_number,
       req.body.mail,
       req.body.work_id,
-      req.body.image,
-      req.body.id
+      req.body.wage,
+      req.body.id,
+    ]
+  );
+  res.json({ message: "Updated new work", desc: result.rowCount });
+});
+
+//! çalışan işten çıkarıla basılırsa work_id si 0 olarak güncellenir
+app.put("/updateworkid/:id", async (req, res) => {
+  const result = await client.query(
+    `UPDATE workers SET work_id = 0  WHERE id = $1`,
+    [
+      req.params.id
     ]
   );
   res.json({ message: "Updated new work", desc: result.rowCount });
@@ -87,7 +113,7 @@ app.put("/works", async (req, res) => {
       req.body.work_id
     ]
   );
-  res.json({ message: "Updated new work", desc: result.rowCount });
+  res.json({ message: "Updated worker's work id 0", desc: result.rowCount });
 });
 
 /*! işleri getir !*/
@@ -128,7 +154,15 @@ app.post("/workers", async (req, res) => {
 /*! çalışanları getir !*/
 app.get("/workers/:sessionid", async (req, res) => {
   const result = await client.query(
-    "SELECT * FROM workers WHERE employer_id = $1",
+    `SELECT
+  workers.*,
+  COALESCE(works.work_name, 'İşi Yok') AS work_name
+FROM
+  workers
+LEFT JOIN
+  works ON workers.work_id = works.id
+WHERE
+  workers.employer_id  = $1`,
     [req.params.sessionid]
   );
   res.json({ data: result.rows });
@@ -145,7 +179,17 @@ app.get("/worker/:id", async (req, res) => {
 /* id'sine göre çalışanı getir  */
 app.get("/workerandwork/:id", async (req, res) => {
   const result = await client.query(
-    `SELECT *,work_name,TO_CHAR(work_start_date, 'DD - MM - YYYY') AS date FROM workers  INNER JOIN works ON workers.work_id = works.id WHERE workers.id = ${req.params.id};`
+    `SELECT
+  workers.*,
+  COALESCE(works.work_name, 'İşi Yok') AS work_name,
+  TO_CHAR(work_start_date, 'DD - MM - YYYY') AS date
+FROM
+  workers
+LEFT JOIN
+  works ON workers.work_id = works.id
+WHERE
+  workers.id = ${req.params.id};
+`
   );
   res.json({ data: result.rows[0] });
 });
@@ -251,7 +295,7 @@ app.post("/worker-payment", async (req, res) => {
     "INSERT INTO worker_payments (worker_id,amount_paid,employer_id) VALUES ($1,$2,$3)",
     [req.body.worker_id, req.body.amount_paid, req.body.employer_id]
   );
-  res.json({ message: "Added new work", desc: result.rowCount });
+  res.json({ message: "Added new worker payment", desc: result.rowCount });
 });
 
 /*! işin ödemelerini getir !*/
@@ -282,7 +326,7 @@ app.post("/work-payment", async (req, res) => {
     "INSERT INTO work_payments (work_id,amount_received,employer_id) VALUES ($1,$2,$3)",
     [req.body.work_id, req.body.amount_received, req.body.employer_id]
   );
-  res.json({ message: "Added new work", desc: result.rowCount });
+  res.json({ message: "Added new work payment", desc: result.rowCount });
 });
 
 /* günlük yevmiye kontrolü ekle*/
@@ -311,7 +355,7 @@ app.post("/add-worker-control", async (req, res) => {
       req.body.was_at_work,
     ]
   );
-  res.json({ message: "Added new work", desc: result.rowCount });
+  res.json({ message: "Added new work control", desc: result.rowCount });
 });
 
 

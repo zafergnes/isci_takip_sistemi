@@ -219,3 +219,46 @@ export const updateWork = (data) => {
       return error;
     });
 };
+//! çalışan işten çıkarıla basılırsa work_id si 0 olarak güncellenir
+export const updateWorkID = (id) => {
+  return axios
+    .put(apiURL + "/updateworkid/"+ id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const updateWorker = (data) => {
+  return axios
+    .put(apiURL + "/workers", data)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+//! delete
+export const deleteWork = (id) => {
+  return axios
+    .delete(apiURL + "/work/" + id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const deleteWorker = (id) => {
+  return axios
+    .delete(apiURL + "/worker/" + id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

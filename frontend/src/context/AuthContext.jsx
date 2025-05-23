@@ -3,13 +3,11 @@ import { createContext, useState, useContext, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // İlk başta localStorage'dan oku
   const [employer, setEmployer] = useState(() => {
     const saved = localStorage.getItem("employer");
     return saved ? JSON.parse(saved) : null;
   });
 
-  // Başka bir sekmede login/logout olursa, otomatik güncelle
   useEffect(() => {
     const syncAuth = () => {
       const saved = localStorage.getItem("employer");

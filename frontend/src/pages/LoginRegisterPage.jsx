@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginRegisterPage() {
+  const { employer } = useAuth();
+  useEffect(() => {
+    if (employer != null) navigate("/works");
+  }, [employer]);
   const newBlankEmployer = {
     name: "",
     surname: "",

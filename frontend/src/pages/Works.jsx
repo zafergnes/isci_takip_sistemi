@@ -3,7 +3,7 @@ import Workcard from "../components/Workcard";
 import { Link } from "react-router-dom";
 import { IoAddSharp } from "react-icons/io5";
 import { getWorks } from "../Api/Api";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 
 const Works = () => {
   const { employer } = useAuth();

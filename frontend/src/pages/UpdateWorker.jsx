@@ -1,10 +1,16 @@
 import React , {useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { getWorkByWorkerId, getWorkerById, getWorks } from '../Api/Api';
+import {
+  getWorkByWorkerId,
+  getWorkerById,
+  getWorks,
+  updateWorker,
+} from "../Api/Api";
 import { useAuth } from "../Context/AuthContext";
 
 const UpdateWorker = () => {
+  const navigate = useNavigate();
   const { employer } = useAuth();
   let { id } = useParams();
   const [newWorker, setNewWorker] = useState({
@@ -53,6 +59,18 @@ const UpdateWorker = () => {
       }));
     }
   }, [workByWorker]);
+
+  const handleUpdate = async () => {
+    try {
+      let updatedWorker = await updateWorker(newWorker);
+      if (updatedWorker.desc == 1) {
+        alert("Çalışan Düzenlendi");
+        navigate(`/worker/${id}`);
+      }
+    } catch (error) {
+      alert("Hata  : " + error);
+    }
+  };
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -119,6 +137,7 @@ const UpdateWorker = () => {
               setNewWorker({ ...newWorker, work_id: e.target.value })
             }
           >
+            <option value={0}>İş'i Olmayacak</option>
             {Array.isArray(works) &&
               works.map((x, i) => {
                 return (
@@ -142,7 +161,11 @@ const UpdateWorker = () => {
             }
           />
           <div className=" flex mt-5 justify-end ">
-            <Button variant="contained" className="w-full h-15">
+            <Button
+              variant="contained"
+              className="w-full h-15"
+              onClick={() => handleUpdate()}
+            >
               <p className="text-xl">KAYDET</p>
             </Button>
           </div>

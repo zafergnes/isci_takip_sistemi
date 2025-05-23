@@ -13,7 +13,7 @@ const features = [
   },
   {
     icon: <CalculatorIcon className="h-10 w-10 text-blue-400" />,
-    title: "Otamatik Ücret ve Hesaplama",
+    title: "Otomatik Ücret ve Hesaplama",
     desc: "Kullanıcı karmaşık maaliyet hesaplamalarından kurtulur. İş'ten alınan tutar, alınması gerekentutar, Çalışana ödenmesi gereken tutar tutarlar otamatik hesaplanır.",
   },
   {
@@ -47,10 +47,10 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="#ozellikler"
+              href="#bilgi"
               className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-blue-500/30"
             >
-              Özellikler
+              Neler Sunuyoruz
             </a>
             <a
               href="/login"
@@ -62,7 +62,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div id="ozellikler" className="py-20 px-4">
+      <div id="bilgi" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

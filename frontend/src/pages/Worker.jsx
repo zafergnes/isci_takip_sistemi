@@ -7,16 +7,21 @@ import { MdDelete } from "react-icons/md";
 
 const Worker = () => {
   let { id } = useParams();
-  const [workers, setWorkers] = useState(null);
+  const [workers, setWorkers] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const worker = await getWorkerandWorkById(id);
-      setWorkers(worker.data);
+      const workerdata = await getWorkerandWorkById(id);
+      setWorkers(workerdata?.data);
     }
     fetchData();
-  }, []);
+  }, [id]);
   const apiURL = "http://localhost:3000/";
 
+  if (workers != []) {
+    <div>
+      <p>sıkıntı</p>
+    </div>;
+  }
   return (
     <div>
       {workers && (
@@ -48,10 +53,13 @@ const Worker = () => {
               <b className="text-left ">E-Mail :&nbsp;</b>
               <p className="text-center">{workers.mail}</p>
             </div>
-            <div className="flex justify-start m-2 w-full">
-              <b className="text-left ">İşe Başlama Tarihi :&nbsp;</b>
-              <p className="text-center">{workers.date}</p>
-            </div>
+
+            {workers.work_name === "İşi Yok" ? null : (
+              <div className="flex justify-start m-2 w-full">
+                <b className="text-left ">İşe Başlama Tarihi :&nbsp;</b>
+                <p className="text-center">{workers.date}</p>
+              </div>
+            )}
           </div>
           <div className="flex  justify-between mx-20 mt-15 w-full  items-center  gap-2 ">
             <Link to={`/wallet-worker-data/${id}`}>

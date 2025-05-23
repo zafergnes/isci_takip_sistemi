@@ -15,7 +15,6 @@ const Layout = () => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef();
 
-  // Dışarı tıklanınca menüyü kapat
   useEffect(() => {
     function handleClickOutside(e) {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
