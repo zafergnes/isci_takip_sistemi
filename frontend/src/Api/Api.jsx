@@ -262,3 +262,23 @@ export const deleteWorker = (id) => {
       return error;
     });
 };
+export const deleteWorkPayments = (id) => {
+  return axios
+    .delete(apiURL + "/deleteworkpayment/" + id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+export const deleteWorkerPayments = (id) => {
+  return axios
+    .delete(apiURL + "/deleteworkerpayment/" + id)
+    .then((result) => {
+      return result.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};

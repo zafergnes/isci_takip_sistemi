@@ -4,7 +4,7 @@ import WorkerInput from "../components/WorkerInput";
 import Button from "@mui/material/Button";
 import { addWorkControl, getWorkers } from "../Api/Api";
 import { useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import { IoAddSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 

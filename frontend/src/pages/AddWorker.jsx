@@ -109,6 +109,7 @@ const AddWorker = () => {
             <option value={""} default disabled>
               İşi Seçiniz
             </option>
+            <option value={0}>Şuan İş'i Olmayacak</option>
             {Array.isArray(works) &&
               works.map((x, i) => {
                 return (

@@ -18,3 +18,6 @@ grid-cols-none Mobilde grid'i devre dışı bırak.
 responsive konusunda iyileştirmeler yapılacak
 
 post put delete işlemleri hazırlanacak
+
+
+! trigger eklenecek

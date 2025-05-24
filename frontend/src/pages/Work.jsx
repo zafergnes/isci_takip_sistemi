@@ -9,9 +9,11 @@ import {
   addWorkPayment,
   deleteWork,
   updateWorkID,
+  deleteWorkPayments,
 } from "../Api/Api";
 import { MdDelete } from "react-icons/md";
 import { useAuth } from "../Context/AuthContext";
+import { IoAddSharp } from "react-icons/io5";
 
 const Work = () => {
   const navigate = useNavigate();
@@ -119,9 +121,25 @@ const Work = () => {
       }
     } else alert("Çalıştan İşten Çıkarılmadı.");
   };
-  const deletePayment = () => {
-    if (confirm("Ödeme Silinecek Eminmisiniz?")) console.log("silindi");
-    else console.log("Vazgeçti");
+
+  const deletePayment = async (paymentID) => {
+    try {
+      if (confirm("Ödeme Silinecek Eminmisiniz?")) {
+        const deletedPayment = await deleteWorkPayments(paymentID);
+        if (deletedPayment.desc === 1) {
+          alert("Ödeme Başarıyla Silindi.");
+          const allWorkPayment = await getWorkPaymentsByWorkId(id);
+          setWorkPayments(allWorkPayment.data);
+        } else {
+          alert("Silme İşlemi Başarısız Oldu");
+        }
+      } else alert("Vazgeçildi.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleNavigate = (id) => {
+    navigate(`/wallet-worker-data/${id}`);
   };
   const apiURL = "http://localhost:3000/";
   return (
@@ -181,7 +199,10 @@ const Work = () => {
                           </div>
                         </Link>
                         <div className="flex ml-10 justify-center items-center gap-5">
-                          <button className="flex w-[150px] h-[40px] text-white bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600">
+                          <button
+                            className="flex w-[150px] h-[40px] text-white bg-blue-500 rounded-xl shadow-2xl cursor-pointer items-center justify-center hover:bg-blue-600"
+                            onClick={() => handleNavigate(x.id)}
+                          >
                             <p className="font-bold text-center">
                               Verileri Gör
                             </p>
@@ -198,9 +219,21 @@ const Work = () => {
                   );
                 })
               ) : (
-                <p className="text-center text-gray-700 font-semibold p-5">
-                  Çalışan işçi bulunamadı
-                </p>
+                <>
+                  <p className="text-center text-gray-700 font-semibold p-5">
+                    Çalışan işçi bulunamadı
+                  </p>
+                  <div className="flex justify-center  items-center mt-3 gap-2 mb-5">
+                    <Link to={"/add-worker"}>
+                      <button className="flex items-center justify-center w-[150px] gap-3 h-[40px]  cursor-pointer  bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+                        <IoAddSharp className="  w-[20px] h-[20px]  " />
+                        <p className=" text-center text-[15px]">
+                          ÇALIŞAN EKLE{" "}
+                        </p>
+                      </button>
+                    </Link>
+                  </div>
+                </>
               )}
             </div>
 
@@ -241,7 +274,7 @@ const Work = () => {
                           {x.formatted_date}
                           <button
                             className=" flex justify-end ml-5 bg-blue-500 rounded-2xl p-1 cursor-pointer"
-                            onClick={() => deletePayment()}
+                            onClick={() => deletePayment(x.id)}
                           >
                             ❌
                           </button>
@@ -263,6 +296,12 @@ const Work = () => {
                     min="0"
                     step="500"
                     placeholder="Tutar girin"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleUpload();
+                        setShowPaymentInput(false);
+                      }
+                    }}
                     value={newPaymentAmount.amount_received}
                     onChange={(e) =>
                       setNewPaymentAmount({

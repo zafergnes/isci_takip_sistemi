@@ -1,11 +1,12 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, useParams } from "react-router-dom";
-import { getWorkerandWorkById } from '../Api/Api';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteWorker, getWorkerandWorkById } from "../Api/Api";
 import { MdDelete } from "react-icons/md";
 
 const Worker = () => {
+  const navigate = useNavigate();
   let { id } = useParams();
   const [workers, setWorkers] = useState([]);
   useEffect(() => {
@@ -22,6 +23,21 @@ const Worker = () => {
       <p>sıkıntı</p>
     </div>;
   }
+  const handleDelete = async () => {
+    try {
+      if (confirm("Çalışanı Silmek İstediğinize Emin Misiniz?")) {
+        const deletedWorker = await deleteWorker(id);
+        if (deletedWorker.desc === 1) {
+          alert("Çalışan Başarıyla Silindi.");
+          navigate("/workers");
+        } else {
+          alert("Çalışan Silinemedi. Bir hata oluştu.");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div>
       {workers && (
@@ -74,7 +90,10 @@ const Worker = () => {
                 </p>
               </button>
             </Link>
-            <button className="flex items-center justify-center gap-6 h-[70px] p-7 font-bold   text-center text-xl  bg-red-500 text-white rounded-xl shadow-2xl  hover:bg-red-800 cursor-pointer">
+            <button
+              onClick={() => handleDelete()}
+              className="flex items-center justify-center gap-6 h-[70px] p-7 font-bold   text-center text-xl  bg-red-500 text-white rounded-xl shadow-2xl  hover:bg-red-800 cursor-pointer"
+            >
               <MdDelete />
               Çalışanı Sil
             </button>

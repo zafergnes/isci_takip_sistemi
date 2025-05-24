@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 
 const WorkerInput = ({ workers, date, onChange }) => {
   const { employer } = useAuth();
@@ -19,7 +19,8 @@ const WorkerInput = ({ workers, date, onChange }) => {
 
   const [newWorkControl, setNewWorkControl] = useState(WorkControl);
   useEffect(() => {
-    if (onChange) onChange(newWorkControl);
+    if (onChange && newWorkControl.was_at_work === true)
+      onChange(newWorkControl);
   }, [newWorkControl]);
 
   return (

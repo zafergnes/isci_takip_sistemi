@@ -67,6 +67,22 @@ app.delete("/work/:id", async (req, res) => {
   res.json({ message: "Deleted work", desc: result.rowCount });
 });
 
+//! iş ödemesini sil
+app.delete("/deleteworkpayment/:id", async (req, res) => {
+  const result = await client.query(
+    `DELETE FROM work_payments WHERE id = ${req.params.id}`
+  );
+  res.json({ message: "Deleted work payment", desc: result.rowCount });
+});
+//! çalışan ödemesini sil
+app.delete("/deleteworkerpayment/:id", async (req, res) => {
+  const result = await client.query(
+    `DELETE FROM worker_payments WHERE id = ${req.params.id}`
+  );
+  res.json({ message: "Deleted worker payment", desc: result.rowCount });
+});
+
+
 /* çalışan'ı  sil  */
 app.delete("/worker/:id", async (req, res) => {
   const result = await client.query(

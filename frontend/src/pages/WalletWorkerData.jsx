@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from "react-router-dom";
 import Calendar from "../components/Calendar";
 import {
   addWorkerPayment,
+  deleteWorker,
+  deleteWorkerPayments,
   getWalletWorkerDataByWorkerID,
   getWorkByWorkerId,
 } from "../Api/Api";
 import { Link } from "react-router-dom";
 import CalendarComponent from "../components/CalendarComponent";
 import { useAuth } from "../Context/AuthContext";
+import { MdDelete } from "react-icons/md";
 
 const WalletWorkerData = () => {
+  const navigate = useNavigate();
   const apiURL = "http://localhost:3000/";
   let { id } = useParams();
   const { employer } = useAuth();
@@ -54,14 +58,44 @@ const WalletWorkerData = () => {
       alert("Ödeme Eklenirken Bir Sorun Oluştu");
     }
   };
-
+  const handleDelete = async () => {
+    try {
+      if (confirm("Çalışanı Silmek İstediğinize Emin Misiniz?")) {
+        const deletedWorker = await deleteWorker(id);
+        if (deletedWorker.desc === 1) {
+          alert("Çalışan Başarıyla Silindi.");
+          navigate("/workers");
+        } else {
+          alert("Çalışan Silinemedi. Bir hata oluştu.");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deletePayment = async (paymentID) => {
+    try {
+      if (confirm("Ödeme Silinecek Eminmisiniz?")) {
+        const deletedPayment = await deleteWorkerPayments(paymentID);
+        if (deletedPayment.desc === 1) {
+          alert("Ödeme Başarıyla Silindi.");
+          const getWorker = await getWalletWorkerDataByWorkerID(id, employer);
+          setWorker(getWorker?.data[0]);
+        } else {
+          alert("Silme İşlemi Başarısız Oldu");
+        }
+      } else alert("Vazgeçildi.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (worker)
     return (
       <div className="flex justify-center items-center">
         <div className="flex flex-col rounded-4xl bg-white p-5 mx-auto w-[60%]">
           <img
             src={apiURL + worker.image}
-            className="flex justify-center items-center rounded-full h-[200px] m-auto pt-5"
+            className="flex justify-center items-center rounded-full h-[250px] w-[240px] m-auto pt-5"
           />
           <p className="flex justify-center items-center text-3xl mt-2 font-bold italic">
             {worker.name + " " + worker.surname}
@@ -122,7 +156,10 @@ const WalletWorkerData = () => {
                         {x.amount_paid}
                         <b className="ml-20">Ödeme Tarihi :&nbsp;</b>
                         {x.amount_paid_time}
-                        <button className=" flex justify-end ml-5 bg-blue-500 rounded-2xl p-1 cursor-pointer">
+                        <button
+                          onClick={() => deletePayment(x.id)}
+                          className=" flex justify-end ml-5 bg-blue-500 rounded-2xl p-1 cursor-pointer"
+                        >
                           ❌
                         </button>
                       </p>
@@ -142,6 +179,12 @@ const WalletWorkerData = () => {
                     min="0"
                     step="500"
                     placeholder="Tutar girin"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        setShowPaymentInput(false);
+                        handleUpload();
+                      }
+                    }}
                     value={newPaymentAmount.amount_paid}
                     onChange={(e) =>
                       setNewPaymentAmount({
@@ -188,7 +231,11 @@ const WalletWorkerData = () => {
                 </p>
               </button>
             </Link>
-            <button className="flex items-center justify-center  gap-6 h-[70px] p-7   bg-blue-500 text-white rounded-xl shadow-2xl  hover:bg-blue-600">
+            <button
+              onClick={() => handleDelete()}
+              className="flex items-center justify-center gap-6 h-[70px] p-7 font-bold   text-center text-xl  bg-red-500 text-white rounded-xl shadow-2xl  hover:bg-red-800 cursor-pointer"
+            >
+              <MdDelete />
               <p className="font-bold text-center text-xl">Çalışanı Sil</p>
             </button>
           </div>

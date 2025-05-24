@@ -13,7 +13,7 @@ import { tr } from "date-fns/locale"; // <-- Türkçe locale eklendi
 export default function CalendarComponent({ workedDays }) {
   if (!workedDays || workedDays.length === 0) {
     return (
-      <div className=" font-bold text-red-500 ">Kullanıcı Henüz Çalışmadı.</div>
+      <div className=" font-bold text-red-500 ">Çalışan Henüz Çalışmadı.</div>
     );
   }
   const workedDates = useMemo(

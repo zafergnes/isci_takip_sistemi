@@ -137,7 +137,7 @@ const UpdateWorker = () => {
               setNewWorker({ ...newWorker, work_id: e.target.value })
             }
           >
-            <option value={0}>İş'i Olmayacak</option>
+            <option value={0}>Şuan İş'i Olmayacak</option>
             {Array.isArray(works) &&
               works.map((x, i) => {
                 return (
