@@ -33,6 +33,7 @@ const WalletWorkerData = () => {
       setWorker(getWorker?.data[0]);
       const getWorkData = await getWorkByWorkerId(id, employer);
       setWorkByWorker(getWorkData?.data?.[0]);
+      console.log(workByWorker);
     }
     fetchData();
   }, [id, employer]);

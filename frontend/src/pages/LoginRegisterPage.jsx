@@ -10,9 +10,9 @@ export default function LoginRegisterPage() {
   const newBlankEmployer = {
     name: "",
     surname: "",
-    password: "",
-    mail: "",
     phone_number: "",
+    mail: "",
+    password: "",
   };
   const blankEmployer = {
     mail: "",
@@ -30,9 +30,6 @@ export default function LoginRegisterPage() {
     setRegisterInfo({ ...registerInfo, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = () => {
-    console.log("Kayıt yapılıyor:", registerInfo);
-  };
   const { login } = useAuth();
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -54,6 +51,39 @@ export default function LoginRegisterPage() {
       localStorage.setItem("employer", JSON.stringify(data));
     } catch (err) {
       console.error(err);
+    }
+  };
+  const handleRegister = async () => {
+    try {
+      if (
+        !registerInfo.name ||
+        !registerInfo.surname ||
+        !registerInfo.mail ||
+        !registerInfo.phone_number ||
+        !registerInfo.password
+      ) {
+        alert("Lütfen tüm alanları doldurun.");
+        return;
+      }
+      const res = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(registerInfo),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(errorData.message || "Kayıt başarısız");
+        return;
+      }
+
+      const data = await res.json();
+      login(data);
+      navigate("/works");
+      localStorage.setItem("employer", JSON.stringify(data));
+    } catch (err) {
+      console.error(err);
+      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     }
   };
 
@@ -206,7 +236,7 @@ export default function LoginRegisterPage() {
               <button
                 type="button"
                 onClick={handleRegister}
-                className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition font-semibold shadow-md"
+                className="w-full bg-blue-600 cursor-pointer text-white py-3 rounded-xl hover:bg-blue-700 transition font-semibold shadow-md"
               >
                 Kayıt Ol
               </button>

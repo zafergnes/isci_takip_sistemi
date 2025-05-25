@@ -22,11 +22,19 @@ const AddWorkerPayments = () => {
 
   const handleUpload = async () => {
     try {
-      let addedWorkerPayment = await addWorkerPayment(newWorkerPayment);
-      if (addedWorkerPayment.length != 0) {
-        setNewWorkerPayment(blankWorker);
-        alert("Ödeme Başarıyla eklendi.");
+      if (
+        newWorkerPayment.amount_paid != "" &&
+        newWorkerPayment.worker_id != ""
+      ) {
+        let addedWorkerPayment = await addWorkerPayment(newWorkerPayment);
+        if (addedWorkerPayment.length != 0) {
+          setNewWorkerPayment(blankWorker);
+          alert("Ödeme Başarıyla eklendi.");
+        }
+      } else {
+        alert("Alanlar Boş Bırakılamaz. !");
       }
+
     } catch (error) {
       console.error(error);
       console.log("Ödeme Eklenirken Bir Hata Oluştu.");

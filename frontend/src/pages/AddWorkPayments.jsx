@@ -22,11 +22,19 @@ const AddWorkPayments = () => {
   }, [employer]);
   const handleUpload = async () => {
     try {
-      let addedPaymentData = await addWorkerPayment(newWorkPayment);
-      if (addedPaymentData) {
-        setNewWorkPayment(blankPayment);
-        alert("Ödeme Başarıyla Eklendi");
+      if (
+        newWorkPayment.amount_received != "" &&
+        newWorkPayment.work_id != ""
+      ) {
+        let addedPaymentData = await addWorkerPayment(newWorkPayment);
+        if (addedPaymentData) {
+          setNewWorkPayment(blankPayment);
+          alert("Ödeme Başarıyla Eklendi");
+        }
+      } else {
+        alert("Alanlar Boş Bırakılamaz");
       }
+
     } catch (error) {
       console.error(error);
       alert("Ödeme Eklenirken Bir Sorun Oluştu");

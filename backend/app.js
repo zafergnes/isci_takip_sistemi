@@ -213,7 +213,19 @@ WHERE
 /* çalışanın id sine göre çalıştığı işin id'sini ve iş adını getir */
 app.get("/workbyworker/:id/:sessionid", async (req, res) => {
   const result = await client.query(
-    `select id,work_name from works where id = (select work_id from workers where id = ${req.params.id} AND employer_id = ${req.params.sessionid});`
+    `SELECT
+  COALESCE(
+    (SELECT id FROM works WHERE id = (
+      SELECT work_id FROM workers WHERE id = ${req.params.id} AND employer_id = ${req.params.sessionid}
+    ) AND id != 0),
+    0
+  ) AS id,
+  COALESCE(
+    (SELECT work_name FROM works WHERE id = (
+      SELECT work_id FROM workers WHERE id = ${req.params.id} AND employer_id = ${req.params.sessionid}
+    ) AND id != 0),
+    'İşi Yok'
+  ) AS work_name;`
   );
   res.json({ data: result.rows });
 });
