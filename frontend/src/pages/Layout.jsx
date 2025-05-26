@@ -113,14 +113,13 @@ const Layout = () => {
       {/* <footer></footer> */}
       <div className="flex  bg-slate-700 mt-auto end-0 ">
         <div className="flex flex-col mx-auto px-20 py-20 items-center justify-center">
-          <h3 className="text-white text-4xl flex">İŞÇİ TAKİP SİSTEMİ</h3>
-          <h4 className="text-white text-xl mt-10 font-sans">
+          <h3 className="text-white text-4xl font-bold">İŞÇİ TAKİP SİSTEMİ</h3>
+          <h4 className="text-white  mt-20 font-sans text-[15px] ">
             Designed By{" "}
             <b
-              className="ml-1 text-slate-900 underline cursor-pointer"
+              className="ml-1 text-slate-900 underline cursor-pointer  "
               onClick={handleNavigate}
             >
-              {" "}
               Zafer GÜNES
             </b>
           </h4>

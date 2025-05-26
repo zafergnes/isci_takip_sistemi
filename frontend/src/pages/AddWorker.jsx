@@ -67,7 +67,6 @@ const AddWorker = () => {
       <div className="bg-slate-300 w-[40%] p-5 rounded-2xl shadow-2xl">
         <h1 className="text-3xl font-bold text-center">ÇALIŞAN EKLE</h1>
         <div className="flex flex-col">
-          <small>{JSON.stringify(newWorker)}</small>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Çalışan Adı
           </label>

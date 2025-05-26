@@ -3,7 +3,7 @@ import WalletWorkCard from "../components/WalletWorkCard";
 import { getWalletWorks } from '../Api/Api';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
 import { IoAddSharp } from "react-icons/io5";
 
@@ -17,53 +17,7 @@ const WalletWork = () => {
     }
     fetchData();
   }, [employer]);
-  const payment = [
-    {
-      id: 1,
-      work_id: 1,
-      work_name: "Kalıp İşi",
-      work_addres: "Ölüdeniz Mahallesi",
-      date: "2025-04-15",
-      to_be_taken: 100000,
-      received: 500000,
-    },
-    {
-      id: 2,
-      work_id: 2,
-      work_name: "Sıva İşi",
-      work_addres: "Çiftlik Mahallesi",
-      date: "2025-04-15",
-      to_be_taken: 100000,
-      received: 500000,
-    },
-    {
-      id: 3,
-      work_id: 3,
-      work_name: "Perde Duvar İşi",
-      work_addres: "Nurhak",
-      date: "2025-04-15",
-      to_be_taken: 100000,
-      received: 500000,
-    },
-    {
-      id: 4,
-      work_id: 4,
-      work_name: "Tadilat İşi",
-      work_addres: "Karamürsel",
-      date: "2025-04-15",
-      to_be_taken: 100000,
-      received: 500000,
-    },
-    {
-      id: 5,
-      work_id: 5,
-      work_name: "Demir İşi",
-      work_addres: "Esentepe Mahallesi",
-      date: "2025-04-15",
-      to_be_taken: 100000,
-      received: 500000,
-    },
-  ];
+
   if (!payments || payments.length === 0) {
     return (
       <>

@@ -134,7 +134,6 @@ export default function LoginRegisterPage() {
 
         {activeTab === "giris" ? (
           <>
-            <small>{JSON.stringify(loginInfo)}</small>
             <form className="space-y-5 mt-6">
               <div>
                 <label className="text-sm text-gray-700">E-posta</label>
@@ -172,7 +171,6 @@ export default function LoginRegisterPage() {
           </>
         ) : (
           <>
-            <small>{JSON.stringify(registerInfo)}</small>
             <form className="space-y-5 mt-6">
               <div>
                 <label className="text-sm text-gray-700">İsminiz</label>
