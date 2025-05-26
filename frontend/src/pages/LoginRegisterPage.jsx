@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function LoginRegisterPage() {
   const { employer } = useAuth();
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function LoginRegisterPage() {
       const data = await res.json();
       login(data);
       navigate("/works");
+      toast.success("Hoş Geldiniz");
       localStorage.setItem("employer", JSON.stringify(data));
     } catch (err) {
       console.error(err);
@@ -81,6 +83,7 @@ export default function LoginRegisterPage() {
       login(data);
       navigate("/works");
       localStorage.setItem("employer", JSON.stringify(data));
+      toast.success("Hoş Geldiniz");
     } catch (err) {
       console.error(err);
       alert("Bir hata oluştu. Lütfen tekrar deneyin.");

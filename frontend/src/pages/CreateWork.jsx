@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import { createWork } from "../Api/Api";
 import { useAuth } from "../Context/AuthContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const CreateWork = () => {
   const { employer } = useAuth();
+  const navigate = useNavigate();
   const blankWork = {
     employer_id: employer?.id,
     work_name: "",
@@ -15,14 +18,24 @@ const CreateWork = () => {
 
   const handleSubmit = async () => {
     try {
-      let createdWork = await createWork(newWork);
-      if (createdWork.desc == 1) {
-        setNewWork(blankWork);
-        alert("İş Oluşturuldu");
+      if (
+        newWork.work_name != "" &&
+        newWork.work_desc != "" &&
+        newWork.cost_of_work != "" &&
+        newWork.address != ""
+      ) {
+        let createdWork = await createWork(newWork);
+        if (createdWork.desc == 1) {
+          setNewWork(blankWork);
+          navigate("/works");
+          toast.success("İş Oluşturuldu");
+        }
+      } else {
+        toast.warning("Alanlar Boş Bırakılamaz.");
       }
     } catch (error) {
       console.log(error);
-      alert("iş oluşturulamadı");
+      toast.warning("iş oluşturulamadı");
     }
   };
   return (

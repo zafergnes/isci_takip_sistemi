@@ -24,6 +24,7 @@ import AddWorkPayments from './pages/AddWorkPayments'
 import AddWorkerPayments from "./pages/AddWorkerPayments";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./Context/AuthContext";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -31,12 +32,27 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}></Route>
+
             <Route path="/login" element={<LoginRegisterPage />} />
+
             <Route
               path="/"
               element={
                 <PrivateRoute>
                   <Layout />
+                  <ToastContainer
+                    style={{ marginTop: "90px" }}
+                    position="top-right"
+                    autoClose={1300}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                  />
                 </PrivateRoute>
               }
             >

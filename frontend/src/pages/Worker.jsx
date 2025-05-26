@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteWorker, getWorkerandWorkById } from "../Api/Api";
 import { MdDelete } from "react-icons/md";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Worker = () => {
   const navigate = useNavigate();
   let { id } = useParams();
@@ -28,11 +29,13 @@ const Worker = () => {
       if (confirm("Çalışanı Silmek İstediğinize Emin Misiniz?")) {
         const deletedWorker = await deleteWorker(id);
         if (deletedWorker.desc === 1) {
-          alert("Çalışan Başarıyla Silindi.");
+          toast.success("Çalışan Başarıyla Silindi.");
           navigate("/workers");
         } else {
-          alert("Çalışan Silinemedi. Bir hata oluştu.");
+          toast.warning("Çalışan Silinemedi. Bir hata oluştu.");
         }
+      } else {
+        toast.info("Silinmekten Vazgeçildi!");
       }
     } catch (error) {
       console.error(error);

@@ -1,4 +1,6 @@
 import React , {useEffect, useState} from 'react'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import {
@@ -6,6 +8,7 @@ import {
   getWorkerById,
   getWorks,
   updateWorker,
+  uploadFile,
 } from "../Api/Api";
 import { useAuth } from "../Context/AuthContext";
 
@@ -13,6 +16,7 @@ const UpdateWorker = () => {
   const navigate = useNavigate();
   const { employer } = useAuth();
   let { id } = useParams();
+  const [worker, setWorker] = useState({});
   const [newWorker, setNewWorker] = useState({
     id: "",
     name: "",
@@ -21,8 +25,8 @@ const UpdateWorker = () => {
     mail: "",
     work_id: "",
     wage: "",
+    image: "",
   });
-  const [worker, setWorker] = useState({});
   const [works, setWorks] = useState();
   const [workByWorker, setWorkByWorker] = useState();
 
@@ -48,6 +52,7 @@ const UpdateWorker = () => {
         mail: worker.mail,
         work_id: worker.work_id,
         wage: worker.wage,
+        image: worker.image,
       });
     }
   }, [worker]);
@@ -62,13 +67,29 @@ const UpdateWorker = () => {
 
   const handleUpdate = async () => {
     try {
-      let updatedWorker = await updateWorker(newWorker);
-      if (updatedWorker.desc == 1) {
-        alert("Çalışan Düzenlendi");
-        navigate(`/worker/${id}`);
+      if (
+        newWorker.name != "" &&
+        newWorker.surname != "" &&
+        newWorker.phone_number != "" &&
+        newWorker.mail != "" &&
+        newWorker.wage != ""
+      ) {
+        let updatedWorker = await updateWorker(newWorker);
+        if (updatedWorker.desc == 1) {
+          toast.success("Çalışan Düzenlendi");
+          navigate(`/worker/${id}`);
+        }
+      } else {
+        alert("Alanlar Boş Bırakılamaz");
       }
     } catch (error) {
       alert("Hata  : " + error);
+    }
+  };
+  const handleUpload = async (event) => {
+    let uploadedFile = await uploadFile(event.target.files[0]);
+    if (uploadedFile.path) {
+      -setNewWorker({ ...newWorker, image: uploadedFile.path });
     }
   };
 
@@ -159,6 +180,17 @@ const UpdateWorker = () => {
             onChange={(e) =>
               setNewWorker({ ...newWorker, wage: e.target.value })
             }
+          />
+          <label
+            htmlFor=""
+            className="ml-1 mt-3 flex justify-center text-xl text-gray-700"
+          >
+            Fotoğraf
+          </label>
+          <input
+            type="file"
+            onChange={(e) => handleUpload(e)}
+            className="bg-white w-[300px] mx-auto border-2  cursor-pointer border-gray-500 rounded my-2 p-3"
           />
           <div className=" flex mt-5 justify-end ">
             <Button

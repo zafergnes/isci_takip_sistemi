@@ -14,6 +14,8 @@ import {
 import { MdDelete } from "react-icons/md";
 import { useAuth } from "../Context/AuthContext";
 import { IoAddSharp } from "react-icons/io5";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Work = () => {
   const navigate = useNavigate();
@@ -62,7 +64,7 @@ const Work = () => {
             amount_received: "",
             employer_id: employer?.id,
           });
-          alert("Ödeme Başarıyla Eklendi");
+          toast.success("Ödeme Başarıyla Eklendi");
 
           // eklenen ödeme anlık gözüksün diye veriyi tekrar çektim
           const allWorkPayment = await getWorkPaymentsByWorkId(id);
@@ -71,33 +73,29 @@ const Work = () => {
           const SumAllPayments = await getSumWorkPayments(id);
           setSumPayments(SumAllPayments.data[0]);
         } else {
-          alert("Ödeme Eklenirken Bir Sorun Oluştu");
+          toast.warn("Ödeme Eklenirken Bir Sorun Oluştu");
         }
       } else {
-        alert("Ödeme Miktari Boş Olamaz!");
+        toast.warning("Ödeme Miktari Boş Olamaz!");
       }
     } catch (error) {
       console.error(error);
-      alert("Ödeme Eklenirken Bir Sorun Oluştu");
+      toast.warning("Ödeme Eklenirken Bir Sorun Oluştu");
     }
   };
 
   const handleDeleteWork = async () => {
     try {
-      if (
-        confirm(
-          "Çalışan İşten Çıkarılacak Emin Misiniz! \nKullanıcın kayıtlarını daha sonrada tekrar görebilirsiniz"
-        )
-      ) {
+      if (confirm("İş ve İş Bilgilgileri Silinecek Onaylıyormusunuz?")) {
         const deletedWork = await deleteWork(id);
         if (deletedWork.desc === 1) {
-          alert("İş Başarıyla Silindi.");
+          toast.success("İş Başarıyla Silindi.");
           navigate("/works");
         } else {
           ("İş Silinirken Bir Hata Oluştu !!");
         }
       } else {
-        alert("Silinmekten Vazgeçildi!");
+        toast.info("Silinmekten Vazgeçildi!");
       }
     } catch (error) {
       console.log(error);
@@ -110,16 +108,15 @@ const Work = () => {
         "Çalışan İşten Çıkarılacak Emin Misiniz! \nKullanıcın kayıtlarını daha sonrada tekrar görebilirsiniz"
       )
     ) {
-      console.log("buraya girdi");
       const dismiss = await updateWorkID(id);
       if (dismiss.desc === 1) {
-        alert("Çalışan İşten Çıkarıldı.");
+        toast.success("Çalışan İşten Çıkarıldı.");
         const allWorker = await getWorkerByWorkId(id);
         setWorkers(allWorker.data);
       } else {
-        alert("başarısız");
+        toast.warning("başarısız");
       }
-    } else alert("Çalıştan İşten Çıkarılmadı.");
+    } else toast.info("Çalıştan İşten Çıkarılmadı.");
   };
 
   const deletePayment = async (paymentID) => {
@@ -127,13 +124,13 @@ const Work = () => {
       if (confirm("Ödeme Silinecek Eminmisiniz?")) {
         const deletedPayment = await deleteWorkPayments(paymentID);
         if (deletedPayment.desc === 1) {
-          alert("Ödeme Başarıyla Silindi.");
+          toast.success("Ödeme Başarıyla Silindi.");
           const allWorkPayment = await getWorkPaymentsByWorkId(id);
           setWorkPayments(allWorkPayment.data);
         } else {
-          alert("Silme İşlemi Başarısız Oldu");
+          toast.warning("Silme İşlemi Başarısız Oldu");
         }
-      } else alert("Vazgeçildi.");
+      } else toast.info("Vazgeçildi.");
     } catch (error) {
       console.log(error);
     }

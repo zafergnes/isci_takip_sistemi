@@ -16,14 +16,15 @@ const WalletWorkCard = ({ payments }) => {
               <b className="ml-5">Alınan Tutar : &nbsp;</b>
               {payments.total_amount_received}
               <b className="ml-5">Alınacak Tutar: &nbsp;</b>
-              {(payments&&payments.cost_of_work)-(payments&&payments.total_amount_received)}
+              {(payments && payments.cost_of_work) -
+                (payments && payments.total_amount_received)}
               <b className="ml-5">İş Bedeli: &nbsp;</b>
               {payments.cost_of_work}
             </div>
           </div>
           <div className=" flex m-4 ml-15 items-end  gap-3">
             <Button className="" variant="contained">
-              <Link to={`/work/${payments.work_id}`}>VERİLERİ GÖR</Link>
+              <Link to={`/work/${payments.id}`}>VERİLERİ GÖR</Link>
             </Button>
           </div>
         </div>

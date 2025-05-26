@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import CalendarComponent from "../components/CalendarComponent";
 import { useAuth } from "../Context/AuthContext";
 import { MdDelete } from "react-icons/md";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const WalletWorkerData = () => {
   const navigate = useNavigate();
   const apiURL = "http://localhost:3000/";
@@ -39,24 +40,27 @@ const WalletWorkerData = () => {
   }, [id, employer]);
   const handleUpload = async () => {
     try {
-      let addedPaymentData = await addWorkerPayment(newPaymentAmount);
-      if (addedPaymentData.length != 0) {
-        setNewPaymentAmount({
-          worker_id: id,
-          amount_paid: "",
-          employer_id: employer?.id,
-        });
-        alert("Ödeme Başarıyla Eklendi");
-
-        // eklenen ödeme anlık gözüksün diye veriyi tekrar çektim
-        const getWorker = await getWalletWorkerDataByWorkerID(id, employer);
-        setWorker(getWorker?.data[0]);
+      if (newPaymentAmount.amount_paid != "") {
+        let addedPaymentData = await addWorkerPayment(newPaymentAmount);
+        if (addedPaymentData.length != 0) {
+          setNewPaymentAmount({
+            worker_id: id,
+            amount_paid: "",
+            employer_id: employer?.id,
+          });
+          toast.success("Ödeme Başarıyla Eklendi");
+          // eklenen ödeme anlık gözüksün diye veriyi tekrar çektim
+          const getWorker = await getWalletWorkerDataByWorkerID(id, employer);
+          setWorker(getWorker?.data[0]);
+        } else {
+          toast.warning("Ödeme Eklenirken Bir Sorun Oluştu");
+        }
       } else {
-        alert("Ödeme Eklenirken Bir Sorun Oluştu");
+        toast.warning("Ödeme Miktarı Boş Bırakılamaz!");
       }
     } catch (error) {
       console.error(error);
-      alert("Ödeme Eklenirken Bir Sorun Oluştu");
+      toast.warning("Ödeme Eklenirken Bir Sorun Oluştu");
     }
   };
   const handleDelete = async () => {
@@ -64,11 +68,13 @@ const WalletWorkerData = () => {
       if (confirm("Çalışanı Silmek İstediğinize Emin Misiniz?")) {
         const deletedWorker = await deleteWorker(id);
         if (deletedWorker.desc === 1) {
-          alert("Çalışan Başarıyla Silindi.");
+          toast.success("Çalışan Başarıyla Silindi.");
           navigate("/workers");
         } else {
-          alert("Çalışan Silinemedi. Bir hata oluştu.");
+          toast.warning("Çalışan Silinemedi. Bir hata oluştu.");
         }
+      } else {
+        toast.info("Silinmekten Vazgeçildi.!");
       }
     } catch (error) {
       console.error(error);
@@ -79,13 +85,13 @@ const WalletWorkerData = () => {
       if (confirm("Ödeme Silinecek Eminmisiniz?")) {
         const deletedPayment = await deleteWorkerPayments(paymentID);
         if (deletedPayment.desc === 1) {
-          alert("Ödeme Başarıyla Silindi.");
+          toast.success("Ödeme Başarıyla Silindi.");
           const getWorker = await getWalletWorkerDataByWorkerID(id, employer);
           setWorker(getWorker?.data[0]);
         } else {
-          alert("Silme İşlemi Başarısız Oldu");
+          toast.warning("Silme İşlemi Başarısız Oldu");
         }
-      } else alert("Vazgeçildi.");
+      } else toast.info("Vazgeçildi.");
     } catch (error) {
       console.log(error);
     }

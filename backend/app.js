@@ -93,7 +93,7 @@ app.delete("/worker/:id", async (req, res) => {
 /* çalışan bilgilerini güncelle */
 app.put("/workers", async (req, res) => {
   const result = await client.query(
-    `UPDATE workers SET name = $1 , surname = $2, phone_number=$3, mail =$4 ,work_id = $5,wage = $6  WHERE id = $7`,
+    `UPDATE workers SET name = $1 , surname = $2, phone_number=$3, mail =$4 ,work_id = $5,wage = $6 ,image = $7  WHERE id = $8`,
     [
       req.body.name,
       req.body.surname,
@@ -101,6 +101,7 @@ app.put("/workers", async (req, res) => {
       req.body.mail,
       req.body.work_id,
       req.body.wage,
+      req.body.image,
       req.body.id,
     ]
   );
@@ -184,7 +185,7 @@ WHERE
   res.json({ data: result.rows });
 });
 
-/* id'sine göre çalışanın bilgilerini ve çalıştığı iş hakkındaki bilgileri getir  (worker sayfası)*/
+/* id'sine göre çalışanı getir  */
 app.get("/worker/:id", async (req, res) => {
   const result = await client.query(
     `SELECT *FROM workers  WHERE id = ${req.params.id};`
@@ -192,7 +193,7 @@ app.get("/worker/:id", async (req, res) => {
   res.json({ data: result.rows });
 });
 
-/* id'sine göre çalışanı getir  */
+/* id'sine göre çalışanın bilgilerini ve çalıştığı iş hakkındaki bilgileri getir  (worker sayfası)*/
 app.get("/workerandwork/:id", async (req, res) => {
   const result = await client.query(
     `SELECT

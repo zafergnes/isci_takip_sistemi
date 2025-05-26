@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { useAuth } from "../Context/AuthContext";
 import { addWorker, getWorks, uploadFile } from "../Api/Api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const AddWorker = () => {
   const { employer } = useAuth();
-
+  const navigate = useNavigate();
   const blankWorker = {
     name: "",
     surname: "",
@@ -28,14 +31,26 @@ const AddWorker = () => {
   }, [employer]);
   const handleSubmit = async () => {
     try {
-      let addedWorker = await addWorker(newWorker);
-      if (addedWorker.desc == 1) {
-        setNewWorker(blankWorker);
-        alert("Çalışan Eklendi.");
+      if (
+        (newWorker.name != "" &&
+          newWorker.surname != "" &&
+          newWorker.phone_number != "" &&
+          newWorker.mail != "" &&
+          newWorker.wage != "",
+        newWorker.work_id != "")
+      ) {
+        let addedWorker = await addWorker(newWorker);
+        if (addedWorker.desc == 1) {
+          setNewWorker(blankWorker);
+          toast.success("Çalışan Eklendi.");
+          navigate("/workers");
+        }
+      } else {
+        toast.warning("Alanlar Boş Bırakılamaz!");
       }
     } catch (error) {
       console.log(error);
-      alert("Çalışan Eklenirken Bir Hata Oluştu.");
+      toast.warning("Çalışan Eklenirken Bir Hata Oluştu.");
     }
   };
   const handleUpload = async (event) => {

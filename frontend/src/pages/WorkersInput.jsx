@@ -7,7 +7,8 @@ import { useEffect } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { IoAddSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const WorkersInput = () => {
   const { employer } = useAuth();
   const getTodayDate = () => {
@@ -21,7 +22,7 @@ const WorkersInput = () => {
   const [workControls, setWorkControls] = useState([]);
   useEffect(() => {
     if (selectedDate == "") {
-      alert("Tarih Boş Bırakılamaz");
+      toast.warning("Tarih Boş Bırakılamaz");
       setSelectedDate(getTodayDate());
     }
   }, [selectedDate]);
@@ -41,10 +42,9 @@ const WorkersInput = () => {
     try {
       await Promise.all(workControls.map((control) => addWorkControl(control)));
       setWorkControls([]);
-      alert("Çalışan Verileri Başarıyla Kaydedildi.");
+      toast.success("Çalışan Verileri Başarıyla Kaydedildi.");
     } catch (error) {
       console.error(error);
-      console.log("Bir Sıkıntı Var");
     }
   };
   if (!workers || workers.length === 0) {

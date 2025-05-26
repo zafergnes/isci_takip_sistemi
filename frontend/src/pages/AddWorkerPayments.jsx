@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button';
 import { addWorkerPayment, getWorkers, getWorks } from "../Api/Api";
 import { useAuth } from "../Context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 const AddWorkerPayments = () => {
+  const navigate = useNavigate();
   const { employer } = useAuth();
   const blankWorker = {
     worker_id: "",
@@ -29,12 +33,12 @@ const AddWorkerPayments = () => {
         let addedWorkerPayment = await addWorkerPayment(newWorkerPayment);
         if (addedWorkerPayment.length != 0) {
           setNewWorkerPayment(blankWorker);
-          alert("Ödeme Başarıyla eklendi.");
+          toast.success("Ödeme Başarıyla eklendi.");
+          navigate(`/wallet-worker-data/${newWorkerPayment.worker_id}`);
         }
       } else {
-        alert("Alanlar Boş Bırakılamaz. !");
+        toast.warning("Alanlar Boş Bırakılamaz. !");
       }
-
     } catch (error) {
       console.error(error);
       console.log("Ödeme Eklenirken Bir Hata Oluştu.");
