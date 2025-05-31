@@ -11,13 +11,10 @@ xl: → 1280px+
 2xl: → 1536px+   uyularak düzenlenecek.
 grid-cols-none Mobilde grid'i devre dışı bırak.
 
-ödeme ekle sayfası yapılacak
-
-çalışan düzenle sayfasına fotoğraf değiştirme seçeneği sunulacak
 
 responsive konusunda iyileştirmeler yapılacak
 
-post put delete işlemleri hazırlanacak
 
+ekle kısmı için sayfaya gerek yok dropdown menü oluşturulacak
 
 ! trigger eklenecek

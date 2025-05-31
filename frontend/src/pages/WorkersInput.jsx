@@ -66,7 +66,6 @@ const WorkersInput = () => {
   }
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-1 gap 5">
-      <small>{JSON.stringify(workControls)}</small>
       <p className=" font-bold text-xl m-auto mb-3">Veri Girileceği Zaman</p>
       <input
         type="date"

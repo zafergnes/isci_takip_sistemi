@@ -1,49 +1,97 @@
+
 # İşçi Yevmiye Takip Sistemi
 
-İşverenlerin çalışan ücretlerini ve ödemelerini otomatik şekilde yönetmesini sağlayan bir web uygulaması.  İşverenler  finansal raporlar oluşturabilir.
+<img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React">
+<img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
+<img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
+<img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
 
-## Teknoloji Yığını (Tech Stack)
+## 📌 Proje Hakkında
 
-- **Frontend**: 
-  - React.js (Vite ile kurulum)
-  - Tailwind CSS
-  - Axios (API istekleri için)
-- **Backend**: 
-  - Node.js
-  - Express.js
-  - PostgreSQL (Veritabanı)
-- **Araçlar**: 
-  - Git
-  - npm
-  - PostgreSQL CLI
-  - Vite (v4+)
+**İşçi Yevmiye Takip Sistemi**, işletmelerin işçi ücretlerini modern ve etkili bir şekilde yönetmesini sağlayan bir çözümdür.
+Sistem, karmaşık yevmiye hesaplarını kolaylaştırarak zamandan tasarruf sağlar ve insan hatalarını minimize eder.
 
-## Kurulum
+### 🚀 Temel Özellikler
 
-### Ön Gereksinimler
-- **Node.js**: v18+
-- **npm**: v9+
-- **PostgreSQL**: v14+
-- **Vite**: v4+ (Frontend bağımlılığı olarak otomatik kurulur, ancak global kurulum için):
-  ```bash
-  npm install -g vite@latest
+- 👷‍♂️ İşçi ekleme ve yönetme
+- 📅 Görsel takvim ile çalışma günü takibi
+- 🧮 Otomatik ücret hesaplamaları
 
 
-### Adımlar
+## 🛠️ Teknoloji Yığını
 
-1. **Depoyu Klonlayın**:
+### Frontend
+
+- [React.js (Vite)](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/)
+
+### Backend
+
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+
+### Araçlar
+
+- Git
+- npm
+- PostgreSQL CLI
+
+---
+
+## ⚙️ Kurulum
+
+### 🔧 Ön Gereksinimler
+
+- Node.js v18+
+- npm v9+
+- PostgreSQL v14+
+
+### 📥 Depoyu Klonlayın
+
+```bash
+git clone https://github.com/kullanici-adiniz/isci-yevmiye-takip.git
+cd isci-yevmiye-takip
+```
+
+---
+
+## 🗃️ Veritabanı Kurulumu
+
+1. PostgreSQL'e giriş yapın:
    ```bash
-   git clone https://github.com/kullanici-adiniz/isci-yevmiye-takip.git
-   cd isci-yevmiye-takip
-  
-2. **Frontend**  
-- cd frontend
-- npm install
+   psql -U postgres
+   ```
 
-#
+2. Yeni bir veritabanı oluşturun:
+   ```sql
+   CREATE DATABASE isci_yevmiye;
+   ```
 
-### Çalıştırma
-1. **Frontend Çalıştırma**  
-- cd frontend
-- npm run dev
-**Uygulama http://localhost:5173 adresinde açılacaktır**
+3. SQL dosyasını bu veritabanına import edin:
+   ```bash
+   psql -U postgres -d isci_yevmiye -f path/to/schema.sql
+   ```
+
+4. `conn.js` dosyasındaki veritabanı bağlantı bilgilerini kendi ayarlarınıza göre güncelleyin.
+
+---
+
+## 🔙 Backend Kurulumu ve Çalıştırma
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+---
+
+## 💻 Frontend Kurulumu ve Çalıştırma
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```

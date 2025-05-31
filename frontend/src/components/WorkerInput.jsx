@@ -99,7 +99,6 @@ const WorkerInput = ({ workers, date, onChange }) => {
             </StyledWrapper>
           </div>
         </div>
-        <small>{JSON.stringify(newWorkControl)}</small>
       </div>
     </>
   );

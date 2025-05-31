@@ -100,7 +100,6 @@ const UpdateWorker = () => {
           ÇALIŞAN BİLGİLERİNİ DÜZENLE
         </h1>
         <div className="flex flex-col">
-          <small>{JSON.stringify(newWorker)}</small>
           <label htmlFor="" className="ml-1 text-xl text-gray-700">
             Çalışan Adı
           </label>

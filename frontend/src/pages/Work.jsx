@@ -287,7 +287,6 @@ const Work = () => {
               )}
               {showPaymentInput && (
                 <div className="flex flex-col items-center gap-3 mt-4">
-                  <small>{JSON.stringify(newPaymentAmount)}</small>
                   <input
                     type="number"
                     min="0"
