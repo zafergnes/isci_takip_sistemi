@@ -65,14 +65,10 @@ cd isci-yevmiye-takip
    ```
 
 2. Yeni bir veritabanı oluşturun:
-   ```sql
-   CREATE DATABASE isci_yevmiye;
-   ```
 
-3. SQL dosyasını bu veritabanına import edin:
-   ```bash
-   psql -U postgres -d isci_yevmiye -f path/to/schema.sql
-   ```
+
+3. SQL dosyasını bu veritabanına import edin
+
 
 4. `conn.js` dosyasındaki veritabanı bağlantı bilgilerini kendi ayarlarınıza göre güncelleyin.
 
