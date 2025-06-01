@@ -52,7 +52,7 @@ Sistem, karmaşık yevmiye hesaplarını kolaylaştırarak zamandan tasarruf sa�
 
 ```bash
 git clone https://github.com/kullanici-adiniz/isci_takip_sistemi.git
-cd isci-takip-sistemi
+cd isci_takip_sistemi
 ```
 
 ---
