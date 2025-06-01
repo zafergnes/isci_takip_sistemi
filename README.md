@@ -51,7 +51,7 @@ Sistem, karmaşık yevmiye hesaplarını kolaylaştırarak zamandan tasarruf sa�
 ### 📥 Depoyu Klonlayın
 
 ```bash
-git clone https://github.com/kullanici-adiniz/isci-yevmiye-takip.git
+git clone https://github.com/kullanici-adiniz/isci_takip_takip.git
 cd isci-yevmiye-takip
 ```
 
